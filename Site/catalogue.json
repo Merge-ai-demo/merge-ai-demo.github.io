@@ -1,0 +1,315 @@
+{
+ "fabrique_le": "2026-10-18",
+ "source": "API publique de Hugging Face (listes de fichiers seulement)",
+ "modeles": {
+  "qwen3.5-0.8b": {
+   "depot": "unsloth/Qwen3.5-0.8B-GGUF",
+   "revision": "6ab461498e2023f6e3c1baea90a8f0fe38ab64d0",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "Qwen3.5-0.8B-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 532517120,
+     "sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
+     "adresse": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "granite-4.0-nano-1b": {
+   "depot": "ibm-granite/granite-4.0-h-1b-GGUF",
+   "revision": "c2cb1972f511add21f3bae244990b8ff3a3ffb23",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "granite-4.0-h-1b-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 901162208,
+     "sha256": "da3d737121a96f3c9a316685212376257a7f167b74380855666dd488d6af3bcb",
+     "adresse": "https://huggingface.co/ibm-granite/granite-4.0-h-1b-GGUF/resolve/c2cb1972f511add21f3bae244990b8ff3a3ffb23/granite-4.0-h-1b-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "smollm3-3b": {
+   "depot": "ggml-org/SmolLM3-3B-GGUF",
+   "revision": "4965cb60b150737b68a0408c36aeefb65078f894",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "SmolLM3-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 1915305312,
+     "sha256": "8334b850b7bd46238c16b0c550df2138f0889bf433809008cc17a8b05761863e",
+     "adresse": "https://huggingface.co/ggml-org/SmolLM3-3B-GGUF/resolve/4965cb60b150737b68a0408c36aeefb65078f894/SmolLM3-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "phi-4-mini": {
+   "depot": "unsloth/Phi-4-mini-instruct-GGUF",
+   "revision": "78eb92a46fc37e6b524df991ed9aca9bc6aa7b80",
+   "licence_du_depot": "mit",
+   "fichiers": [
+    {
+     "nom": "Phi-4-mini-instruct-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 2491874272,
+     "sha256": "88c00229914083cd112853aab84ed51b87bdf6b9ce42f532d8c85c7c63b1730a",
+     "adresse": "https://huggingface.co/unsloth/Phi-4-mini-instruct-GGUF/resolve/78eb92a46fc37e6b524df991ed9aca9bc6aa7b80/Phi-4-mini-instruct-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "ministral-3-3b": {
+   "depot": "mistralai/Ministral-3-3B-Instruct-2512-GGUF",
+   "revision": "eb599d408350ea2bb60452cb86be7c7b2fc28227",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "Ministral-3-3B-Instruct-2512-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 2147023008,
+     "sha256": "9ed150d4367e68df0ac8e1540f6ddc65b42d0ee26378329d1ecbca60f93fc5f8",
+     "adresse": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512-GGUF/resolve/eb599d408350ea2bb60452cb86be7c7b2fc28227/Ministral-3-3B-Instruct-2512-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "ministral-3-8b": {
+   "depot": "mistralai/Ministral-3-8B-Instruct-2512-GGUF",
+   "revision": "0102285ad796bd99af90f58de616092e5630e970",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "Ministral-3-8B-Instruct-2512-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 5198911904,
+     "sha256": "33e7a72cf5e6e2cfc2f2847075acc013d68bba023e35310cef86b5cf8fdca761",
+     "adresse": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512-GGUF/resolve/0102285ad796bd99af90f58de616092e5630e970/Ministral-3-8B-Instruct-2512-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "qwen3.5-9b": {
+   "depot": "unsloth/Qwen3.5-9B-GGUF",
+   "revision": "3885219b6810b007914f3a7950a8d1b469d598a5",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "Qwen3.5-9B-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 5680522464,
+     "sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+     "adresse": "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/resolve/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "gemma-4-12b": {
+   "depot": "google/gemma-4-12B-it-qat-q4_0-gguf",
+   "revision": "29d097773436b69ff9feafd636ab4cf873786537",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "gemma-4-12b-it-qat-q4_0.gguf",
+     "role": "modele",
+     "octets": 6975879296,
+     "sha256": "93567e57a8fe10b23569b9d9ec38cd005deedf71e29477c421a4b83f418a538b",
+     "adresse": "https://huggingface.co/google/gemma-4-12B-it-qat-q4_0-gguf/resolve/29d097773436b69ff9feafd636ab4cf873786537/gemma-4-12b-it-qat-q4_0.gguf"
+    }
+   ]
+  },
+  "granite-4.2-8b": {
+   "depot": "ibm-granite/granite-4.2-8b-GGUF",
+   "revision": "93f3f6a8938ee922b784cf4e5b4203cd3428df8f",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "granite-4.2-8b-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 5347917952,
+     "sha256": "16a9369d0805f80b7377d25d87f937a90c05dc04ad79173a52001e42c9aab311",
+     "adresse": "https://huggingface.co/ibm-granite/granite-4.2-8b-GGUF/resolve/93f3f6a8938ee922b784cf4e5b4203cd3428df8f/granite-4.2-8b-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "phi-4": {
+   "depot": "microsoft/phi-4-gguf",
+   "revision": "6edc2ef6664b739a8e11e62f2672ff6afe0c15ac",
+   "licence_du_depot": "mit",
+   "fichiers": [
+    {
+     "nom": "phi-4-Q4_K.gguf",
+     "role": "modele",
+     "octets": 9053114560,
+     "sha256": "5652b9be0ea4ae2842130d04fe31bc869fcb99a2b7106c53b4e754a343fd688f",
+     "adresse": "https://huggingface.co/microsoft/phi-4-gguf/resolve/6edc2ef6664b739a8e11e62f2672ff6afe0c15ac/phi-4-Q4_K.gguf"
+    }
+   ]
+  },
+  "gpt-oss-20b": {
+   "depot": "ggml-org/gpt-oss-20b-GGUF",
+   "revision": "ef9b12f2ff56c69cf32153a02784e7a3c88bf524",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "gpt-oss-20b-MXFP4.gguf",
+     "role": "modele",
+     "octets": 12109566624,
+     "sha256": "27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901",
+     "adresse": "https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/resolve/ef9b12f2ff56c69cf32153a02784e7a3c88bf524/gpt-oss-20b-MXFP4.gguf"
+    }
+   ]
+  },
+  "mistral-small-3.2": {
+   "depot": "unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF",
+   "revision": "b750ec2299225e492f1bd27cab88a0a595fa848f",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "Mistral-Small-3.2-24B-Instruct-2506-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 14333922848,
+     "sha256": "a3cc56310807ed0d145eaf9f018ccda9ae7ad8edb41ec870aa2454b0d4700b3c",
+     "adresse": "https://huggingface.co/unsloth/Mistral-Small-3.2-24B-Instruct-2506-GGUF/resolve/b750ec2299225e492f1bd27cab88a0a595fa848f/Mistral-Small-3.2-24B-Instruct-2506-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "gemma-4-26b-a4b": {
+   "depot": "google/gemma-4-26B-A4B-it-qat-q4_0-gguf",
+   "revision": "d1c082be9cf3c8a514acf63b8761f4b41935842e",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "gemma-4-26B_q4_0-it.gguf",
+     "role": "modele",
+     "octets": 14439363584,
+     "sha256": "3eca3b8f6d7baf218a7dd6bba5fb59a56ee25fe2d567b6f5f589b4f697eca51d",
+     "adresse": "https://huggingface.co/google/gemma-4-26B-A4B-it-qat-q4_0-gguf/resolve/d1c082be9cf3c8a514acf63b8761f4b41935842e/gemma-4-26B_q4_0-it.gguf"
+    }
+   ]
+  },
+  "qwen3.6-27b": {
+   "depot": "ggml-org/Qwen3.6-27B-GGUF",
+   "revision": "8a7ee08e8b9bfb857107ecc25a5599d2f38b76f8",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "Qwen3.6-27B-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 19095766304,
+     "sha256": "65b753ea835627f7b511143c6ceb976525c7f21f5df8c664bc0a9c23d1c49921",
+     "adresse": "https://huggingface.co/ggml-org/Qwen3.6-27B-GGUF/resolve/8a7ee08e8b9bfb857107ecc25a5599d2f38b76f8/Qwen3.6-27B-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "devstral-small-2": {
+   "depot": "unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF",
+   "revision": "6e458b8add42681bfd023de5eab93637694aaf82",
+   "licence_du_depot": "other",
+   "fichiers": [
+    {
+     "nom": "Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 14334446752,
+     "sha256": "d14ba9edee1bb4c4996a726deb81e49ae81800a3216f0774634238c380aee496",
+     "adresse": "https://huggingface.co/unsloth/Devstral-Small-2-24B-Instruct-2512-GGUF/resolve/6e458b8add42681bfd023de5eab93637694aaf82/Devstral-Small-2-24B-Instruct-2512-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "eurollm-22b": {
+   "depot": "bartowski/utter-project_EuroLLM-22B-Instruct-2512-GGUF",
+   "revision": "1dbd312ffa10e83e5faa855e3727cbf4abc45f08",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "utter-project_EuroLLM-22B-Instruct-2512-Q4_K_M.gguf",
+     "role": "modele",
+     "octets": 13658576160,
+     "sha256": "2a222374c4adacd55b55795e2f9dca42a2f100d5a2d5858442f928c4c8bdf5e7",
+     "adresse": "https://huggingface.co/bartowski/utter-project_EuroLLM-22B-Instruct-2512-GGUF/resolve/1dbd312ffa10e83e5faa855e3727cbf4abc45f08/utter-project_EuroLLM-22B-Instruct-2512-Q4_K_M.gguf"
+    }
+   ]
+  },
+  "gemma-4-31b": {
+   "depot": "google/gemma-4-31B-it-qat-q4_0-gguf",
+   "revision": "59dde24573e7e61570dba08b18a2e1fe246955ed",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "gemma-4-31B_q4_0-it.gguf",
+     "role": "modele",
+     "octets": 17651001568,
+     "sha256": "179cfb99212709597eae5929112cfca677e1bbf566178b479ae1da0c4772874b",
+     "adresse": "https://huggingface.co/google/gemma-4-31B-it-qat-q4_0-gguf/resolve/59dde24573e7e61570dba08b18a2e1fe246955ed/gemma-4-31B_q4_0-it.gguf"
+    }
+   ]
+  },
+  "gpt-oss-120b": {
+   "depot": "ggml-org/gpt-oss-120b-GGUF",
+   "revision": "238abdd290bb874b90a5da1b4549881b7d05c091",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "gpt-oss-120b-MXFP4.gguf",
+     "role": "modele",
+     "octets": 63387346208,
+     "sha256": "582bd40f6886200101f4c4ed9f25f3fe80cc14c86e9e2b37746cd8904a0c622d",
+     "adresse": "https://huggingface.co/ggml-org/gpt-oss-120b-GGUF/resolve/238abdd290bb874b90a5da1b4549881b7d05c091/gpt-oss-120b-MXFP4.gguf"
+    }
+   ]
+  },
+  "mistral-small-4": {
+   "depot": "unsloth/Mistral-Small-4-119B-2603-GGUF",
+   "revision": "bd93c721735aa32c035c0f19e738cb3371fd56ff",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "Mistral-Small-4-119B-2603-MXFP4_MOE-00001-of-00003.gguf",
+     "role": "modele",
+     "octets": 7875616,
+     "sha256": "a46511af19832459a6a967c5a259d5b824c808017d33683d281fa0144c690009",
+     "adresse": "https://huggingface.co/unsloth/Mistral-Small-4-119B-2603-GGUF/resolve/bd93c721735aa32c035c0f19e738cb3371fd56ff/MXFP4_MOE/Mistral-Small-4-119B-2603-MXFP4_MOE-00001-of-00003.gguf"
+    },
+    {
+     "nom": "Mistral-Small-4-119B-2603-MXFP4_MOE-00002-of-00003.gguf",
+     "role": "modele",
+     "octets": 48912374208,
+     "sha256": "89ab81ea411fff16829a2b79632225f844ca4b4386d5c5d25f1bc7d8d418a484",
+     "adresse": "https://huggingface.co/unsloth/Mistral-Small-4-119B-2603-GGUF/resolve/bd93c721735aa32c035c0f19e738cb3371fd56ff/MXFP4_MOE/Mistral-Small-4-119B-2603-MXFP4_MOE-00002-of-00003.gguf"
+    },
+    {
+     "nom": "Mistral-Small-4-119B-2603-MXFP4_MOE-00003-of-00003.gguf",
+     "role": "modele",
+     "octets": 22892579360,
+     "sha256": "492313b6d897651cf917968d2e3b5ee66793a20cb35144752ffe7ca560679743",
+     "adresse": "https://huggingface.co/unsloth/Mistral-Small-4-119B-2603-GGUF/resolve/bd93c721735aa32c035c0f19e738cb3371fd56ff/MXFP4_MOE/Mistral-Small-4-119B-2603-MXFP4_MOE-00003-of-00003.gguf"
+    }
+   ]
+  },
+  "qwen3.5-122b-a10b": {
+   "depot": "unsloth/Qwen3.5-122B-A10B-GGUF",
+   "revision": "51eab4d59d53f573fb9206cb3ce613f1d0aa392b",
+   "licence_du_depot": "apache-2.0",
+   "fichiers": [
+    {
+     "nom": "Qwen3.5-122B-A10B-Q4_K_M-00001-of-00003.gguf",
+     "role": "modele",
+     "octets": 10943552,
+     "sha256": "467c9bd92ea518539cf75bf5a5fbfbd35e9a0b40d766ccaa67bf120e12041df3",
+     "adresse": "https://huggingface.co/unsloth/Qwen3.5-122B-A10B-GGUF/resolve/51eab4d59d53f573fb9206cb3ce613f1d0aa392b/Q4_K_M/Qwen3.5-122B-A10B-Q4_K_M-00001-of-00003.gguf"
+    },
+    {
+     "nom": "Qwen3.5-122B-A10B-Q4_K_M-00002-of-00003.gguf",
+     "role": "modele",
+     "octets": 49968146912,
+     "sha256": "90db14846413aebdac365b57206441437cac5f7e5037d94b325f0167f902e6e7",
+     "adresse": "https://huggingface.co/unsloth/Qwen3.5-122B-A10B-GGUF/resolve/51eab4d59d53f573fb9206cb3ce613f1d0aa392b/Q4_K_M/Qwen3.5-122B-A10B-Q4_K_M-00002-of-00003.gguf"
+    },
+    {
+     "nom": "Qwen3.5-122B-A10B-Q4_K_M-00003-of-00003.gguf",
+     "role": "modele",
+     "octets": 26557874144,
+     "sha256": "e3c24b8ebec070bb4f69ea0aca25a16531da7440cd515529953e046882901f97",
+     "adresse": "https://huggingface.co/unsloth/Qwen3.5-122B-A10B-GGUF/resolve/51eab4d59d53f573fb9206cb3ce613f1d0aa392b/Q4_K_M/Qwen3.5-122B-A10B-Q4_K_M-00003-of-00003.gguf"
+    }
+   ]
+  }
+ },
+ "version_1": "Réduit aux 20 IA de la version 1 le 19 octobre 2026 (liste validée par le fondateur). Le catalogue complet : 4_Pour_Claude/Version_complete/Site/catalogue.json. Sans les fichiers « images » (mmproj) : la version 1 ne lit pas les images."
+}

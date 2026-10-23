@@ -1,0 +1,2 @@
+Caveat (Impallari Type), police libre sous licence SIL Open Font License 1.1.
+Fichier repris de la démo Merge.AI (paquet @fontsource-variable/caveat 5.3.0, voir la démo). Texte complet de la licence : https://openfontlicense.org

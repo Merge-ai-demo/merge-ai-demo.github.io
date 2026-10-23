@@ -1,0 +1,1 @@
+const TELECHARGEMENT = {"fichier": "Merge-Mac-beta.dmg", "version": "0.1 beta", "octets": 25173675, "sha256": "eb29700b5c5df71776a797f4931a3defbc5d0cee0cc944a402e0f0d59291f93f", "date": "2026-10-22", "macos": "14", "adresse": "https://github.com/Merge-ai-demo/merge-ai-demo.github.io/releases/latest/download/Merge-Mac-beta.dmg"};

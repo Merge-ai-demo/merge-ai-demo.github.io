@@ -1,0 +1,10 @@
+html, body { min-height: 100%; }
+body { background: var(--fond-2); }
+.scene { min-height: 100vh; display: grid; place-items: center; padding: max(24px, env(safe-area-inset-top)) 16px max(24px, env(safe-area-inset-bottom)); }
+.scene .programme { width: 100%; margin: 0 auto; padding: 0; }
+.scene .programme .fen { box-shadow: var(--ombre); }
+@media (max-width: 520px) {
+  body { background: var(--carte); }
+  .scene { place-items: start center; padding-left: 0; padding-right: 0; }
+  .scene .programme .fen { box-shadow: none; border-radius: 0; }
+}

@@ -1,0 +1,54 @@
+
+@font-face { font-family: Fraunces; font-style: normal; font-weight: 100 900; font-display: swap; src: url(polices/fraunces-latin-wght-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: Fraunces; font-style: normal; font-weight: 100 900; font-display: swap; src: url(polices/fraunces-latin-ext-wght-normal.woff2) format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Atkinson Hyperlegible"; font-style: normal; font-weight: 400; font-display: swap; src: url(polices/atkinson-hyperlegible-latin-400-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Atkinson Hyperlegible"; font-style: normal; font-weight: 400; font-display: swap; src: url(polices/atkinson-hyperlegible-latin-ext-400-normal.woff2) format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Atkinson Hyperlegible"; font-style: normal; font-weight: 700; font-display: swap; src: url(polices/atkinson-hyperlegible-latin-700-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: "Atkinson Hyperlegible"; font-style: italic; font-weight: 400; font-display: swap; src: url(polices/atkinson-hyperlegible-latin-400-italic.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+:root {
+  --fond: #fbfbfd; --fond-2: #f2f2f5; --carte: #ffffff; --encre: #1d1d1f; --encre-2: #515154; --gris: #6e6e73; --ligne: #d2d2d7;
+  --bleu: #2c60f4; --bleu-h: #1f4bd8; --lien: #1f47e0; --eti: #b93d12; --orange: #f26b3a; --choisi: #ffffff; --bleu-doux: #e8eeff;
+  --ok: #0e6e4f; --ok-fond: #dcefe6; --crit: #c62f27; --crit-fond: #fbe5e3; --avis-fond: #fbf0dc; --avis: #8a4f00;
+  --ombre: 0 40px 90px -30px rgba(0, 0, 0, .35), 0 0 0 1px rgba(0, 0, 0, .06);
+    --titre: Fraunces, Georgia, "Times New Roman", serif;
+  --texte: "Atkinson Hyperlegible", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fond: #1d1d1f; --fond-2: #2a2a2d; --carte: #2a2a2d; --encre: #f5f5f7; --encre-2: #e8e8ed; --gris: #a1a1a6; --ligne: #424245;
+    --lien: #2997ff; --eti: #ff8a5c; --choisi: #3a3a3c; --bleu-doux: #1c2b5a;
+    --ok: #3cc48d; --ok-fond: #12352a; --crit: #ff7a6e; --crit-fond: #3d1a19; --avis-fond: #3a2c10; --avis: #f2b347;
+    --ombre: 0 40px 90px -30px rgba(0, 0, 0, .8), 0 0 0 1px rgba(255, 255, 255, .08);
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-padding-top: 70px; }
+body { margin: 0; background: var(--fond); color: var(--encre); font: 17px/1.47 var(--texte); -webkit-font-smoothing: antialiased; }
+a { color: var(--lien); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--bleu); outline-offset: 3px; }
+[tabindex="-1"]:focus { outline: none; }
+.saut { position: absolute; left: -999px; top: 8px; z-index: 50; background: var(--carte); padding: 8px 14px; border-radius: 999px; }
+.saut:focus { left: 16px; }
+.ico { display: inline-block; width: 1.1em; height: 1.1em; flex: none; vertical-align: -.18em; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.cache-ecran { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.point { color: var(--orange); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 0; border-radius: 980px; background: var(--bleu); color: #fff; font: 500 17px var(--titre); padding: 12px 22px; cursor: pointer; white-space: nowrap; transition: background .2s, transform .15s; }
+.btn:hover { background: var(--bleu-h); text-decoration: none; }
+.btn:active { transform: scale(.98); }
+.btn.petit { font-size: 13px; padding: 5px 13px; }
+.btn.discret { background: var(--fond-2); color: var(--encre); }
+.btn.discret:hover { background: var(--ligne); }
+@media (prefers-color-scheme: dark) { .btn.discret { background: #3a3a3c; } .btn.discret:hover { background: #48484a; } }
+.btn[aria-disabled="true"] { opacity: .5; pointer-events: none; }
+.lien-btn { border: 0; background: none; padding: 0; color: var(--lien); font: inherit; cursor: pointer; }
+.lien-btn:hover { text-decoration: underline; }
+
+:root { --eti: var(--orange); }
+@media (prefers-color-scheme: dark) { :root { --eti: var(--orange); } }
