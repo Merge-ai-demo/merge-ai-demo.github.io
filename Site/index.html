@@ -4,20 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Merge · Your own AI</title>
-<meta name="description" content="Merge puts a free AI on your Mac. It checks your Mac, suggests the AI that suits it, and installs it. No subscription, no message limit.">
+<meta name="description" content="Merge puts a free AI on your Mac or Windows PC. It checks your computer, suggests the AI that suits it, and installs it. No subscription, no message limit.">
 <link rel="icon" type="image/png" sizes="32x32" href="marque/icone-m-32.png">
 <link rel="icon" type="image/png" sizes="180x180" href="marque/icone-m-180.png">
 <link rel="icon" href="marque/icone-m.svg" type="image/svg+xml">
 <link rel="shortcut icon" href="marque/icone-m.ico">
-<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610221938">
-<link rel="stylesheet" href="base.css?v=202610221938">
-<link rel="stylesheet" href="style.css?v=202610221938">
-<link rel="stylesheet" href="programme.css?v=202610221938">
+<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610222039">
+<link rel="stylesheet" href="base.css?v=202610222039">
+<link rel="stylesheet" href="style.css?v=202610222039">
+<link rel="stylesheet" href="programme.css?v=202610222039">
 </head>
 <body>
 <a class="saut" href="#contenu">Skip to content</a>
 <header class="barre">
   <div class="barre-in">
+        <button type="button" class="menu-tel" aria-expanded="false" aria-controls="menu-tel" aria-label="Menu"><span></span><span></span><span></span></button>
     <a class="marque" href="#accueil" aria-label="Merge, home">Merge</a>
     <nav class="liens" aria-label="Site">
       <a href="#accueil">Overview</a>
@@ -28,8 +29,20 @@
       <a href="#accueil" data-ancre="faq">FAQ</a>
       <a href="#contact">Contact</a>
     </nav>
-    <a class="btn petit" href="#installer" data-telecharger>Download</a>
+    <div class="barre-droite">
+      <a class="btn petit" href="#installer" data-telecharger>Download</a>
+    </div>
   </div>
+  <nav class="menu-tel-liste" id="menu-tel" aria-label="Site" hidden>
+    <a href="#accueil">Overview</a>
+    <a href="#comment">How it works</a>
+    <a href="#produit">Product</a>
+    <a href="#ia">The AIs</a>
+    <a href="#nous">Who we are</a>
+    <a href="#accueil" data-ancre="faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="#confidentialite">Privacy</a>
+  </nav>
 </header>
 
 <main id="contenu">
@@ -37,17 +50,17 @@
 <section id="vue-accueil" class="vue" data-titre="Your own AI" aria-label="Home page">
   <div class="hero">
     <h1>Your own AI<span class="point">.</span></h1>
-    <p class="sous">Free. Unlimited. On your Mac.</p>
+    <p class="sous">Free. Unlimited. On your computer.</p>
     <div><a class="btn" href="#installer" data-telecharger>Download Merge</a></div>
     <p class="detecte" data-detecte></p>
-    <p class="liens-hero"><a href="#accueil" data-ancre="faq">Will it run on my Mac?</a> · <a href="#telecharger">Not on a Mac?</a></p>
+    <p class="liens-hero"><a href="#accueil" data-ancre="faq">Will it run on my computer?</a> · <a href="#telecharger">Mac or Windows?</a></p>
   </div>
 
   <div class="vitrine apparait">
-    <div class="fenetre" role="img" aria-label="The Merge app: a chat where the AI answers on your own Mac">
+    <div class="fenetre" role="img" aria-label="The Merge app: a chat where the AI answers on your own computer">
       <div class="f-barre"><i></i><i></i><i></i></div>
       <div class="f-corps">
-        <div class="f-cote"><b>New chat</b><span class="on">Email to the school</span><span>Rainy Sunday ideas</span><span>Translations</span><em>On this Mac</em></div>
+        <div class="f-cote"><b>New chat</b><span class="on">Email to the school</span><span>Rainy Sunday ideas</span><span>Translations</span><em>On this computer</em></div>
         <div class="f-fil"><div class="f-moi">Write a short email to tell the school my daughter will be absent on Friday.</div>
           <div class="f-ia">Subject: Absence on Friday
 
@@ -72,14 +85,14 @@ Thank you,</div>
   <section class="bande grise apparait" aria-labelledby="t-limite">
     <p class="eti">No limit, no ads</p>
     <h2 id="t-limite">Ask as much as you like.</h2>
-        <p>Some free online AIs make you wait when you reach their limit, and some now show ads. Merge has no message limit and no ads: only your Mac's speed sets the pace.</p>
+        <p>Some free online AIs make you wait when you reach their limit, and some now show ads. Merge has no message limit and no ads: only your computer's speed sets the pace.</p>
     <div class="chiffres"><div><b>∞</b><span>messages</span></div><div><b>No ads</b><span>in the app</span></div><div><b>Free</b><span>no subscription</span></div></div>
   </section>
 
   <section class="bande apparait" aria-labelledby="t-maison">
     <p class="eti">Private</p>
-    <h2 id="t-maison">It stays on your Mac.</h2>
-    <p>The AI Merge installs runs on your own Mac. Your conversations and the files you add stay there: they are not sent to us. <a href="#confidentialite">What leaves your Mac, exactly</a></p>
+    <h2 id="t-maison">It stays on your computer.</h2>
+    <p>The AI Merge installs runs on your own computer. Your conversations and the files you add stay there: they are not sent to us. <a href="#confidentialite">What leaves your computer, exactly</a></p>
   </section>
 
   <section class="telecharger grise" id="obtenir" aria-labelledby="t-fin">
@@ -92,13 +105,13 @@ Thank you,</div>
   <section class="faq" id="faq" aria-labelledby="t-faq">
     <h2 id="t-faq">Questions</h2>
     <details><summary>Is it really free?</summary><p>Yes. Merge is free, and so are the AIs it installs: open AIs, free to use, made by companies and research labs such as Mistral AI, Google or IBM. No subscription, no ads.</p></details>
-    <details><summary>Will it run on my Mac?</summary><p>Merge needs macOS 14 Sonoma or later, on a Mac with an Apple chip or an Intel chip. When you open Merge, click “Check my Mac”: it tells you, in plain words, what will be quick and what will be slow. 8 GB of memory or more is recommended.</p></details>
-    <details><summary>Why does my Mac warn me when I open Merge?</summary><p>Because Merge is a free beta and we haven't paid for Apple's developer program yet ($99 a year), so Apple hasn't checked it. Your Mac then asks you to confirm that you trust it. <a href="#installer">How to open it</a>.</p></details>
-    <details><summary>What about Windows, Linux, iPhone and Android?</summary><p>Merge starts on Mac. Windows, Linux, iPhone and Android are planned for later updates.</p></details>
-    <details><summary>Is it as good as ChatGPT?</summary><p>No: the big online AIs are still better, especially for hard tasks. A free AI on your Mac handles many everyday tasks, and the more memory your Mac has, the better the AI it can run. This is a beta: we are still testing how well each AI does.</p></details>
+    <details><summary>Will it run on my computer?</summary><p>Merge runs on a Mac with macOS 14 Sonoma or later (Apple chip or Intel), and on a PC with Windows 10 or 11 (64-bit, Intel or AMD processor). When you open Merge, click “Check my computer” (on a Mac, “Check my Mac”): it tells you, in plain words, what will be quick and what will be slow. 8 GB of memory or more is recommended.</p></details>
+    <details><summary>Why does my computer warn me when I open Merge?</summary><p>Because Merge is a free beta that is not signed yet: on Mac, we haven't paid for Apple's developer program ($99 a year), and on Windows, for a code-signing certificate. So the first time, your computer asks you to confirm that you trust it. <a href="#installer">How to open it</a>.</p></details>
+    <details><summary>What about Linux, iPhone and Android?</summary><p>Merge starts on Mac and Windows. Linux, iPhone and Android are planned for later updates.</p></details>
+    <details><summary>Is it as good as ChatGPT?</summary><p>No: the big online AIs are still better, especially for hard tasks. A free AI on your computer handles many everyday tasks, and the more memory your computer has, the better the AI it can run. This is a beta: we are still testing how well each AI does.</p></details>
     <details><summary>Do I need the internet?</summary><p>Only to download Merge and its AI. After that, Merge works offline. To get recent information, turn on “Web”: Merge then looks things up for your AI, with your OK, in the sources you choose (encyclopedia, news, science). Without it, the AI only knows what it learned when it was made.</p></details>
     <details><summary>Can the AI be wrong?</summary><p>Yes. Like every AI, it can make mistakes or make things up, and a small AI more often. Check what matters, and don't rely on it for medical, legal or money decisions.</p></details>
-    <details><summary>Can I choose another AI?</summary><p>Yes. Merge suggests one and shows others that fit your Mac, with what each one does. You can change it later too. <a href="#ia">See all the AIs</a>.</p></details>
+    <details><summary>Can I choose another AI?</summary><p>Yes. Merge suggests one and shows others that fit your computer, with what each one does. You can change it later too. <a href="#ia">See all the AIs</a>.</p></details>
   </section>
 </section>
 
@@ -110,18 +123,18 @@ Thank you,</div>
   </div>
   <section class="etapes-detail">
     <div class="etape"><span class="num">1</span><div><h2>You download Merge and open it</h2><p>A small file arrives in your Downloads. Open it.</p></div></div>
-    <div class="etape"><span class="num">2</span><div><h2>You click “Check my Mac”</h2><p>Merge looks at the memory, the chip and the free space, then tells you in plain words what your Mac can do well, and what will be slow.</p></div></div>
-    <div class="etape"><span class="num">3</span><div><h2>You say what you'll use it for</h2><p>Everyday life, studies, coding, work, languages, health: pick one or more. Merge suggests the AI that suits you best on your Mac, and shows a few others, with what each one does and who made it.</p></div></div>
-    <div class="etape"><span class="num">4</span><div><h2>You choose where it goes</h2><p>AIs are big files. Keep them on your Mac or on an external drive.</p></div></div>
-    <div class="etape"><span class="num">5</span><div><h2>You click Install</h2><p>Merge tells you the download size first. It downloads your AI from Hugging Face, the big public library of open AIs, not through our servers, and checks each file so a damaged one is never used. If the connection drops, nothing is lost: click Try again to pick up where it stopped.</p></div></div>
+    <div class="etape"><span class="num">2</span><div><h2>You click “Check my computer”</h2><p>Merge looks at the memory, the processor, the graphics card and the free space, then tells you in plain words what your computer can do well, and what will be slow.</p></div></div>
+    <div class="etape"><span class="num">3</span><div><h2>You say what you'll use it for</h2><p>Everyday life, studies, coding, work, languages, health: pick one or more. Merge suggests the AI that suits you best on your computer, and shows a few others, with what each one does and who made it.</p></div></div>
+    <div class="etape"><span class="num">4</span><div><h2>You choose where it goes</h2><p>AIs are big files. Keep them on your computer or on an external drive.</p></div></div>
+    <div class="etape"><span class="num">5</span><div><h2>You click Install</h2><p>Merge tells you the download size first. It downloads your AI from Hugging Face, the big public library of open AIs, not through our servers (on Windows, also the AI engine, llama.cpp, from GitHub), and checks each file so a damaged one is never used. If the connection drops, nothing is lost: click Try again to pick up where it stopped.</p></div></div>
     <div class="etape"><span class="num">6</span><div><h2>Merge opens</h2><p>Start chatting. As much as you like.</p></div></div>
   </section>
   <section class="bande grise apparait" aria-labelledby="t-vie">
     <p class="eti">Your privacy</p>
     <h2 id="t-vie">What stays, what leaves.</h2>
     <dl class="vie">
-      <div><dt>Your conversations</dt><dd>Stay on your Mac, with the AI Merge installs. The AI runs there, not on our servers.</dd></div>
-      <div><dt>Your files</dt><dd>A PDF or a Word file you add is read on your Mac, never sent to us.</dd></div>
+      <div><dt>Your conversations</dt><dd>Stay on your computer, with the AI Merge installs. The AI runs there, not on our servers.</dd></div>
+      <div><dt>Your files</dt><dd>A PDF or a Word file you add is read on your computer, never sent to us.</dd></div>
       <div><dt>No account</dt><dd>Merge needs no account, and there is no tracking inside the app.</dd></div>
     </dl>
     <p class="config"><a href="#produit" data-vue="produit" data-ancre="vie-privee">See all the privacy settings</a></p>
@@ -136,53 +149,53 @@ Thank you,</div>
   <div class="hero court">
     <p class="eti">Product</p>
     <h1>Everything Merge does<span class="point">.</span></h1>
-    <p class="sous">A tour of Merge before you install it, in plain words. Merge is a free beta: “In the beta” means a feature is in the app you can download, and is only now being tried with real AIs. Merge starts small, on Mac, and grows with each update. For the technical details, open “Where it comes from” under each feature.</p>
+    <p class="sous">A tour of Merge before you install it, in plain words. Merge is a free beta: “In the beta” means a feature is in the app you can download, and is only now being tried with real AIs. Merge starts small, on Mac and Windows, and grows with each update. For the technical details, open “Where it comes from” under each feature.</p>
   </div>
   <section class="pf-groupe"><div class="pf-dedans">
     <h2 class="produit-groupe">Getting started</h2>
     <div class="pf-vedette">
-      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>What will you use it for?</h3><p class="pf-texte">Tell Merge what you need: everyday life, studies, coding, work, languages, health. It suggests the AI that fits your Mac and your needs best.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Each answer gives points to AIs whose strengths match (writing, documents, code, translation, reasoning). The suggestion is our estimate: we have not measured the AIs ourselves yet.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>What will you use it for?</h3><p class="pf-texte">Tell Merge what you need: everyday life, studies, coding, work, languages, health. It suggests the AI that fits your computer and your needs best.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Each answer gives points to AIs whose strengths match (writing, documents, code, translation, reasoning). The suggestion is our estimate: we have not measured the AIs ourselves yet.</p></details></div>
       <div class="pf-visuel" aria-hidden="true"><div class="fenetre maquette"><div class="f-barre"><i></i><i></i><i></i></div><div class="mq-corps"><p class="mq-titre">What will you use Merge for?</p>
         <div class="mq-puces"><span class="choisi">Everyday life</span><span>Studies</span><span>Coding</span><span>Work</span><span class="choisi">Languages</span><span>Health and fitness</span></div>
         <p class="mq-note">Suggested for you: an AI that writes well and translates.</p></div></div></div>
     </div>
     <div class="pf-liste">
-      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Merge sets everything up</h3><p class="pf-texte">Merge looks at your Mac, suggests the AI that should suit it best, and installs it once you agree. You can still pick another one. <a href="#comment">Step by step</a></p><details class="pf-expert"><summary>Where it comes from</summary><p>In the app, Merge reads the memory (RAM), the chip and the free disk space from the system. On the website, the preview uses an example Mac.</p><p>The AI files (GGUF format) come straight from Hugging Face, the public library of open AIs, at a fixed version, never through our servers. Each file is checked with its SHA-256 fingerprint. The AI is run by llama.cpp, an open-source engine (MIT license).</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Merge sets everything up</h3><p class="pf-texte">Merge looks at your computer, suggests the AI that should suit it best, and installs it once you agree. You can still pick another one. <a href="#comment">Step by step</a></p><details class="pf-expert"><summary>Where it comes from</summary><p>In the app, Merge reads the memory (RAM), the chip or processor, the graphics card and the free disk space from the system. On the website, the preview uses an example computer.</p><p>The AI files (GGUF format) come straight from Hugging Face, the public library of open AIs, at a fixed version, never through our servers. Each file is checked with its SHA-256 fingerprint. The AI is run by llama.cpp, an open-source engine (MIT license): built into the Mac app, and downloaded from GitHub by the Windows app when you click Install (fingerprint checked too).</p></details></div>
     </div>
   </div></section>
   <section class="pf-groupe grise"><div class="pf-dedans">
     <h2 class="produit-groupe">Chatting with your AI</h2>
     <div class="pf-vedette">
-      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Your documents, with page numbers</h3><p class="pf-texte">Add a PDF or a Word file of a few pages to your question. The AI is asked to answer from it, to give the page it used, and to tell you when the document doesn't say.</p><details class="pf-expert"><summary>Where it comes from</summary><p>PDF and Word (.docx) files, and plain text files, are read inside the app, on your Mac, with no added library. PDF text is split into pages (Word files have no pages, so the AI gives the file name), and the AI is instructed to cite them: a small AI may not always do it. Scanned PDFs (pictures of pages with no text inside) can't be read yet. In this beta, the AI keeps about 8,000 “tokens” in mind (roughly 5 pages of text): a longer document is refused with a clear message.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Your documents, with page numbers</h3><p class="pf-texte">Add a PDF or a Word file of a few pages to your question. The AI is asked to answer from it, to give the page it used, and to tell you when the document doesn't say.</p><details class="pf-expert"><summary>Where it comes from</summary><p>PDF and Word (.docx) files, and plain text files, are read inside the app, on your computer, with no added library. PDF text is split into pages (Word files have no pages, so the AI gives the file name), and the AI is instructed to cite them: a small AI may not always do it. Scanned PDFs (pictures of pages with no text inside) can't be read yet. In this beta, the AI keeps about 8,000 “tokens” in mind (roughly 5 pages of text): a longer document is refused with a clear message.</p></details></div>
       <div class="pf-visuel" aria-hidden="true"><div class="fenetre maquette"><div class="f-barre"><i></i><i></i><i></i></div><div class="mq-corps mq-chat"><p class="mq-fichier">lease.pdf · 4 pages</p>
         <p class="mq-moi">When does the lease end, and what notice do I have to give?</p>
         <div class="mq-ia"><p><span>The lease ends on 30 June 2027.</span> <span class="mq-page">p. 3</span></p><p><span>Three months' notice, by registered letter.</span> <span class="mq-page">p. 4</span></p></div></div></div></div>
     </div>
     <div class="pf-liste">
-      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>No message limit</h3><p class="pf-texte">Ask as many questions as you like. The only limit is the speed of your Mac.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Your chats are saved on your Mac, never on our servers. You can rename, search, download (Markdown) or delete them, edit a message, or ask for a new answer.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>No message limit</h3><p class="pf-texte">Ask as many questions as you like. The only limit is the speed of your computer.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Your chats are saved on your computer, never on our servers. You can rename, search, download (Markdown) or delete them, edit a message, or ask for a new answer.</p></details></div>
       <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Settings that fit each AI</h3><p class="pf-texte">Faster or more careful answers, short or long. With Merge's own AI engine, you only see the settings your AI can really use.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Merge asks the engine what the AI can do (llama.cpp: its chat template and memory size; Ollama: its capabilities) and sends only matching parameters (temperature, max_tokens, reasoning_effort or chat_template_kwargs). With LM Studio or Jan, Merge can only guess from the AI's name, so all the choices stay visible. When a chat is too long for the AI's memory, the oldest messages are left out, and Merge says so.</p></details></div>
-      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Web search, only if you allow it</h3><p class="pf-texte">Turn on “Web” and choose the kind of sources: all, encyclopedia, news or science and health. Merge looks things up for your AI, and the answer shows its sources. Only a few search words leave your Mac.</p><details class="pf-expert"><summary>Where it comes from</summary><p>The AI never goes on the internet by itself. Your AI first turns your question into a few English search words; Merge sends only those words, from your Mac, to the sources you chose: the Wikipedia API, the GDELT Project's news API (headlines of the last 7 days, without the articles), PubMed (the US National Library of Medicine's database of medical and life-science articles) and OpenAlex (an open catalogue of scientific publications). All are official, free, and need no account. The results are given to your AI with your question, and Merge asks it to treat them as text to read, not as orders. If your AI can't pick search words, Merge doesn't search: your question itself is never sent. No key, no account, nothing goes through our servers. Each search is listed in “What leaves this device”.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Web search, only if you allow it</h3><p class="pf-texte">Turn on “Web” and choose the kind of sources: all, encyclopedia, news or science and health. Merge looks things up for your AI, and the answer shows its sources. Only a few search words leave your computer.</p><details class="pf-expert"><summary>Where it comes from</summary><p>The AI never goes on the internet by itself. Your AI first turns your question into a few English search words; Merge sends only those words, from your computer, to the sources you chose: the Wikipedia API, the GDELT Project's news API (headlines of the last 7 days, without the articles), PubMed (the US National Library of Medicine's database of medical and life-science articles) and OpenAlex (an open catalogue of scientific publications). All are official, free, and need no account. The results are given to your AI with your question, and Merge asks it to treat them as text to read, not as orders. If your AI can't pick search words, Merge doesn't search: your question itself is never sent. No key, no account, nothing goes through our servers. Each search is listed in “What leaves this device”.</p></details></div>
       <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Assistants for beginners</h3><p class="pf-texte">Not sure what to ask? Thirteen ready-made assistants, each with an example to try: explain a letter, sum up a document, plan your week, cook with what you have…</p><details class="pf-expert"><summary>Where it comes from</summary><p>Each assistant is a set of instructions written by Merge and given to your AI before your question. Nothing is downloaded.</p></details></div>
     </div>
   </div></section>
   <section class="pf-groupe" id="vie-privee"><div class="pf-dedans">
     <h2 class="produit-groupe">Privacy and control</h2>
     <div class="pf-vedette">
-      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>A log of every connection the chat makes</h3><p class="pf-texte">See, in plain words, every time Merge's chat window connects to something: on your Mac, or on the internet.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Every network request of the chat window is logged with its exact address and sorted by where it went (green: this device, orange: internet). What you send is never kept, only the address. You choose how long the log is kept, and you can download it (JSON). AI downloads are not listed in it yet on Mac.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>A log of every connection the chat makes</h3><p class="pf-texte">See, in plain words, every time Merge's chat window connects to something: on your computer, or on the internet.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Every network request of the chat window is logged with its exact address and sorted by where it went (green: this device, orange: internet). What you send is never kept, only the address. You choose how long the log is kept, and you can download it (JSON). AI downloads are listed in it on Windows, not yet on Mac.</p></details></div>
       <div class="pf-visuel" aria-hidden="true"><div class="fenetre maquette"><div class="f-barre"><i></i><i></i><i></i></div><div class="mq-corps"><p class="mq-titre">What leaves this device</p>
         <p class="mq-journal"><span class="pt vert"></span><span class="mq-lieu">On this device</span><span>The AI answered your question</span></p>
         <p class="mq-journal"><span class="pt vert"></span><span class="mq-lieu">On this device</span><span>Merge checked which AI is running</span></p>
         <p class="mq-journal"><span class="pt vert"></span><span class="mq-lieu">On this device</span><span>The AI wrote an answer</span></p></div></div></div>
     </div>
     <div class="pf-liste">
-      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Your data, your choice</h3><p class="pf-texte">Download your chats, delete them all, or delete the installed AI to free its space, whenever you want. No ads, no subscription, no account.</p><details class="pf-expert"><summary>Where it comes from</summary><p>“Download everything” gives a file (JSON) with all your chats; “Delete all chats” erases them from your Mac.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Your data, your choice</h3><p class="pf-texte">Download your chats, delete them all, or delete the installed AI to free its space, whenever you want. No ads, no subscription, no account.</p><details class="pf-expert"><summary>Where it comes from</summary><p>“Download everything” gives a file (JSON) with all your chats; “Delete all chats” erases them from your computer.</p></details></div>
     </div>
   </div></section>
   <section class="pf-groupe grise" id="plus-tard"><div class="pf-dedans">
     <h2 class="produit-groupe">Coming in an update</h2>
     <p class="pf-texte">These are built or planned, but not in the first version of Merge. They will come one by one, each checked before it reaches you.</p>
     <div class="pf-liste">
-      <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Windows, Linux, iPhone and Android</h3><p class="pf-texte">Merge starts on Mac. The other devices come next.</p></div>
+      <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Linux, iPhone and Android</h3><p class="pf-texte">Merge starts on Mac and Windows. The other devices come next.</p></div>
       <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>More languages</h3><p class="pf-texte">Merge is in English for now. French and Spanish come next.</p></div>
       <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Images, Excel and PowerPoint</h3><p class="pf-texte">Ask a question about a photo with an AI that can see, and add spreadsheets and slides to your questions.</p></div>
       
@@ -206,7 +219,7 @@ Thank you,</div>
   <div class="hero court">
     <p class="eti">The AIs</p>
     <h1>Merge picks one for you<span class="point">.</span></h1>
-    <p class="sous">Here are the free AIs Merge knows, sorted by the Mac they need. You can always choose another one. Some of them can also see images: Merge will use this in an update.</p>
+    <p class="sous">Here are the free AIs Merge knows, sorted by the computer they need: 20 on Mac, and 12 more on Windows for the wide range of PCs. You can always choose another one. Some of them can also see images: Merge will use this in an update.</p>
   </div>
   <div class="ia-barre" role="search">
     <label class="ia-loupe"><span class="cache-ecran">Search the AIs</span><input id="ia-cherche" type="search" placeholder="Search" autocomplete="off"></label>
@@ -242,7 +255,7 @@ Thank you,</div>
     <p>Until then, here is what we can say for sure: Merge needs no account, shows no ads, and doesn't send your conversations or your files to us. If something goes wrong, <a href="#contact">tell us</a>: we read everything.</p>
 
     <h2>Where we're going</h2>
-    <p>Merge starts small: one free AI on your Mac. Then, update after update, we plan to add Windows, Linux, iPhone and Android, more languages, and the features listed in “Coming in an update”. We will always say clearly what works and what doesn't. Two principles will not change: your AI runs on hardware you own, and nothing leaves it without your OK. No subscription, ever.</p>
+    <p>Merge starts small: one free AI on your Mac or Windows PC. Then, update after update, we plan to add Linux, iPhone and Android, more languages, and the features listed in “Coming in an update”. We will always say clearly what works and what doesn't. Two principles will not change: your AI runs on hardware you own, and nothing leaves it without your OK. No subscription, ever.</p>
 
     <h3>A personal AI server for your home</h3>
     <p>Later, we plan for a computer you already have to serve the whole household, each person with their own chats, on their phone too. Then a small box bought once could do the same with a much larger AI, so that even a small phone gets its answers.</p>
@@ -267,7 +280,7 @@ Thank you,</div>
   </div>
   <section class="nous">
     <h2>If something goes wrong</h2>
-    <p>Tell us what you clicked, what you saw, and which Mac you have (Apple menu › About This Mac: the chip, the memory and the macOS version). A screenshot helps a lot.</p>
+    <p>Tell us what you clicked, what you saw, and which computer you have (on a Mac: Apple menu › About This Mac; on Windows: Settings › System › About). A screenshot helps a lot.</p>
     <h2>A security problem?</h2>
     <p>If you think you've found a way to misuse Merge, please write to us before telling anyone else, so we can fix it first. Put “Security” in the subject.</p>
     <h2>What we do with your email</h2>
@@ -278,17 +291,17 @@ Thank you,</div>
 <section id="vue-confidentialite" class="vue" data-titre="Privacy" aria-label="Privacy" hidden>
   <div class="hero court">
     <p class="eti">Privacy</p>
-    <h1>What leaves your Mac<span class="point">.</span></h1>
-    <p class="sous">In short: your conversations and your files stay on your Mac. Here is everything, in plain words.</p>
+    <h1>What leaves your computer<span class="point">.</span></h1>
+    <p class="sous">In short: your conversations and your files stay on your computer. Here is everything, in plain words.</p>
   </div>
   <section class="nous">
     <h2>In the Merge app</h2>
-    <p><b>Your conversations and the files you add</b> stay on your Mac. The AI runs there. They are not sent to us or to anyone else.</p>
+    <p><b>Your conversations and the files you add</b> stay on your computer. The AI runs there. They are not sent to us or to anyone else.</p>
     <p><b>No account, no ads, no tracking.</b> The app doesn't measure what you do in it, and doesn't send us any statistics.</p>
-    <p><b>Downloading the AI.</b> When you click Install, Merge downloads the AI's files straight from Hugging Face, the public library of open AIs, not through us. Like any website, Hugging Face sees your internet address (IP address) when it sends the files. See <a href="https://huggingface.co/privacy" target="_blank" rel="noopener">Hugging Face's privacy policy</a>.</p>
-    <p><b>Web search, only if you turn it on.</b> When “Web” is on (Merge asks your OK the first time), your AI first turns your question into a few search words, and Merge sends only those words, from your Mac, to the sources you chose in the “Web” menu: Wikipedia, the GDELT Project's news database, PubMed and OpenAlex. Like any website, they see the search words and your internet address. See <a href="https://foundation.wikimedia.org/wiki/Policy:Privacy_policy" target="_blank" rel="noopener">Wikipedia</a>, <a href="https://www.gdeltproject.org/about.html" target="_blank" rel="noopener">GDELT</a>, <a href="https://www.nlm.nih.gov/web_policies.html" target="_blank" rel="noopener">PubMed</a> and <a href="https://openalex.org/" target="_blank" rel="noopener">OpenAlex</a>. Your chat and your files are never sent.</p>
+    <p><b>Downloading the AI.</b> When you click Install, Merge downloads the AI's files straight from Hugging Face, the public library of open AIs, not through us (on Windows, also the AI engine, from GitHub). Like any website, they see your internet address (IP address) when they send the files. See <a href="https://huggingface.co/privacy" target="_blank" rel="noopener">Hugging Face's privacy policy</a>.</p>
+    <p><b>Web search, only if you turn it on.</b> When “Web” is on (Merge asks your OK the first time), your AI first turns your question into a few search words, and Merge sends only those words, from your computer, to the sources you chose in the “Web” menu: Wikipedia, the GDELT Project's news database, PubMed and OpenAlex. Like any website, they see the search words and your internet address. See <a href="https://foundation.wikimedia.org/wiki/Policy:Privacy_policy" target="_blank" rel="noopener">Wikipedia</a>, <a href="https://www.gdeltproject.org/about.html" target="_blank" rel="noopener">GDELT</a>, <a href="https://www.nlm.nih.gov/web_policies.html" target="_blank" rel="noopener">PubMed</a> and <a href="https://openalex.org/" target="_blank" rel="noopener">OpenAlex</a>. Your chat and your files are never sent.</p>
     <p><b>The internet otherwise.</b> Merge doesn't connect anywhere else, unless you yourself type the address of another AI program in Settings. In the app, Settings › “What leaves this device” lists every connection the chat window makes.</p>
-    <p><b>Deleting everything.</b> In Settings, “Delete all chats” erases your conversations, and you can delete the installed AI to free its space. Do that before moving Merge to the Trash: the AI is a big file kept apart from the app. A few small settings and log files stay in your Library folder.</p>
+    <p><b>Deleting everything.</b> In Settings, “Delete all chats” erases your conversations, and you can delete the installed AI to free its space. Do that before removing Merge: the AI is a big file kept apart from the app. On Mac, then move Merge to the Trash (a few small settings and log files stay in your Library folder). On Windows, delete the folders %LOCALAPPDATA%\Merge and %APPDATA%\Merge, the “Merge AIs” folder if you put the AIs on another drive, and the “Merge” shortcuts.</p>
     <h2>On this website</h2>
     <p>This website has no account, no ads and no tracking tools. The company that hosts it keeps the usual technical logs of visits (internet address, page, time), as every host does.</p>
     <h2>When you write to us</h2>
@@ -308,40 +321,54 @@ Thank you,</div>
   <div class="hero court">
     <p class="eti">Download</p>
     <h1>Get Merge<span class="point">.</span></h1>
-    <p class="sous">Merge is for Mac for now. Windows, Linux, iPhone and Android are planned for later updates.</p>
-    <div><a class="btn" href="#installer" data-telecharger="choix">Download for Mac</a></div>
-    <p class="config" data-config>Free beta for Mac: macOS 14 or later, Apple chip or Intel. 8 GB of memory or more recommended.</p>
-    <p class="config"><a href="#installer">See what happens when you open Merge</a></p>
+    <p class="sous">Merge is for Mac and Windows for now. Linux, iPhone and Android are planned for later updates.</p>
+    <div class="app-boutons"><a class="btn" href="#installer" data-telecharger="mac">Download for Mac</a><a class="btn" href="#installer" data-telecharger="windows">Download for Windows</a></div>
+    <p class="config">Mac: macOS 14 or later, Apple chip or Intel. Windows: Windows 10 or 11, 64-bit, Intel or AMD processor. 8 GB of memory or more recommended.</p>
   </div>
 </section>
 
 <section id="vue-installer" class="vue" data-titre="Get Merge" aria-label="Get Merge" hidden>
-    <div class="etape-appareil" data-etape-appareil>
+  <div class="etape-appareil" data-etape-appareil>
     <div class="hero court">
       <p class="eti">Get Merge</p>
+      <div class="choix-systeme" role="group" aria-label="Your computer">
+        <button type="button" class="systeme" data-systeme="mac" aria-pressed="true">Mac</button>
+        <button type="button" class="systeme" data-systeme="windows" aria-pressed="false">Windows</button>
+      </div>
       <h1 class="titre-etape" tabindex="-1" data-app-titre>Your Mac<span class="point">.</span></h1>
       <p class="config app-choix" data-app-choix hidden></p>
       <p class="sous" data-app-sous></p>
       <ol class="app-etapes" data-app-etapes></ol>
-      <div class="app-boutons"><a class="btn" href="#installer" data-app-telecharger>Download Merge for Mac</a></div>
+      <div class="app-boutons"><a class="btn" href="#installer" data-app-telecharger>Download Merge</a></div>
       <p class="config" data-app-note></p>
-      <p class="config"><a href="#telecharger">Not on a Mac?</a></p>
     </div>
         <section class="ouvrir-merge" id="ouvrir" aria-labelledby="t-ouvrir">
       <h2 id="t-ouvrir">The first time you open it.</h2>
-      <p class="config">Merge is a free beta that Apple hasn't checked yet (that needs a $99-a-year developer account we don't have yet). So the first time, your Mac asks you to confirm that you trust it. You only do this once.</p>
-      <ol class="app-etapes">
-        <li><span class="num">1</span><span><b>Open the downloaded file</b><small>Merge-Mac-beta.dmg, in your Downloads. Drag Merge into the Applications folder.</small></span></li>
-        <li><span class="num">2</span><span><b>Double-click Merge in Applications</b><small>Your Mac says it can't check Merge. Click Done or Cancel (not Move to Trash).</small></span></li>
-        <li><span class="num">3</span><span><b>Open System Settings › Privacy &amp; Security</b><small>Scroll down to the Security section: next to “Merge was blocked”, click Open Anyway, then confirm with your password. Do it soon after step 2: the button only stays for a while.</small></span></li>
-        <li><span class="num">4</span><span><b>Merge opens</b><small>Click “Check my Mac”. From now on, Merge opens normally.</small></span></li>
-      </ol>
-      <p class="config">On macOS 14 Sonoma, you can instead Control-click Merge in Applications, choose Open, then Open again.</p>
+      <div data-ouvrir="mac">
+        <p class="config">Merge is a free beta that Apple hasn't checked yet (that needs a $99-a-year developer account we don't have yet). So the first time, your Mac asks you to confirm that you trust it. You only do this once.</p>
+        <ol class="app-etapes">
+          <li><span class="num">1</span><span><b>Open the downloaded file</b><small>Merge-Mac-beta.dmg, in your Downloads. Drag Merge into the Applications folder.</small></span></li>
+          <li><span class="num">2</span><span><b>Double-click Merge in Applications</b><small>Your Mac says it can't check Merge. Click Done or Cancel (not Move to Trash).</small></span></li>
+          <li><span class="num">3</span><span><b>Open System Settings › Privacy &amp; Security</b><small>Scroll down to the Security section: next to “Merge was blocked”, click Open Anyway, then confirm with your password. Do it soon after step 2: the button only stays for a while.</small></span></li>
+          <li><span class="num">4</span><span><b>Merge opens</b><small>Click “Check my Mac”. From now on, Merge opens normally.</small></span></li>
+        </ol>
+        <p class="config">On macOS 14 Sonoma, you can instead Control-click Merge in Applications, choose Open, then Open again.</p>
+      </div>
+      <div data-ouvrir="windows" hidden>
+        <p class="config">Merge is a free beta that is not signed with a Windows certificate yet. So the first time, Windows may ask you to confirm that you trust it. Nothing else to install: Python, which Merge uses, is included.</p>
+        <ol class="app-etapes">
+          <li><span class="num">1</span><span><b>Extract the downloaded file</b><small>If your browser says the file isn't commonly downloaded, choose Keep. Then right-click Merge-Windows-beta.zip in your Downloads, choose “Extract All…”, then “Extract”.</small></span></li>
+          <li><span class="num">2</span><span><b>Double-click Merge.cmd</b><small>In the “Merge” folder. If Windows says “Windows protected your PC”, click “More info”, then “Run anyway”. If it then asks whether to run Python (Python Software Foundation), click Run.</small></span></li>
+          <li><span class="num">3</span><span><b>Merge opens in its own window</b><small>Click “Check my computer”, then “Install”: Merge downloads the AI engine (from GitHub) and your AI (from Hugging Face), and checks every file.</small></span></li>
+          <li><span class="num">4</span><span><b>Next time</b><small>Open Merge from the Start menu or the “Merge” shortcut on your desktop.</small></span></li>
+        </ol>
+        <p class="config">Merge opens in a Microsoft Edge window without tabs, like an app; without Edge, in your usual browser. It only listens to this computer. On Windows 11, “Smart App Control” can block programs that are not signed, like this beta: if it does, Merge can't run on that PC yet.</p>
+      </div>
       <p class="config empreinte" data-app-empreinte></p>
     </section>
     <section class="dans-appli" aria-labelledby="t-appli">
       <h2 id="t-appli">Then, inside the app.</h2>
-      <p class="config">This is what the app shows once it's on your Mac. Try it here: nothing is downloaded.</p>
+      <p class="config">This is what the app shows once it's on your computer. Try it here: nothing is downloaded.</p>
       <div class="programme" id="programme"></div>
       <p class="config prog-note"></p>
     </section>
@@ -354,12 +381,12 @@ Thank you,</div>
 <footer class="pied">© 2026 Merge · Free beta · <a href="#nous">Who we are</a> · <a href="#contact">Contact</a> · <a href="#confidentialite">Privacy</a></footer>
 
 
-<script src="telechargement.js?v=202610221938"></script>
-<script src="langues.js?v=202610221938"></script>
-<script src="icones.js?v=202610221938"></script>
-<script src="tailles.js?v=202610221938"></script>
-<script src="donnees.js?v=202610221938"></script>
-<script src="programme.js?v=202610221938"></script>
-<script src="site.js?v=202610221938"></script>
+<script src="telechargement.js?v=202610222039"></script>
+<script src="langues.js?v=202610222039"></script>
+<script src="icones.js?v=202610222039"></script>
+<script src="tailles.js?v=202610222039"></script>
+<script src="donnees.js?v=202610222039"></script>
+<script src="programme.js?v=202610222039"></script>
+<script src="site.js?v=202610222039"></script>
 </body>
 </html>

@@ -110,11 +110,12 @@ function detecter(){
   }
   return d;
 }
+const pourCeSysteme = os => os === "mac" || os === "windows";
 function afficherDetection(){
   const d = detecter();
-  $$("[data-detecte]").forEach(e => { e.textContent = d.os === "mac"
+  $$("[data-detecte]").forEach(e => { e.textContent = pourCeSysteme(d.os)
     ? t("For your {nom}, recognized automatically. Merge checks the rest when it opens.", {nom: d.nom})
-    : t("Merge is for Mac for now (this looks like a {nom}). Windows, Linux, iPhone and Android are planned for later updates.", {nom: d.nom}); });
+    : t("Merge is for Mac and Windows for now (this looks like a {nom}). Linux, iPhone and Android are planned for later updates.", {nom: d.nom}); });
 }
 function initOS(){
   afficherDetection();
@@ -129,9 +130,9 @@ function initOS(){
   document.addEventListener("click", async e => {
     const a = e.target.closest("a[data-app-telecharger]"); if (!a) return;
     e.preventDefault();
-    const fichier = fichierMac(), note = $("[data-app-note]");
-    if (adresseGitHub()){
-      location.href = TELECHARGEMENT.adresse;
+    const fichier = fichierDe(systeme), note = $("[data-app-note]");
+    if (adresseGitHub(systeme)){
+      location.href = fiche(systeme).adresse;
       note.textContent = t("Downloading {f}. Then follow the steps below.", {f: fichier});
       $("#ouvrir").scrollIntoView({behavior: animer() ? "smooth" : "auto"});
       return;
@@ -153,28 +154,47 @@ function initOS(){
   document.addEventListener("click", e => {
     const a = e.target.closest("a[data-telecharger]"); if (!a) return;
     e.preventDefault();
-    telecharger(a.dataset.telecharger === "choix");
+    telecharger(a.dataset.telecharger);
+  });
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-systeme]"); if (!b) return;
+    systeme = b.dataset.systeme; MEM.ecrire("systeme", systeme);
+    demarrerProgramme();
   });
 }
-const fichierMac = () => typeof TELECHARGEMENT === "object" && TELECHARGEMENT && /^[\w.-]+\.dmg$/.test(TELECHARGEMENT.fichier) ? TELECHARGEMENT.fichier : "";
-const adresseGitHub = () => !!fichierMac() && /^https:\/\/github\.com\/[\w.-]+\/[\w.-]+\/releases\/latest\/download\/[\w.-]+\.dmg$/.test(TELECHARGEMENT.adresse || "");
-const mo = n => t("{n} MB", {n: Math.round(n / 1e6).toLocaleString("en-US")});
-function noteTelechargement(){
-  if (!fichierMac()) return t("Free beta for Mac: macOS 14 or later, Apple chip or Intel.");
-  return t("Merge {v} for Mac, free · {taille} · macOS 14 or later, Apple chip or Intel.", {v: TELECHARGEMENT.version, taille: mo(TELECHARGEMENT.octets)});
+const EXTENSIONS = {mac: "dmg", windows: "zip"};
+function fiche(os){
+  const d = typeof TELECHARGEMENT === "object" && TELECHARGEMENT ? TELECHARGEMENT : null;
+  if (!d) return null;
+  return d[os] || (os === "mac" && d.fichier ? d : null);          // (ancienne fiche : Mac seul)
 }
-function telecharger(pourMac = false){
-  if (!pourMac && detecter().os !== "mac"){ location.hash = "#telecharger"; return; }   // l'IA choisie reste notée
+const fichierDe = os => { const f = fiche(os); return f && new RegExp(`^[\\w.-]+\\.${EXTENSIONS[os]}$`).test(f.fichier) ? f.fichier : ""; };
+const adresseGitHub = os => !!fichierDe(os) && new RegExp(`^https:\\/\\/github\\.com\\/[\\w.-]+\\/[\\w.-]+\\/releases\\/latest\\/download\\/[\\w.-]+\\.${EXTENSIONS[os]}$`).test(fiche(os).adresse || "");
+const mo = n => t("{n} MB", {n: Math.round(n / 1e6).toLocaleString("en-US")});
+const CONFIG = {mac: "macOS 14 or later, Apple chip or Intel", windows: "Windows 10 or 11, 64-bit, Intel or AMD"};
+function noteTelechargement(os){
+  const nom = os === "windows" ? "Windows" : "Mac";
+  if (!fichierDe(os)) return t("Free beta for {nom}: {config}.", {nom, config: t(CONFIG[os])});
+  return t("Merge {v} for {nom}, free · {taille} · {config}.", {v: fiche(os).version, nom, taille: mo(fiche(os).octets), config: t(CONFIG[os])});
+}
+let systeme = null;
+function telecharger(os){
+  if (os !== "mac" && os !== "windows"){
+    const d = detecter().os;
+    if (!pourCeSysteme(d)){ location.hash = "#telecharger"; return; }   // l'IA choisie reste notée
+    os = d;
+  }
+  systeme = os; MEM.ecrire("systeme", os);
   if (location.hash === "#installer") demarrerProgramme(); else location.hash = "#installer";
 }
 
 const GROUPES = [
-  {titre: "For almost any Mac", sous: "8 GB of memory is enough", max: 6, machine: "vieux"},
-  {titre: "For a 16 GB Mac", sous: "Most recent MacBook Air and Mac mini", max: 12, machine: "portable"},
-  {titre: "For a 32 GB Mac", sous: "A MacBook Pro, an iMac or a Mac mini with 32 GB", max: 24, machine: "pro"},
-  {titre: "For a 64 GB Mac", sous: "A MacBook Pro or a Mac Studio with 64 GB", max: 48, machine: null},
-  {titre: "For a 128 GB Mac", sous: "Like a Mac Studio", max: 96, machine: "studio"},
-  {titre: "Too big for any Mac for now", sous: "They need more than 96 GB of memory", max: Infinity, machine: null},
+  {titre: "For almost any computer", sous: "8 GB of memory is enough", max: 6, machine: "vieux"},
+  {titre: "For a 16 GB computer", sous: "Most recent laptops, MacBook Air and Mac mini", max: 12, machine: "portable"},
+  {titre: "For a 32 GB computer", sous: "A MacBook Pro, an iMac, or a PC with 32 GB", max: 24, machine: "pro"},
+  {titre: "For a 64 GB computer", sous: "A MacBook Pro, a Mac Studio or a PC with 64 GB", max: 48, machine: null},
+  {titre: "For a 128 GB computer", sous: "Like a Mac Studio, or a large workstation", max: 96, machine: "studio"},
+  {titre: "Too big for any computer for now", sous: "They need more than 96 GB of memory", max: Infinity, machine: null},
 ];
 const FILTRES = Object.entries(USAGES).map(([id, u]) => ({id, nom: u.nom, garde: x => x.bon.includes(id)}));
 const iaEtat = {texte: "", filtres: new Set(), ouverts: new Set(), origine: "toutes", tri: "taille"};
@@ -211,7 +231,7 @@ function rendreIA(){
     if (iaEtat.tri === "taille") liste.sort((a, b) => (b.id === pick) - (a.id === pick));
     const tout = cherche || iaEtat.ouverts.has(n), montrees = tout ? liste : liste.slice(0, PAR_GROUPE);
     return `<section class="ia-groupe"><h2>${esc(t(g.titre))}<span class="nb">${liste.length}</span></h2><p>${esc(t(g.sous))}</p>${montrees.map(x => `<div class="ia-ligne">
-      <div><h3>${esc(x.nom)}${x.id === pick ? ` <span class="badge">${esc(t("Suggested"))}</span>` : ""}${LANGUE === "fr" && x.fr ? ` <span class="badge doux" title="${esc(t("Its publisher lists French; not yet tested by us"))}">${esc(t("French listed"))}</span>` : ""}</h3>
+      <div><h3>${esc(x.nom)}${x.id === pick ? ` <span class="badge">${esc(t("Suggested"))}</span>` : ""}${x.pc ? ` <span class="badge doux" title="${esc(t("Offered by the Windows app only, for now"))}">${esc(t("Windows"))}</span>` : ""}${LANGUE === "fr" && x.fr ? ` <span class="badge doux" title="${esc(t("Its publisher lists French; not yet tested by us"))}">${esc(t("French listed"))}</span>` : ""}</h3>
         <p class="qui">${esc(x.editeur)}${x.pays ? " · " + esc(t(x.pays)) : ""}</p><p class="quoi">${esc(Langue.phrase(x))}</p>
         ${x.bon.length ? `<p class="bon">${esc(t("Good at: {x}", {x: x.bon.map(u => t(USAGES[u].nom).toLowerCase()).join(", ")}))}</p>` : ""}
         <p class="taille">${x.sortie ? esc(t("Released {d}", {d: moisAnnee(x.sortie)})) + " · " : ""}${esc(t("{a} download · needs about {b} of memory", {a: go(EST.fichier(x)), b: go(EST.memoire(x))}))}</p></div>
@@ -219,14 +239,14 @@ function rendreIA(){
       ${installable(x) ? `<button type="button" class="lien-btn" data-installer="${x.id}">${esc(t("Get it with the app ›"))}</button>` : `<span class="pas-encore">${esc(t("Not in the app yet"))}</span>`}</div></div>`).join("")}
       ${montrees.length < liste.length ? `<p class="ia-plus"><button type="button" class="lien-btn" data-ouvrir="${n}">${esc(t("Show all {n} ›", {n: liste.length}))}</button></p>` : ""}</section>`;
   }).join("") + (visibles.length ? "" : `<p class="ia-note">${esc(t("No AI matches. Try fewer filters or another word."))}</p>`)
-    + `<p class="ia-note">${esc(t("You don't have to choose: the Merge app suggests the right one for your Mac. Sizes are estimates; each AI's licence will be checked before download opens."))}</p>`;
+    + `<p class="ia-note">${esc(t("You don't have to choose: the Merge app suggests the right one for your computer. Sizes are estimates; each AI's licence will be checked before download opens."))}</p>`;
 }
 const APPAREILS = [
-  {id: "vieux", nom: "8 GB Mac", machine: MACHINES.find(m => m.id === "vieux")},
-  {id: "portable", nom: "16 GB Mac", machine: MACHINES.find(m => m.id === "portable")},
-  {id: "pro", nom: "32 GB Mac", machine: MACHINES.find(m => m.id === "pro")},
-  {id: "m64", nom: "64 GB Mac", machine: {id: "m64", nom: "Mac", memoire: 64, dispo: 48, debit: 200}},
-  {id: "studio", nom: "128 GB Mac", machine: MACHINES.find(m => m.id === "studio")},
+  {id: "vieux", nom: "8 GB computer", machine: MACHINES.find(m => m.id === "vieux")},
+  {id: "portable", nom: "16 GB computer", machine: MACHINES.find(m => m.id === "portable")},
+  {id: "pro", nom: "32 GB computer", machine: MACHINES.find(m => m.id === "pro")},
+  {id: "m64", nom: "64 GB computer", machine: {id: "m64", nom: "Mac", memoire: 64, dispo: 48, debit: 200}},
+  {id: "studio", nom: "128 GB computer", machine: MACHINES.find(m => m.id === "studio")},
 ];
 const icoUsage = u => `<span class="ia-usage" title="${esc(t(USAGES[u].nom))}">${ico(USAGES[u].icone)}${esc(t(USAGES[u].nom))}</span>`;
 let CATALOGUE_DEPOTS = null;
@@ -247,6 +267,7 @@ async function ouvrirFiche(id){
     corps.innerHTML = `<div class="fiche-haut"><div><p class="eti">${esc(x.editeur)}${x.pays ? " · " + esc(t(x.pays)) : ""}</p><h2 id="ia-fiche-titre">${esc(x.nom)}</h2></div>
         <button type="button" class="fiche-fermer" data-fermer aria-label="${esc(t("Close"))}">${ico("x")}</button></div>
       <p class="quoi">${esc(Langue.phrase(x))}</p>
+      ${x.pc ? `<p class="petit">${esc(t("Offered by the Windows app only, for now (one of the 12 AIs added for the wide range of Windows PCs)."))}</p>` : ""}
       ${x.bon.length ? `<p class="ia-usages">${x.bon.map(icoUsage).join("")}</p>` : ""}
       <dl class="fiche-infos">
         ${ligne("Download", esc(go(EST.fichier(x))))}
@@ -259,7 +280,7 @@ async function ouvrirFiche(id){
       </dl>
       <h3>${esc(t("Where it runs"))}</h3>
       <ul class="fiche-appareils">${appareils}</ul>
-      <p class="petit">${esc(t("Speeds are estimates from the AI's size; nothing has been measured on real devices yet."))}</p>
+      <p class="petit">${esc(t("Speeds are estimates from the AI's size, for a Mac; a PC without a graphics card is often slower. Nothing has been measured on real devices yet."))}</p>
       <div class="fiche-bas">${depot ? `<a class="lien-btn" href="https://huggingface.co/${esc(depot)}" target="_blank" rel="noopener">${esc(t("See it on Hugging Face ↗"))}</a>` : "<span></span>"}
         ${installable(x) ? `<button type="button" class="btn" data-installer="${esc(x.id)}">${esc(t("Get it with the app"))}</button>` : `<span class="pas-encore">${esc(t("Not in the app yet"))}</span>`}</div>`;
   };
@@ -291,35 +312,67 @@ let arretProgramme = null;
 function arreterProgramme(){ if (arretProgramme){ arretProgramme(); arretProgramme = null; } }
 const BARRES = {
   mac: `<div class="fen-barre"><span class="feux"><i></i><i></i><i></i></span><span class="titre">Merge</span></div>`,
+  windows: `<div class="fen-barre"><span class="titre">Merge</span></div>`,
 };
 let voulueSite = null;
 function rendreAppli(){
-  const reconnu = detecter().os === "mac", nom = "Mac";
-  $("[data-app-titre]").innerHTML = `${esc(t("Get Merge for your Mac"))}<span class="point">.</span>`;
+  const win = systeme === "windows", reconnu = detecter().os === systeme, nom = win ? "PC" : "Mac";
+  $$("[data-systeme]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.systeme === systeme)));
+  $$("[data-ouvrir]").forEach(x => { x.hidden = x.dataset.ouvrir !== systeme; });
+  $("[data-app-telecharger]").textContent = t(win ? "Download Merge for Windows" : "Download Merge for Mac");
+  $("[data-app-titre]").innerHTML = `${esc(t(win ? "Get Merge for your Windows PC" : "Get Merge for your Mac"))}<span class="point">.</span>`;
   const choisie = modele(voulueSite), n = $("[data-app-choix]");
   n.hidden = !choisie;
-  if (choisie) n.textContent = t("You picked {x}. In the app, after the check, choose it from the list of AIs if it fits your Mac.", {x: choisie.nom});
+  if (choisie) n.textContent = t("You picked {x}. In the app, after the check, choose it from the list of AIs if it fits your computer.", {x: choisie.nom});
   $("[data-app-sous]").textContent = (reconnu ? t("Your {x}, recognized automatically.", {x: detecter().nom}) + " " : "") + t("Get the Merge app: it checks your {nom} and suggests the AI that suits it.", {nom});
-  $("[data-app-etapes]").innerHTML = [
+  $("[data-app-etapes]").innerHTML = (win ? [
+    [t("Download the Merge app"), t("A zip file arrives in your Downloads. Extract it (right-click › Extract All).")],
+    [t("Open Merge.cmd, then click “Check my computer”"), t("The first time, Windows may ask you to confirm (see below). Then Merge checks your PC: its memory, its processor, its graphics card, its free space.")],
+    [t("Say what you'll use it for, then click Install"), t("Merge suggests the best AI your PC can run for what you'll do, tells you the download size, and installs it.")],
+  ] : [
     [t("Download the Merge app"), t("A file arrives in your Downloads. Open it, and drag Merge into Applications.")],
     [t("Open Merge, then click “Check my Mac”"), t("The first time, your Mac asks you to confirm (see below). Then Merge checks your Mac: its memory, its chip, its free space.")],
     [t("Say what you'll use it for, then click Install"), t("Merge suggests the best AI your Mac can run for what you'll do, tells you the download size, and installs it.")],
-  ].map(([titre, x], k) => `<li><span class="num">${k + 1}</span><span><b>${esc(titre)}</b><small>${esc(x)}</small></span></li>`).join("");
+  ]).map(([titre, x], k) => `<li><span class="num">${k + 1}</span><span><b>${esc(titre)}</b><small>${esc(x)}</small></span></li>`).join("");
 }
 function demarrerProgramme(){
   arreterProgramme();
+  if (systeme !== "mac" && systeme !== "windows"){
+    const garde = MEM.lire("systeme");
+    systeme = garde === "mac" || garde === "windows" ? garde : detecter().os === "windows" ? "windows" : "mac";
+  }
   voulueSite = MEM.lire("choix"); MEM.effacer("choix");
   rendreAppli();
-  $("[data-app-note]").textContent = noteTelechargement();
-  $("[data-app-empreinte]").textContent = fichierMac() ? t("To check the file: SHA-256 {e}", {e: TELECHARGEMENT.sha256}) : "";
+  $("[data-app-note]").textContent = noteTelechargement(systeme);
+  $("[data-app-empreinte]").textContent = fichierDe(systeme) ? t("To check the file: SHA-256 {e}", {e: fiche(systeme).sha256}) : "";
   arretProgramme = Programme.lancer($("#programme"), {
-    pont: Programme.pontApercu("mac", detecter().os === "mac" ? detecter() : null), apercu: true, barre: BARRES.mac,
+    pont: Programme.pontApercu(systeme, detecter().os === systeme ? detecter() : null), apercu: true, barre: BARRES[systeme],
     voulue: voulueSite,
     fin: () => `<a class="btn discret" href="#accueil">${esc(t("Back to the website"))}</a><a class="btn" href="../Moteur/index.html">${ico("sparkles")}${esc(t("Open Merge"))}</a>`,
   });
 }
 
+function initMenuTel(){
+  const bouton = $(".menu-tel"), liste = $("#menu-tel");
+  if (!bouton || !liste) return;
+  const fermer = () => { liste.hidden = true; bouton.setAttribute("aria-expanded", "false"); };
+  let survol = 0;
+  bouton.addEventListener("click", () => {
+    if (Date.now() - survol < 800) return;          // déjà ouvert par le passage de la souris : le clic ne le referme pas
+    const ouvrir = liste.hidden;
+    liste.hidden = !ouvrir; bouton.setAttribute("aria-expanded", String(ouvrir));
+    if (ouvrir) liste.querySelector("a")?.focus();
+  });
+  bouton.addEventListener("pointerenter", e => {
+    if (e.pointerType === "mouse" && liste.hidden){ liste.hidden = false; bouton.setAttribute("aria-expanded", "true"); survol = Date.now(); }
+  });
+  $(".barre").addEventListener("pointerleave", e => { if (e.pointerType === "mouse") fermer(); });
+  liste.addEventListener("click", e => { if (e.target.closest("a")) fermer(); });
+  window.addEventListener("hashchange", fermer);
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !liste.hidden){ fermer(); bouton.focus(); } });
+}
+
 habiller();
-initOS(); initIA();
+initOS(); initIA(); initMenuTel();
 window.addEventListener("hashchange", montrer);
 montrer();

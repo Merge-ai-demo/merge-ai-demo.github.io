@@ -8,22 +8,34 @@ if (typeof Langue === "undefined"){
 }
 
 const MODELES = [
+  {pc: true, id: "qwen3-0.6b", nom: "Qwen3 0.6B", famille: "Qwen3", editeur: "Alibaba", pays: "China", total: 0.6, actifs: 0.6, licence: "Apache 2.0", fr: false, sortie: "2025-04", bon: ["mail", "docs", "code", "trad", "raison", "agents"], phrase: "Thinks before it answers, or answers fast; 100+ languages.", plus: true},
   {id: "qwen3.5-0.8b", nom: "Qwen3.5 0.8B", editeur: "Alibaba", pays: "China", total: 0.8, actifs: 0.8, licence: "Apache 2.0", fr: false, sortie: "2026-02", bon: ["docs", "images"], phrase: "Very small and quick: ready in about a minute."},
   {id: "granite-4.0-nano-1b", nom: "Granite 4.0 Nano 1B", editeur: "IBM", pays: "USA", total: 1.5, actifs: 1.5, licence: "Apache 2.0", fr: true, sortie: "2025-10", bon: [], phrase: "IBM's tiny one, made for light devices."},
+  {pc: true, id: "smollm2-1.7b", nom: "SmolLM2 1.7B", famille: "SmolLM2", editeur: "Hugging Face", pays: "USA", total: 1.7, actifs: 1.7, licence: "Apache 2.0", fr: false, sortie: "2024-10", bon: ["mail", "docs"], phrase: "Small model for rewriting, summaries and simple tools.", plus: true},
+  {pc: true, id: "qwen3.5-2b", nom: "Qwen3.5 2B", famille: "Qwen3.5", editeur: "Alibaba", pays: "China", total: 1.9, actifs: 1.9, licence: "Apache 2.0", fr: false, sortie: "2026-02", bon: ["mail", "docs", "code", "trad", "images", "raison", "agents"], phrase: "Sees images, uses tools, thinks; 201 languages.", plus: true},
   {id: "smollm3-3b", nom: "SmolLM3 3B", editeur: "Hugging Face", pays: "USA", total: 3, actifs: 3, licence: "Apache 2.0", fr: true, sortie: "2025-07", bon: ["mail", "docs", "raison"], phrase: "Small, chatty, can think before it answers."},
+  {pc: true, id: "granite-4.2-3b", nom: "Granite 4.2 3B", editeur: "IBM", pays: "USA", total: 3, actifs: 3, licence: "Apache 2.0", fr: true, sortie: "2026-08", bon: ["mail", "docs", "agents"], phrase: "Built for laptops, good with tools."},
   {id: "phi-4-mini", nom: "Phi-4 mini", editeur: "Microsoft", pays: "USA", total: 3.8, actifs: 3.8, licence: "MIT", fr: true, sortie: "2025-02", bon: ["mail", "docs", "trad"], phrase: "Small and multilingual."},
   {id: "ministral-3-3b", nom: "Ministral 3 3B", editeur: "Mistral AI", pays: "France", total: 3.8, actifs: 3.8, licence: "Apache 2.0", fr: true, sortie: "2025-12", bon: ["mail", "docs", "images"], phrase: "The small one from Mistral: emails, letters, documents."},
+  {pc: true, id: "jan-v3.5-4b", nom: "Jan v3.5 4B", editeur: "Menlo Research", pays: "Singapore", total: 4, actifs: 4, licence: "Apache 2.0", fr: false, sortie: "2026-01", bon: ["mail", "raison"], phrase: "Conversation and maths."},
+  {pc: true, id: "qwen3.5-4b", nom: "Qwen3.5 4B", famille: "Qwen3.5", editeur: "Alibaba", pays: "China", total: 4.2, actifs: 4.2, licence: "Apache 2.0", fr: false, sortie: "2026-02", bon: ["mail", "docs", "code", "trad", "images", "raison", "agents"], phrase: "Sees images, uses tools, thinks; 201 languages.", plus: true},
+  {pc: true, id: "gemma-4-e2b", nom: "Gemma 4 E2B", editeur: "Google", pays: "USA", total: 5.1, actifs: 2.3, licence: "Apache 2.0", fr: false, sortie: "2026-04", bon: ["images"], phrase: "Made for small devices; understands images."},
+  {pc: true, id: "granite-4.0-h-tiny", nom: "Granite 4.0 H Tiny", famille: "Granite 4.0", editeur: "IBM", pays: "USA", total: 6.9, actifs: 1.0, licence: "Apache 2.0", fr: true, sortie: "2025-09", bon: ["mail", "docs", "agents", "code"], phrase: "Fast mixture-of-experts model: 7B total, about 1B active.", plus: true},
+  {pc: true, id: "olmo-3-7b", nom: "Olmo 3 7B", editeur: "Ai2", pays: "USA", total: 7, actifs: 7, licence: "Apache 2.0", fr: false, sortie: "2025-11", bon: ["raison"], phrase: "Fully open: even its training data is public."},
+  {id: "granite-4.2-8b", nom: "Granite 4.2 8B", editeur: "IBM", pays: "USA", total: 8, actifs: 8, licence: "Apache 2.0", fr: true, sortie: "2026-08", bon: ["mail", "code", "agents"], phrase: "Multilingual chat, code and multi-step tasks."},
+  {pc: true, id: "gemma-4-e4b", nom: "Gemma 4 E4B", editeur: "Google", pays: "USA", total: 8, actifs: 4.5, licence: "Apache 2.0", fr: false, sortie: "2026-04", bon: ["images"], phrase: "A small Gemma that sees images."},
   {id: "ministral-3-8b", nom: "Ministral 3 8B", editeur: "Mistral AI", pays: "France", total: 8.8, actifs: 8.8, licence: "Apache 2.0", fr: true, sortie: "2025-12", bon: ["mail", "docs", "images", "raison"], phrase: "A solid everyday helper for a 16 GB laptop."},
   {id: "qwen3.5-9b", nom: "Qwen3.5 9B", editeur: "Alibaba", pays: "China", total: 9, actifs: 9, licence: "Apache 2.0", fr: false, sortie: "2026-02", bon: ["docs", "images", "raison"], phrase: "All-rounder that can think before it answers."},
   {id: "gemma-4-12b", nom: "Gemma 4 12B", editeur: "Google", pays: "USA", total: 12, actifs: 12, licence: "Apache 2.0", fr: false, sortie: "2026-06", bon: ["docs", "images", "agents"], phrase: "Made for a 16 GB laptop, says Google."},
-  {id: "granite-4.2-8b", nom: "Granite 4.2 8B", editeur: "IBM", pays: "USA", total: 8, actifs: 8, licence: "Apache 2.0", fr: true, sortie: "2026-08", bon: ["mail", "code", "agents"], phrase: "Multilingual chat, code and multi-step tasks."},
   {id: "phi-4", nom: "Phi-4", editeur: "Microsoft", pays: "USA", total: 14, actifs: 14, licence: "MIT", fr: false, sortie: "2025-01", bon: ["raison"], phrase: "Strong at reasoning and maths."},
+  {pc: true, id: "ministral-3-14b", nom: "Ministral 3 14B", editeur: "Mistral AI", pays: "France", total: 14, actifs: 14, licence: "Apache 2.0", fr: true, sortie: "2025-10", bon: ["mail", "docs", "images", "agents"], phrase: "The big brother: more knowledge, a bit slower."},
+  {pc: true, id: "qwen3-14b", nom: "Qwen3 14B", famille: "Qwen3", editeur: "Alibaba", pays: "China", total: 14.8, actifs: 14.8, licence: "Apache 2.0", fr: false, sortie: "2025-04", bon: ["mail", "docs", "code", "trad", "raison", "agents"], phrase: "Thinks before it answers, or answers fast; 100+ languages.", plus: true},
   {id: "gpt-oss-20b", nom: "gpt-oss 20B", editeur: "OpenAI", pays: "USA", total: 21, actifs: 3.6, licence: "Apache 2.0", fr: false, sortie: "2025-08", bon: ["raison", "agents"], phrase: "OpenAI's open model. Big, but quick on its feet."},
+  {id: "eurollm-22b", nom: "EuroLLM 22B", editeur: "EuroLLM consortium", pays: "EU", total: 22.6, actifs: 22.6, licence: "Apache 2.0", fr: true, sortie: "2025-12", bon: ["trad", "mail"], phrase: "A European AI for translation and conversation."},
   {id: "mistral-small-3.2", nom: "Mistral Small 3.2", editeur: "Mistral AI", pays: "France", total: 24, actifs: 24, licence: "Apache 2.0", fr: true, sortie: "2025-06", bon: ["mail", "docs", "images"], phrase: "A very good assistant from Mistral, for 32 GB computers."},
+  {id: "devstral-small-2", nom: "Devstral Small 2", editeur: "Mistral AI", pays: "France", total: 24, actifs: 24, licence: "Apache 2.0", fr: true, specialiste: "code", sortie: "2025-11", bon: ["code", "agents"], phrase: "Mistral's coding partner."},
   {id: "gemma-4-26b-a4b", nom: "Gemma 4 26B", editeur: "Google", pays: "USA", total: 25, actifs: 3.8, licence: "Apache 2.0", fr: false, sortie: "2026-04", bon: ["docs", "images"], phrase: "Big knowledge, small effort: fast for its size."},
   {id: "qwen3.6-27b", nom: "Qwen3.6 27B", editeur: "Alibaba", pays: "China", total: 27, actifs: 27, licence: "Apache 2.0", fr: false, sortie: "2026-04", bon: ["code", "agents", "docs", "images"], phrase: "Code and documents; can think or answer fast."},
-  {id: "devstral-small-2", nom: "Devstral Small 2", editeur: "Mistral AI", pays: "France", total: 24, actifs: 24, licence: "Apache 2.0", fr: true, specialiste: "code", sortie: "2025-11", bon: ["code", "agents"], phrase: "Mistral's coding partner."},
-  {id: "eurollm-22b", nom: "EuroLLM 22B", editeur: "EuroLLM consortium", pays: "EU", total: 22.6, actifs: 22.6, licence: "Apache 2.0", fr: true, sortie: "2025-12", bon: ["trad", "mail"], phrase: "A European AI for translation and conversation."},
   {id: "gemma-4-31b", nom: "Gemma 4 31B", editeur: "Google", pays: "USA", total: 31, actifs: 31, licence: "Apache 2.0", fr: false, sortie: "2026-04", bon: ["images"], phrase: "The most capable Gemma 4."},
   {id: "gpt-oss-120b", nom: "gpt-oss 120B", editeur: "OpenAI", pays: "USA", total: 117, actifs: 5.1, licence: "Apache 2.0", fr: false, sortie: "2025-08", bon: ["raison", "agents"], phrase: "One of the biggest open AIs. Reasons and uses tools."},
   {id: "mistral-small-4", nom: "Mistral Small 4", editeur: "Mistral AI", pays: "France", total: 119, actifs: 6, licence: "Apache 2.0", fr: true, sortie: "2026-01", bon: ["mail", "docs", "code", "images", "agents"], phrase: "A big Mistral model for 128 GB Macs: code and documents."},
@@ -75,7 +87,8 @@ function savoir(m){
 }
 
 const CONSEILLABLES = ["smollm3-3b", "phi-4-mini", "ministral-3-3b", "ministral-3-8b", "gpt-oss-20b", "mistral-small-3.2",
-  "gemma-4-26b-a4b", "mistral-small-4", "gpt-oss-120b"];
+  "gemma-4-26b-a4b", "mistral-small-4", "gpt-oss-120b",
+  "gemma-4-e2b", "qwen3.5-4b", "granite-4.0-h-tiny", "gemma-4-e4b", "ministral-3-14b"];
 const IA_DE_DEPART = "qwen3.5-0.8b";
 
 const modele = id => MODELES.find(m => m.id === id);
@@ -84,7 +97,8 @@ function choisirLangue(l){ LANGUE = l === "fr" ? "fr" : "en"; }
 choisirLangue(Langue.code);
 const pourLaLangue = m => !m.langue || m.langue === LANGUE;
 const bonusFrancais = m => LANGUE === "fr" && m.fr ? 1 : 0;
-const plusPetite = () => (MODELES.filter(m => installable(m) && pourLaLangue(m)).sort((a, b) => a.total - b.total)[0]) || MODELES[0];
+const pourLeSysteme = (m, machine) => !m.pc || (!!machine && (machine.os === "windows" || machine.os === "linux"));
+const plusPetite = machine => (MODELES.filter(m => installable(m) && pourLaLangue(m) && pourLeSysteme(m, machine)).sort((a, b) => a.total - b.total)[0]) || MODELES[0];
 let INSTALLABLES = Object.keys(TAILLES).length ? new Set(Object.keys(TAILLES)) : null;
 const installable = m => !!m && (!INSTALLABLES || INSTALLABLES.has(m.id));
 function connaitreCatalogue(tailles){
@@ -93,8 +107,8 @@ function connaitreCatalogue(tailles){
   INSTALLABLES = new Set(Object.keys(tailles));
 }
 function conseil(machine){
-  const L = CONSEILLABLES.map(modele).filter(m => installable(m) && pourLaLangue(m)), tiennent = L.filter(m => EST.tient(m, machine));
-  if (!tiennent.length) return (LANGUE === "fr" && modele("luciole-1b")) || plusPetite();
+  const L = CONSEILLABLES.map(modele).filter(m => installable(m) && pourLaLangue(m) && pourLeSysteme(m, machine)), tiennent = L.filter(m => EST.tient(m, machine));
+  if (!tiennent.length) return (LANGUE === "fr" && modele("luciole-1b")) || plusPetite(machine);
   const bons = tiennent.filter(m => vitesse(m, machine).niveau >= 3);
   if (!bons.length) return tiennent.slice().sort((a, b) => EST.jetons(b, machine) - EST.jetons(a, machine))[0];
   return bons.slice().sort((a, b) => savoir(b).niveau - savoir(a).niveau || (bonusFrancais(b) - bonusFrancais(a)) || (b.total - a.total))[0];
@@ -172,7 +186,7 @@ function usagesNonCouverts(machine, besoins){
   return besoinsPour(machine).filter(b => (besoins || []).includes(b.id) && b.tags.length && !ok.some(m => m.bon.includes(b.tags[0])));
 }
 
-const iaPour = machine => MODELES.filter(m => installable(m) && pourLaLangue(m) && (!(machine && machine.telephone) || (m.total <= 9 && !specialisteCode(m))));
+const iaPour = machine => MODELES.filter(m => installable(m) && pourLaLangue(m) && pourLeSysteme(m, machine) && (!(machine && machine.telephone) || (m.total <= 9 && !specialisteCode(m))));
 const vitesseMin = machine => 3;
 
 const BESOINS_TELEPHONE = [
@@ -270,7 +284,7 @@ function capacites(choisi, machine){
 }
 function propositions(machine){
   const reco = conseilPour(machine);
-  const liste = (machine.telephone ? CONSEILLABLES_TELEPHONE : CONSEILLABLES).map(modele).filter(m => installable(m) && pourLaLangue(m));
+  const liste = (machine.telephone ? CONSEILLABLES_TELEPHONE : CONSEILLABLES).map(modele).filter(m => installable(m) && pourLaLangue(m) && pourLeSysteme(m, machine));
   const tiennent = liste.filter(x => EST.tient(x, machine) && x.id !== reco.id);
   const plusLegere = tiennent.filter(x => x.total < reco.total).sort((a, b) => b.total - a.total)[0];
   const plusForte = tiennent.filter(x => x.total > reco.total).sort((a, b) => a.total - b.total)[0];
