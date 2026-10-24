@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="180x180" href="marque/icone-m-180.png">
 <link rel="icon" href="marque/icone-m.svg" type="image/svg+xml">
 <link rel="shortcut icon" href="marque/icone-m.ico">
-<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610222039">
+<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610241619">
 <meta name="theme-color" content="#2C60F4">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -34,13 +34,14 @@
     </div>
 
     <nav class="nav" aria-label="Sections">
-      <button class="nav-lien" data-vue="assistants"><svg><use href="#i-bot"/></svg><span>Assistants</span></button>
+      <button class="nav-lien" data-vue="assistants"><svg><use href="#i-bot"/></svg><span>Ideas</span></button>
     </nav>
 
     <div class="recentes-titre">Recents</div>
     <div class="historique" id="historique"></div>
 
     <div class="cote-bas">
+            <button type="button" class="etat-ia" id="etat-ia" data-ouvre-reglages="modele"><span class="point" id="point-ia" aria-hidden="true"></span><span id="texte-etat-ia" aria-live="polite">Looking for your AI…</span></button>
       <div class="badge-local" id="badge-local"><svg><use href="#i-shield-check"/></svg><span id="promesse">Everything stays on your machine</span></div>
       <button class="ligne-reglages" id="ouvrir-reglages"><svg><use href="#i-settings"/></svg><span>Settings</span></button>
     </div>
@@ -53,6 +54,7 @@
       <button class="icone deplier" id="deplier" title="Expand sidebar" aria-label="Expand sidebar"><svg><use href="#i-panel-left"/></svg></button>
       <div class="titre-conv" id="titre-conv"></div>
       <span class="haut-vide"></span>
+            <button type="button" class="etat-haut" id="etat-haut" hidden data-ouvre-reglages="modele">Looking for your AI…</button>
       <button class="pastille-demo" id="pastille-demo" hidden data-ouvre-reglages="modele">Demo mode</button>
     </header>
 
@@ -60,7 +62,7 @@
       <div class="fil" id="fil">
         <div class="accueil" id="accueil">
           <h1 id="accueil-titre">Hello, what can I do for you?</h1>
-          <p class="accueil-sous" id="accueil-sous">An open AI model running on your own machine. Free, unlimited, and nothing leaves your home unless you turn on Web.</p>
+          <p class="accueil-sous" id="accueil-sous">An AI on your computer. Free, private, no message limits.</p>
         </div>
         <div class="bandeau bandeau-demo" id="bandeau-demo" hidden>
           Demo mode: no AI is connected, answers are examples written in advance.
@@ -77,9 +79,9 @@
           <label class="visuellement-cache" for="texte">Your message</label>
           <textarea id="texte" rows="1" placeholder="Write your request, paste a text, an email…" autocomplete="off"></textarea>
           <div class="saisie-bas">
-            <button type="button" class="pastille-rond" id="bouton-plus" title="Attach a document (PDF, Word, text)" aria-label="Attach a document (PDF, Word, text)"><svg><use href="#i-plus"/></svg></button>
+            <button type="button" class="pastille-rond" id="bouton-plus" title="Attach a document, or search the web" aria-label="Attach a document, or search the web" aria-haspopup="menu"><svg><use href="#i-plus"/></svg></button>
             <button type="button" class="pastille bleue" id="pastille-modele" aria-haspopup="menu"><span class="point" id="point-etat" aria-hidden="true"></span><span id="nom-modele">Looking…</span><svg class="car"><use href="#i-chevron-down"/></svg></button>
-            <button type="button" class="pastille" id="pastille-agent" hidden title="Stop using this assistant"><svg><use href="#i-bot"/></svg><span id="nom-agent"></span><svg class="car"><use href="#i-x"/></svg></button>
+            <button type="button" class="pastille" id="pastille-agent" hidden title="Stop using this idea"><svg><use href="#i-bot"/></svg><span id="nom-agent"></span><svg class="car"><use href="#i-x"/></svg></button>
             <button type="button" class="pastille" id="pastille-reflexion" hidden aria-haspopup="menu"><svg><use href="#i-brain"/></svg><span id="nom-reflexion">Thinking: normal</span><svg class="car"><use href="#i-chevron-down"/></svg></button>
                         <button type="button" class="pastille" id="pastille-web" aria-pressed="false" aria-haspopup="menu" title="Search the web before answering"><svg><use href="#i-globe"/></svg><span id="nom-web">Web</span><svg class="car"><use href="#i-chevron-down"/></svg></button>
             <span class="saisie-vide"></span>
@@ -88,20 +90,22 @@
           </div>
           <input type="file" id="fichier" hidden multiple accept=".pdf,.docx,.txt,.md,.csv,.json,.html,.htm,.xml,.log,text/*,application/pdf">
         </form>
-        <div class="cartes" id="cartes">
-          <button class="carte" data-texte="Write an email to move a meeting to next week, politely."><span class="carte-titre"><svg><use href="#i-pencil"/></svg>Write an email</span><span class="carte-texte">Move a meeting to next week, politely.</span></button>
-          <button class="carte" data-texte="Summarize this text in three points: " data-incomplet="1"><span class="carte-titre"><svg><use href="#i-list-checks"/></svg>Summarize a text</span><span class="carte-texte">Paste a text or attach a file: the three main ideas.</span></button>
-          <button class="carte" data-texte="Explain inflation to me in simple words."><span class="carte-titre"><svg><use href="#i-lightbulb"/></svg>Explain simply</span><span class="carte-texte">What is inflation, in everyday words?</span></button>
-          <button class="carte" data-texte="What can I cook with eggs, tomatoes and rice?"><span class="carte-titre"><svg><use href="#i-sparkles"/></svg>Find an idea</span><span class="carte-texte">What to cook with eggs, tomatoes and rice?</span></button>
+                <div class="cartes" id="cartes">
+          <button class="carte" data-agent="corriger" data-texte="Correct this text and make it clearer, keeping my words: " data-incomplet="1"><span class="carte-titre">Fix my writing</span><span class="carte-texte">Paste your text: spelling, grammar, clearer.</span></button>
+          <button class="carte" data-agent="traducteur" data-texte="Translate this text into Spanish, keeping the tone: " data-incomplet="1"><span class="carte-titre">Translate</span><span class="carte-texte">Into Spanish, French and more, keeping the tone.</span></button>
+          <button class="carte" data-agent="resumer" data-texte="Summarize this document in five key points: " data-incomplet="1"><span class="carte-titre">Sum up a document</span><span class="carte-texte">Attach a PDF or Word file, or paste a text.</span></button>
+          <button class="carte" data-agent="courrier" data-texte="Explain this letter in simple words: what it says, what I must do, and by when. " data-incomplet="1"><span class="carte-titre">Explain a letter</span><span class="carte-texte">What it says, what to do, by when.</span></button>
+          <button class="carte" data-agent="email" data-texte="Write an email to move a meeting to next week, politely."><span class="carte-titre">Write an email</span><span class="carte-texte">Move a meeting to next week, politely.</span></button>
+          <button class="carte" data-texte="How do I remove a coffee stain from a white shirt?"><span class="carte-titre">Ask for advice</span><span class="carte-texte">How do I remove a coffee stain from a white shirt?</span></button>
         </div>
-        <p class="mention" id="mention">Merge works offline and doesn't know recent news. AI can make mistakes: check important information.</p>
+        <p class="mention" id="mention">AI can make mistakes: check important information.</p>
       </div>
     </section>
 
         <section class="vue vue-page" id="vue-assistants" hidden>
       <div class="page">
         <div class="page-haut">
-          <div><h2>Assistants</h2><p class="page-sous">Not sure what to ask an AI? Each assistant is ready for one job, with an example to start from.</p></div>
+          <div><h2>Ideas</h2><p class="page-sous">Not sure what to ask? Pick an idea: each one is ready for one job, with an example to start from.</p></div>
         </div>
         <div class="grille" id="liste-assistants"></div>
       </div>
@@ -121,22 +125,30 @@
     <div class="reglages-deux">
       <nav class="reglages-nav" id="reglages-nav" role="tablist" aria-orientation="vertical" aria-label="Settings sections">
         <button type="button" role="tab" id="onglet-general" aria-controls="rubrique-general" data-rubrique="general"><svg><use href="#i-settings"/></svg><span>General</span></button>
-        <button type="button" role="tab" id="onglet-modele" aria-controls="rubrique-modele" data-rubrique="modele"><svg><use href="#i-cpu"/></svg><span>AI model</span></button>
-        <button type="button" role="tab" id="onglet-reponses" aria-controls="rubrique-reponses" data-rubrique="reponses"><svg><use href="#i-message-square"/></svg><span>Answers</span></button>
-        <button type="button" role="tab" id="onglet-donnees" aria-controls="rubrique-donnees" data-rubrique="donnees"><svg><use href="#i-lock"/></svg><span>Privacy &amp; data</span></button>
+        <button type="button" role="tab" id="onglet-modele" aria-controls="rubrique-modele" data-rubrique="modele"><svg><use href="#i-cpu"/></svg><span>Your AI</span></button>
+        <button type="button" role="tab" class="avance" id="onglet-reponses" aria-controls="rubrique-reponses" data-rubrique="reponses"><svg><use href="#i-message-square"/></svg><span>Answers</span></button>
+        <button type="button" role="tab" id="onglet-donnees" aria-controls="rubrique-donnees" data-rubrique="donnees"><svg><use href="#i-lock"/></svg><span>Privacy</span></button>
       </nav>
 
       <div class="reglages-contenu" id="reglages-contenu">
 
         <section class="rubrique" id="rubrique-general" role="tabpanel" aria-labelledby="onglet-general" tabindex="-1">
       <h3 class="rubrique-titre">General</h3>
-      <p class="aide rubrique-intro">Appearance, and instructions the AI follows in every chat.</p>
+      <p class="aide rubrique-intro">Appearance, text size, and instructions the AI follows in every chat.</p>
       <section class="groupe">
         <h4 id="lab-theme">Appearance</h4>
         <div class="segments" role="radiogroup" aria-labelledby="lab-theme" data-reglage="theme">
           <button type="button" role="radio" data-valeur="auto">Automatic</button>
           <button type="button" role="radio" data-valeur="clair">Light</button>
           <button type="button" role="radio" data-valeur="sombre">Dark</button>
+        </div>
+      </section>
+      <section class="groupe">
+        <h4 id="lab-taille">Text size</h4>
+        <div class="segments" role="radiogroup" aria-labelledby="lab-taille" data-reglage="taille">
+          <button type="button" role="radio" data-valeur="normale">Normal</button>
+          <button type="button" role="radio" data-valeur="grande">Large</button>
+          <button type="button" role="radio" data-valeur="tres-grande">Larger</button>
         </div>
       </section>
       <section class="groupe">
@@ -148,6 +160,11 @@
         </div>
       </section>
       <section class="groupe">
+        <h4>Advanced settings</h4>
+        <label class="interrupteur"><input type="checkbox" id="mode-avance"><span>Show advanced settings (for people who already use AI programs)</span></label>
+        <p class="aide">Adds the technical details: which program runs the AI and exactly what Merge sends to it. Merge works the same either way.</p>
+      </section>
+      <section class="groupe">
         <h4>About Merge</h4>
         <p class="aide" id="version-merge"></p>
         <div class="boutons" id="zone-mises-a-jour" hidden><button type="button" class="bouton-second" id="mises-a-jour"><svg><use href="#i-repeat"/></svg>Check for updates</button></div>
@@ -155,11 +172,11 @@
     </section>
 
         <section class="rubrique" id="rubrique-modele" role="tabpanel" aria-labelledby="onglet-modele" tabindex="-1" hidden>
-      <h3 class="rubrique-titre">AI model</h3>
+      <h3 class="rubrique-titre">Your AI</h3>
       <p class="aide rubrique-intro">Merge doesn't run the AI itself: it connects to the program that runs it on this device.</p>
       <section class="groupe">
         <p class="etat" id="etat-moteur">Looking for an AI program on this machine…</p>
-        <div class="champ">
+                <div class="champ avance">
           <label for="choix-moteur">Program running the AI</label>
           <select id="choix-moteur">
             <option value="auto">Find automatically</option>
@@ -171,21 +188,22 @@
             <option value="demo">Demo mode (no AI)</option>
           </select>
         </div>
-        <div class="champ" id="champ-adresse" hidden>
+        <div class="champ avance" id="champ-adresse" hidden>
           <label for="adresse">Program address</label>
           <input id="adresse" type="text" inputmode="url" placeholder="http://localhost:8080" spellcheck="false">
           <p class="aide">The address of the program running the AI. If it is another computer, your messages are sent there.</p>
         </div>
         <button type="button" class="bouton-second" id="rechercher"><svg><use href="#i-repeat"/></svg>Look again</button>
+        <p class="aide simple-seul">Already use another AI program on <span class="cet-appareil">this computer</span>? Turn on “Show advanced settings” (General) to connect Merge to it.</p>
       </section>
       <section class="groupe" id="groupe-modele">
-        <h4>Model</h4>
+        <h4>AI</h4>
         <div class="champ">
-          <label for="choix-modele">Model used in new chats</label>
+          <label for="choix-modele">AI used in new chats</label>
           <select id="choix-modele"></select>
           <p class="aide" id="modele-capacites"></p>
         </div>
-        <p class="aide">A smaller model answers faster; a bigger one usually answers better. Merge installs its own AI; with Ollama, LM Studio or Jan, models are downloaded in that program.</p>
+        <p class="aide">A smaller AI answers faster; a bigger one usually answers better.<span class="avance"> Merge installs its own AI; with Ollama, LM Studio or Jan, models are downloaded in that program.</span></p>
       </section>
       <section class="groupe" id="groupe-ia-installee" hidden>
         <h4 class="sous-titre">The AI installed on this device</h4>
@@ -197,7 +215,7 @@
 
         <section class="rubrique" id="rubrique-reponses" role="tabpanel" aria-labelledby="onglet-reponses" tabindex="-1" hidden>
       <h3 class="rubrique-titre">Answers</h3>
-      <p class="aide rubrique-intro">How the AI answers. Merge sends these settings with every message. Ollama, LM Studio and llama.cpp document them; Jan doesn't, so it may ignore some. Thinking settings only apply to models that think.</p>
+      <p class="aide rubrique-intro">How the AI answers. Merge sends these settings with every message.<span class="avance"> Ollama, LM Studio and llama.cpp document them; Jan doesn't, so it may ignore some.</span> Thinking settings only apply to AIs that think.</p>
       <section class="groupe">
         <span class="etiquette" id="lab-vitesse">Speed</span>
         <div class="segments" role="radiogroup" aria-labelledby="lab-vitesse" data-reglage="vitesse">
@@ -206,7 +224,7 @@
           <button type="button" role="radio" data-valeur="qualite">Best quality</button>
         </div>
         <p class="note-vitesse" id="note-vitesse"></p>
-        <p class="aide">Speed sets the three settings below at once (you can still change them one by one). The model itself makes the biggest difference: a smaller model answers much faster (see “AI model”).</p>
+        <p class="aide">Speed sets the three settings below at once (you can still change them one by one). The AI itself makes the biggest difference: a smaller AI answers much faster (see “Your AI”).</p>
       </section>
       <section class="groupe">
         <div class="champ">
@@ -248,16 +266,16 @@
           </div>
           <p class="aide">Precise for facts and figures, creative for stories and ideas.</p>
         </div>
-        <label class="interrupteur"><input type="checkbox" id="montrer-reflexion"><span>Show the thinking of models that think before answering</span></label>
+        <label class="interrupteur"><input type="checkbox" id="montrer-reflexion"><span>Show the thinking of AIs that think before answering</span></label>
       </section>
-      <section class="groupe">
+      <section class="groupe avance">
         <h4>Settings Merge sends to the AI</h4>
         <div class="resume-envoi" id="resume-envoi"></div>
       </section>
     </section>
 
         <section class="rubrique" id="rubrique-donnees" role="tabpanel" aria-labelledby="onglet-donnees" tabindex="-1" hidden>
-      <h3 class="rubrique-titre">Privacy &amp; data</h3>
+      <h3 class="rubrique-titre">Privacy</h3>
       <section class="groupe">
         <h4>What leaves this device</h4>
         <p class="aide" id="journal-resume">Nothing recorded yet.</p>
@@ -266,7 +284,11 @@
       </section>
       <section class="groupe">
         <h4>Web search</h4>
-        <p class="aide">Your AI never goes on the internet by itself. When you turn on “Web”, Merge first turns your question into a few search words, sends only those words to the sources you choose in the “Web” menu: Wikipedia, the GDELT news database (recent headlines), PubMed and OpenAlex (scientific articles). It gives the results to your AI, with their links. Your chat and your files stay on this Mac. Each search is listed in the log above.</p>
+        <p class="aide">Your AI never goes on the internet by itself. When you turn on “Web”, Merge first turns your question into a few search words, sends only those words to the sources you choose below:<span id="sources-keenable" hidden> the Keenable search engine (the whole web),</span> Wikipedia, the GDELT news database (recent headlines), PubMed and OpenAlex (scientific articles). It gives the results to your AI, with their links. Your chat and your files stay on <span class="cet-appareil">this Mac</span>. Each search is listed in the log above.</p>
+        <div class="champ">
+          <label for="choix-sources">Sources Merge searches</label>
+          <select id="choix-sources"></select>
+        </div>
         <label class="interrupteur"><input type="checkbox" id="accord-internet"><span>I agree that search words are sent to these sources when “Web” is on</span></label>
       </section>
       <section class="groupe">
@@ -288,8 +310,8 @@
   <form method="dialog" class="fenetre-corps">
     <header class="fenetre-haut"><h2 id="titre-accord">Allow web search?</h2></header>
     <p>To answer with recent information, Merge searches the web for your AI, then gives it the results to read.</p>
-    <p><strong>Only a few search words leave this Mac</strong>: Merge first turns your question into search words, and sends them to <span id="accord-service">Wikipedia</span>. Your chat and your files stay here.</p>
-    <p class="aide">Like any website, these services see the search words and your internet address. You can turn “Web” off at any time, and withdraw this agreement in Settings › Privacy &amp; data.</p>
+    <p><strong>Only a few search words leave <span class="cet-appareil">this Mac</span></strong>: Merge first turns your question into search words, and sends them to <span id="accord-service">Wikipedia</span>. Your chat and your files stay here.</p>
+    <p class="aide">Like any website, these services see the search words and your internet address.<span id="accord-keenable" hidden> Keenable may use the searches it receives to train and improve its products, and this free service can stop at any time (its terms, keenable.ai).</span> You can turn “Web” off at any time, and withdraw this agreement in Settings › Privacy.</p>
     <div class="fenetre-pied"><span class="saisie-vide"></span><button class="bouton-second" value="non">No thanks</button><button class="bouton-plein" value="oui">Allow</button></div>
   </form>
 </dialog>
@@ -363,6 +385,7 @@
   <symbol id="i-cpu" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></symbol>
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" /> <path d="M16 9a5 5 0 0 1 0 6" /> <path d="M19.364 18.364a9 9 0 0 0 0-12.728" /></symbol>
   <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 19v3" /> <path d="M19 10v2a7 7 0 0 1-14 0v-2" /> <rect x="9" y="2" width="6" height="13" rx="3" /></symbol>
 </svg>
 
