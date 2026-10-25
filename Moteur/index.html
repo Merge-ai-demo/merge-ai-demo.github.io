@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="180x180" href="marque/icone-m-180.png">
 <link rel="icon" href="marque/icone-m.svg" type="image/svg+xml">
 <link rel="shortcut icon" href="marque/icone-m.ico">
-<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610241805">
+<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610250330">
 <meta name="theme-color" content="#2C60F4">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -35,6 +35,8 @@
 
     <nav class="nav" aria-label="Sections">
       <button class="nav-lien" data-vue="assistants"><svg><use href="#i-bot"/></svg><span>Ideas</span></button>
+            <button class="nav-lien" data-vue="projets"><svg><use href="#i-folder"/></svg><span>Projects</span></button>
+            <button class="nav-lien" data-vue="archives"><svg><use href="#i-archive"/></svg><span>Archive</span></button>
     </nav>
 
     <div class="recentes-titre">Recents</div>
@@ -81,15 +83,18 @@
           <div class="saisie-bas">
             <button type="button" class="pastille-rond" id="bouton-plus" title="Attach a document (PDF, Word, text)" aria-label="Attach a document (PDF, Word, text)"><svg><use href="#i-plus"/></svg></button>
             <button type="button" class="pastille bleue" id="pastille-modele" aria-haspopup="menu"><span class="point" id="point-etat" aria-hidden="true"></span><span id="nom-modele">Looking…</span><svg class="car"><use href="#i-chevron-down"/></svg></button>
+            <button type="button" class="pastille" id="pastille-projet" hidden><svg><use href="#i-folder"/></svg><span id="nom-projet"></span></button>
             <button type="button" class="pastille" id="pastille-agent" hidden title="Stop using this idea"><svg><use href="#i-bot"/></svg><span id="nom-agent"></span><svg class="car"><use href="#i-x"/></svg></button>
             <button type="button" class="pastille" id="pastille-reflexion" hidden aria-haspopup="menu"><svg><use href="#i-brain"/></svg><span id="nom-reflexion">Thinking: normal</span><svg class="car"><use href="#i-chevron-down"/></svg></button>
                         <button type="button" class="pastille" id="pastille-web" aria-pressed="false" aria-haspopup="menu" title="Search the web before answering"><svg><use href="#i-globe"/></svg><span id="nom-web">Web</span><svg class="car"><use href="#i-chevron-down"/></svg></button>
             <span class="saisie-vide"></span>
+                        <button type="button" class="pastille-rond micro" id="bouton-micro" hidden aria-pressed="false" title="Dictate" aria-label="Dictate"><svg><use href="#i-mic"/></svg></button>
+                        <button type="button" class="pastille-rond parler" id="bouton-parler" hidden title="Talk with the AI" aria-label="Talk with the AI"><svg><use href="#i-audio-lines"/></svg></button>
                         <button type="button" class="envoyer-web" id="envoyer-web" hidden aria-label="Send with a web search" title="Send with a web search"><svg><use href="#i-globe"/></svg></button>
             <button type="submit" class="envoyer" id="envoyer" aria-label="Send" disabled><svg><use href="#i-arrow-up"/></svg></button>
             <button type="button" class="envoyer arreter" id="arreter" aria-label="Stop the answer" hidden><svg><use href="#i-stop"/></svg></button>
           </div>
-          <input type="file" id="fichier" hidden multiple accept=".pdf,.docx,.txt,.md,.csv,.json,.html,.htm,.xml,.log,text/*,application/pdf">
+          <input type="file" id="fichier" hidden multiple accept=".pdf,.docx,.txt,.md,.csv,.json,.html,.htm,.xml,.log,text/*,application/pdf,image/*,.heic">
         </form>
                 <div class="cartes" id="cartes">
           <button class="carte" data-agent="corriger" data-texte="Correct this text and make it clearer, keeping my words: " data-incomplet="1"><span class="carte-titre">Fix my writing</span><span class="carte-texte">Paste your text: spelling, grammar, clearer.</span></button>
@@ -100,6 +105,42 @@
           <button class="carte" data-texte="How do I remove a coffee stain from a white shirt?"><span class="carte-titre">Ask for advice</span><span class="carte-texte">How do I remove a coffee stain from a white shirt?</span></button>
         </div>
         <p class="mention" id="mention">AI can make mistakes: check important information.</p>
+      </div>
+    </section>
+
+        <section class="vue vue-page" id="vue-projets" hidden>
+      <div class="page">
+        <div class="page-haut">
+          <div><h2>Projects</h2><p class="page-sous">A project groups chats with shared instructions and files, for example “House renovation” or “Job search”. The AI reads them in every chat of the project.</p></div>
+          <button class="bouton-plein" id="nouveau-projet"><svg><use href="#i-plus"/></svg>New project</button>
+        </div>
+        <div class="grille" id="liste-projets"></div>
+      </div>
+    </section>
+    <section class="vue vue-page" id="vue-projet" hidden>
+      <div class="page">
+        <div class="page-haut">
+          <div><p class="fil-ariane"><button class="lien-discret" data-vue="projets">Projects</button> /</p><h2 id="projet-titre" tabindex="-1"></h2><p class="page-sous" id="projet-sous"></p></div>
+          <div class="boutons">
+            <button class="bouton-second" id="archiver-projet"><svg><use href="#i-archive"/></svg><span>Archive</span></button>
+            <button class="bouton-second" id="modifier-projet"><svg><use href="#i-pencil"/></svg>Edit</button>
+            <button class="bouton-plein" id="conv-projet"><svg><use href="#i-plus"/></svg>New chat in this project</button>
+          </div>
+        </div>
+        <p class="note-archive" id="projet-archive-note" hidden><svg><use href="#i-archive"/></svg>This project is archived: it is kept, out of your lists. Click Restore to bring it back.</p>
+        <p class="projet-consigne-vue" id="projet-consigne-vue" hidden></p>
+        <div class="projet-colonnes">
+          <div><h3 class="petit-titre">Chats</h3><div class="liste" id="projet-convs"></div></div>
+          <div><h3 class="petit-titre">Files</h3><div class="liste" id="projet-fichiers"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vue vue-page" id="vue-archives" hidden>
+      <div class="page">
+        <div class="page-haut"><div><h2 id="titre-archives" tabindex="-1">Archive</h2><p class="page-sous">Archived projects and chats are kept here, out of your lists: nothing is deleted. Writing in an archived chat brings it back; a chat of an archived project comes back when you restore the project.</p></div></div>
+        <h3 class="petit-titre">Projects</h3><div class="liste" id="archives-projets"></div>
+        <h3 class="petit-titre titre-espace">Chats</h3><div class="liste" id="archives-convs"></div>
       </div>
     </section>
 
@@ -116,6 +157,32 @@
 
 <div class="menu" id="menu" role="menu" hidden></div>
 <div class="visuellement-cache" id="annonce" role="status" aria-live="polite"></div>
+
+<dialog class="fenetre" id="fenetre-projet" aria-labelledby="titre-projet-f">
+  <form class="fenetre-corps" id="form-projet" novalidate>
+    <header class="fenetre-haut"><h2 id="titre-projet-f">Project</h2><button type="button" class="icone" data-fermer aria-label="Close"><svg><use href="#i-x"/></svg></button></header>
+    <div class="groupe">
+      <div class="champ"><label for="projet-nom">Name</label><input id="projet-nom" maxlength="60" placeholder="For example: House renovation"></div>
+      <div class="champ"><label for="projet-description">What it is about (one sentence)</label><input id="projet-description" maxlength="140" placeholder="Quotes, plans and planning for the kitchen."></div>
+      <div class="champ"><label for="projet-consigne">Instructions for every chat in this project</label><textarea id="projet-consigne" rows="4" placeholder="The house is from 1965, the budget is 15,000…"></textarea></div>
+      <div class="champ"><span class="etiquette">Project files</span><div class="liste-pieces" id="projet-pieces"></div><p class="alerte-champ" id="projet-alerte" role="alert" hidden></p><button type="button" class="bouton-second" id="projet-ajouter-fichier"><svg><use href="#i-paperclip"/></svg>Add a document</button><input type="file" id="projet-fichier" hidden multiple accept=".pdf,.docx,.txt,.md,.csv,.json,.html,.htm,.xml,.log,text/*,application/pdf"><p class="aide">PDF, Word or text files. Their text is read on this computer, and the AI reads it in every chat of the project. Keep them short: a small AI can only read a few pages at a time.</p></div>
+    </div>
+    <div class="fenetre-pied">
+      <button type="button" class="bouton-danger" id="projet-supprimer" hidden><svg><use href="#i-trash-2"/></svg>Delete</button>
+      <span class="saisie-vide"></span>
+      <button type="button" class="bouton-second" data-fermer>Cancel</button>
+      <button type="submit" class="bouton-plein">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog class="vocal" id="vocal" aria-label="Talking with the AI" data-etape="pause">
+    <button type="button" class="vocal-bulle" id="vocal-bulle" aria-label="Start talking"><canvas id="vocal-points" width="240" height="240" aria-hidden="true"></canvas></button>
+  <p class="vocal-etat" id="vocal-etat"></p>
+  <p class="vocal-texte" id="vocal-texte"></p>
+  <button type="button" class="bouton-second vocal-fin" id="vocal-fin"><svg><use href="#i-x"/></svg>End</button>
+  <p class="vocal-note" id="vocal-note"></p>
+</dialog>
 
 <dialog class="fenetre" id="reglages" aria-labelledby="titre-reglages">
   <form method="dialog" class="fenetre-corps" novalidate>
@@ -151,6 +218,17 @@
           <button type="button" role="radio" data-valeur="grande">Large</button>
           <button type="button" role="radio" data-valeur="tres-grande">Larger</button>
         </div>
+      </section>
+            <section class="groupe" id="groupe-voix" hidden>
+        <h4 id="lab-voix">Voice</h4>
+        <select id="choix-voix" aria-labelledby="lab-voix"></select>
+        <div class="segments" role="radiogroup" aria-label="Voice speed" data-reglage="vitesseVoix">
+          <button type="button" role="radio" data-valeur="lente">Slower</button>
+          <button type="button" role="radio" data-valeur="normale">Normal</button>
+          <button type="button" role="radio" data-valeur="rapide">Faster</button>
+        </div>
+        <div class="boutons"><button type="button" class="bouton-second" id="essai-voix"><svg><use href="#i-volume"/></svg>Try this voice</button></div>
+        <p class="aide" id="aide-voix"></p>
       </section>
       <section class="groupe">
         <h4>Standing instructions</h4>
@@ -209,6 +287,7 @@
       <section class="groupe" id="groupe-ia-installee" hidden>
         <h4 class="sous-titre">The AI installed on this device</h4>
         <p class="etat" id="ia-installee-texte" aria-live="polite"></p>
+        <div id="ia-autres" class="ia-autres" hidden></div>
         <div class="boutons"><button type="button" class="bouton-danger" id="ia-supprimer">Delete this AI</button><button type="button" class="bouton-second" id="ia-installer">Install another AI</button></div>
         <p class="aide">Deleting frees the space it takes. Your chats are kept.</p>
       </section>
@@ -285,8 +364,8 @@
       </section>
       <section class="groupe">
         <h4>Web search</h4>
-        <p class="aide">Your AI never goes on the internet by itself. When you turn on “Web”, Merge first turns your question into a few search words, sends only those words to the sources you choose below:<span id="sources-keenable" hidden> the Keenable search engine (the whole web),</span> Wikipedia, the GDELT news database (recent headlines), PubMed and OpenAlex (scientific articles). It gives the results to your AI, with their links. Your chat and your files stay on <span class="cet-appareil">this Mac</span>. Each search is listed in the log above.</p>
-        <div class="champ">
+        <p class="aide">Your AI never goes on the internet by itself. When you turn on “Web”, Merge first turns your question into a few search words, sends only those words to<span id="sources-keenable" hidden> the Keenable search engine (the whole web), and to Wikipedia if Keenable doesn't answer.</span><span id="sources-officielles"> the sources you choose below: Wikipedia, the GDELT news database (recent headlines), PubMed and OpenAlex (scientific articles).</span> It gives the results to your AI, with their links. Your chat and your files stay on <span class="cet-appareil">this Mac</span>. Each search is listed in the log above.</p>
+        <div class="champ" id="champ-sources">
           <label for="choix-sources">Sources Merge searches</label>
           <select id="choix-sources"></select>
         </div>
@@ -387,6 +466,10 @@
   <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <path d="M12 6v6l4 2" /></symbol>
   <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" /></symbol>
   <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" /> <path d="M16 9a5 5 0 0 1 0 6" /> <path d="M19.364 18.364a9 9 0 0 0 0-12.728" /></symbol>
+  <symbol id="i-archive" viewBox="0 0 24 24"><rect width="20" height="5" x="2" y="3" rx="1" /> <path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8" /> <path d="M10 12h4" /></symbol>
+  <symbol id="i-archive-restore" viewBox="0 0 24 24"><rect width="20" height="5" x="2" y="3" rx="1" /> <path d="M4 8v11a2 2 0 0 0 2 2h2" /> <path d="M20 8v11a2 2 0 0 1-2 2h-2" /> <path d="m9 15 3-3 3 3" /> <path d="M12 12v9" /></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z" /></symbol>
+  <symbol id="i-audio-lines" viewBox="0 0 24 24"><path d="M2 10v3"/><path d="M6 6v11"/><path d="M10 3v18"/><path d="M14 8v7"/><path d="M18 5v13"/><path d="M22 10v3"/></symbol>
   <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 19v3" /> <path d="M19 10v2a7 7 0 0 1-14 0v-2" /> <rect x="9" y="2" width="6" height="13" rx="3" /></symbol>
 </svg>
 

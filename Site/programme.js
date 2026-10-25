@@ -42,10 +42,6 @@ const Programme = (() => {
 
     const langues = () => Langue.codes.length < 2 ? "" : `<p class="p-langues" role="group" aria-label="${esc(t("Language"))}">${Langue.codes.map(c => c === Langue.code
       ? `<span lang="${c}" aria-current="true">${esc(Langue.noms[c])}</span>` : `<button type="button" class="lien-btn" lang="${c}" data-langue="${c}">${esc(Langue.noms[c])}</button>`).join(" · ")}</p>`;
-    const bienvenue = () => ecran(`<div class="bienvenue"><span class="app">${pieuvre()}</span><h2 id="install-titre">${esc(t("Welcome to Merge"))}</h2>
-      <p>${esc(t("First, let's look at your {nom} to find the AI that suits it.", {nom: nom()}))}</p>
-      <button type="button" class="btn" id="p-verifier">${ico("search")}${esc(t(tel() ? "Check my phone" : machine && machine.os === "mac" ? "Check my Mac" : "Check my computer"))}</button><small>${esc(t("Takes a few seconds. Nothing is sent anywhere."))}</small>${langues()}</div>`, undefined, () => bienvenue());
-
     const lignes = () => {
       const L = [[t("Memory"), go(machine.memoire)]];
       if (tel()) L.unshift([t("Phone"), Langue.nomAppareil(diag.appareil || machine.nom)]);
@@ -54,29 +50,34 @@ const Programme = (() => {
         L.push([t(machine.os === "mac" ? "Chip" : "Processor"), diag.puce || "—"]);
       }
       if (diag.libre != null) L.push([t("Free space"), go(diag.libre)]);
-      if (!tel()) L.push([t("Graphics"), diag.graphique || t(machine.os === "mac" ? "Built into the chip" : "Built into the processor")]);
       return L;
     };
-    const examen = () => {
+    const carte = b => `<button type="button" class="besoin" aria-pressed="${besoins.includes(b.id)}" data-besoin="${b.id}">${ico(b.icone)}<span><b>${esc(t(b.nom))}</b><small>${esc(t(b.detail))}</small></span></button>`;
+    const usages = () => besoinsPour(machine).filter(b => !b.groupe && (!b.voix || machine.os === "mac" || machine.os === "windows"));
+    const aLire = () => besoinsPour(machine).filter(b => b.groupe === "lire" && (!b.photos || photosPossibles(machine)));
+    let examine = false;
+    const accueil = () => {
       const L = lignes();
-      ecran(`${entete(esc(t(tel() ? "Checking your phone…" : machine && machine.os === "mac" ? "Checking your Mac…" : "Checking your computer…")), esc(t("This takes a few seconds")))}<ul class="verif">${L.map(([l, v], k) => `<li data-k="${k}"><span class="rond"></span><b>${esc(l)}</b><span class="val">${esc(v)}</span></li>`).join("")}</ul>`, exemple());
+      ecran(`<div class="entete accueil-entete"><span class="app">${pieuvre()}</span><div><h2 id="install-titre" tabindex="-1" data-focus>${esc(t("Let's set up your free AI"))}</h2>
+          <p>${esc(t(tel() ? "Merge has looked at your phone. Nothing was sent anywhere." : machine.os === "mac" ? "Merge has looked at your Mac. Nothing was sent anywhere." : "Merge has looked at your computer. Nothing was sent anywhere."))}</p></div></div>
+        <ul class="verif compacte" aria-label="${esc(t("What Merge looked at"))}">${L.map(([l, v], k) => `<li data-k="${k}" class="${examine ? "fait" : ""}"><span class="rond">${examine ? ico("check") : ""}</span><b>${esc(l)}</b><span class="val">${esc(v)}</span></li>`).join("")}</ul>
+        <p class="q-titre">${esc(t("What will you use it for?"))} <small>${esc(t("Pick any, or none: Merge suggests the AI that suits you."))}</small></p>
+        <div class="besoins" role="group" aria-label="${esc(t("What you will use Merge for"))}">${usages().map(carte).join("")}</div>
+        ${aLire().length ? `<p class="q-titre">${esc(t("Will you give it things to read?"))}</p><div class="besoins" role="group" aria-label="${esc(t("What you will give it to read"))}">${aLire().map(carte).join("")}</div>` : ""}
+        <div class="fen-btns"><button type="button" class="btn" id="p-suite">${esc(t("Continue"))}</button></div>${langues()}`, exemple(), () => accueil());
+      if (examine) return;
+      examine = true;
       L.forEach((x, k) => {
-        plus(setTimeout(() => { const li = zone.querySelector(`[data-k="${k}"]`); if (li) li.classList.add("encours"); }, k * 650 * vite));
-        plus(setTimeout(() => { const li = zone.querySelector(`[data-k="${k}"]`); if (!li) return; li.classList.remove("encours"); li.classList.add("fait"); li.querySelector(".rond").innerHTML = ico("check"); }, (k * 650 + 600) * vite));
+        plus(setTimeout(() => { const li = zone.querySelector(`[data-k="${k}"]`); if (li) li.classList.add("encours"); }, k * 260 * vite));
+        plus(setTimeout(() => { const li = zone.querySelector(`[data-k="${k}"]`); if (!li) return; li.classList.remove("encours"); li.classList.add("fait"); li.querySelector(".rond").innerHTML = ico("check"); }, (k * 260 + 240) * vite));
       });
-      plus(setTimeout(() => dejaRepondu ? suite(true) : questions(), (L.length * 650 + 500) * vite));
     };
-
-    const questions = () => ecran(`<h2 class="res-titre" id="install-titre" tabindex="-1" data-focus>${esc(t("What will you use Merge for?"))}</h2>
-      <p class="q-sous">${esc(t("Your {nom} is checked. Pick one or more: Merge will suggest the AI that suits you best.", {nom: nom()}))}</p>
-      <div class="besoins" role="group" aria-label="${esc(t("What you will use Merge for"))}">${besoinsPour(machine).map(b => `<button type="button" class="besoin" aria-pressed="${besoins.includes(b.id)}" data-besoin="${b.id}">${ico(b.icone)}<span><b>${esc(t(b.nom))}</b><small>${esc(t(b.detail))}</small></span></button>`).join("")}</div>
-      <div class="fen-btns"><button type="button" class="btn discret" id="p-passer">${esc(t("Skip"))}</button><button type="button" class="btn" id="p-suite">${esc(t("Continue"))}</button></div>`, exemple(), () => questions());
-
+    const questions = () => accueil();
     const suite = () => resultat();
 
     const decimales = v => Object.fromEntries(Object.entries(v).map(([k, x]) => [k, typeof Langue === "object" && Langue.code === "fr" ? String(x).replace(/(\d)\.(\d)/g, "$1,$2") : x]));
     let choisie = null, wifiSeulement = true, prefs = {origine: "toutes", priorite: "equilibre", relues: false};
-    const noter = e => { if (o.apercu) return; const x = {lieu: "internet", hote: "huggingface.co", ...e};
+    const noter = e => { if (o.apercu || (diag && diag.essai)) return; const x = {lieu: "internet", hote: "huggingface.co", ...e};
       if (window.MergeJournal) return window.MergeJournal.ajouter(x);
       try { const l = JSON.parse(localStorage.getItem("merge.journal") || "[]"); l.push({quand: Date.now(), ...x}); localStorage.setItem("merge.journal", JSON.stringify(l.slice(-300))); } catch (_) {} };
     const resultat = () => {
@@ -101,11 +102,10 @@ const Programme = (() => {
       if (voulue && ok(voulue) && !liste.includes(voulue)) liste.splice(1, 0, voulue);
       if (choisie && !liste.includes(choisie)) liste.push(choisie);
       if (!choisie) choisie = voulue && ok(voulue) ? voulue : reco;
-      const c = capacites(reco, machine);
       const B = [...besoinsPour(machine), ...METIERS], metier = metierDe(besoins);
       const nomsBesoins = B.filter(b => besoins.includes(b.id) && !(metier && b.id === "travail") && b.id !== "autre").map(b => t(b.nom).toLowerCase());
       const pour = x => [...new Set([...(metier && x.specialiste && [metier.specialiste, metier.aussi].includes(x.specialiste) ? [t(metier.nom)] : []),
-        ...besoinsPour(machine).filter(b => b.id !== "travail" && besoins.includes(b.id) && b.tags.length && x.bon.includes(b.tags[0])
+        ...besoinsPour(machine).filter(b => b.id !== "travail" && besoins.includes(b.id) && b.tags.length && (b.photos ? voitImages(x) : x.bon.includes(b.tags[0]))
           && (!b.specialiste || x.specialiste === b.specialiste)).map(b => t(b.nom))])];
       const li = (texte, lent) => `<li class="${lent ? "lent" : ""}">${ico(lent ? "clock" : "check")}<span>${lent ? esc(t("Slower: {x}", {x: texte.charAt(0).toLowerCase() + texte.slice(1)})) : esc(texte)}</span></li>`;
       const option = x => {
@@ -116,36 +116,46 @@ const Programme = (() => {
       };
       const toutes = iaPour(machine).filter(ok).slice().sort((a, b) => a.total - b.total);
       const manque = usagesNonCouverts(machine, besoins).map(b => t(b.nom).toLowerCase());
-      ecran(`<h2 class="res-titre" id="install-titre" tabindex="-1" data-focus>${esc(c.titre)}</h2>
+      const cc = capacites(choisie, machine, photosVoulues(), voixVoulue());
+      const v = vitesse(choisie, machine), sv = savoir(choisie), pc = pour(choisie);
+      const autresOuvert = choisie !== reco || prefs.origine !== "toutes" || prefs.priorite !== "equilibre" || prefs.relues;
+      ecran(`<h2 class="res-titre" id="install-titre" tabindex="-1" data-focus>${esc(capacites(reco, machine, photosVoulues(), voixVoulue()).titre)}</h2>
         ${nomsBesoins.length ? `<p class="q-sous">${esc(t("Chosen for {x}.", {x: liste_(nomsBesoins)}))} <button type="button" class="lien-btn" id="p-retour">${esc(t("Change my answers"))}</button></p>`
           : `<p class="q-sous"><button type="button" class="lien-btn" id="p-retour">${esc(t("Tell Merge what you'll use it for"))}</button> ${esc(t("to get a better match."))}</p>`}
         ${manque.length ? `<p class="alerte">${ico("alert")}<span>${esc(t("This {nom} is a little small for {x}: the AIs below can only help a little with it.", {nom: nom(), x: liste_(manque)}))}</span></p>` : ""}
         ${liste.some(y => y.specialiste === "sante") ? `<p class="alerte">${ico("alert")}<span>${esc(t("AIs trained on medical texts can still be wrong. Use them to help you think, never in place of your own judgement."))}</span></p>` : ""}
         ${B.filter(b => besoins.includes(b.id) && b.specialiste && !liste.some(y => y.specialiste === b.specialiste)).slice(0, 1).map(b => `<p class="q-sous">${esc(t(!MODELES.some(m => installable(m) && m.specialiste === b.specialiste) ? (b.specialiste === "sante" ? "Merge has no AI made for {x} yet: here are the best all-round ones. They can be wrong on health questions." : "Merge has no AI made for {x} yet: here are the best all-round ones.") : b.specialiste === "sante" ? "No AI made for {x} fits this {nom} yet: here are the best all-round ones. They can be wrong on health questions." : "No AI made for {x} fits this {nom} yet: here are the best all-round ones.", {x: t(b.nom).toLowerCase(), nom: nom()}))}</p>`).join("")}
-        <ul class="peut">${c.peut.map(t => li(t)).join("")}${c.lent.map(t => li(t, true)).join("")}</ul>
-        <details class="prefs"${prefs.origine !== "toutes" || prefs.priorite !== "equilibre" || prefs.relues ? " open" : ""}><summary>${esc(t("Preferences"))}</summary>
-          <label>${esc(t("Made in"))} <select id="p-origine">${Object.entries(ORIGINES).map(([k, v]) => `<option value="${k}"${prefs.origine === k ? " selected" : ""}>${esc(t(v.nom))}</option>`).join("")}</select></label>
-          <label>${esc(t("What matters most"))} <select id="p-priorite">${Object.entries(PRIORITES).map(([k, v]) => `<option value="${k}"${prefs.priorite === k ? " selected" : ""}>${esc(t(v))}</option>`).join("")}</select></label>
-          <small>${esc(t("Every AI runs on this {nom} and keeps nothing elsewhere, wherever it comes from.", {nom: nom()}))}</small>
-          ${horsPrefs ? `<p class="alerte">${ico("alert")}<span>${esc(t("No AI fits these preferences on this {nom}: here is Merge's usual choice.", {nom: nom()}))}</span></p>` : ""}
-        </details>
-        <p class="choix-titre">${esc(t("Choose your AI"))}</p><fieldset class="choix-ia"><legend class="cache-ecran">${esc(t("Choose your AI"))}</legend>${liste.map(option).join("")}</fieldset>
-        <label class="voir-tout"><span>${esc(t("Or pick any of the {n} AIs for this {nom}:", {n: toutes.length, nom: nom()}))}</span>
-          <select id="p-toutes"><option value="">${esc(t("All AIs, smallest first…"))}</option>${[[t("Fit this {nom}", {nom: nom()}), toutes.filter(x => EST.tient(x, machine))], [t("Too big for this {nom}", {nom: nom()}), toutes.filter(x => !EST.tient(x, machine))]]
-            .filter(([, l]) => l.length).map(([groupe, l]) => `<optgroup label="${esc(groupe)}">${l.map(x => `<option value="${esc(x.id)}">${esc(x.nom)} · ${esc(x.editeur)} · ${go(taille(x))}</option>`).join("")}</optgroup>`).join("")}</select></label>
+        <div class="carte-ia"><p class="carte-nom"><b>${esc(choisie.nom)}</b>${choisie === reco ? ` <span class="badge">${esc(t("Recommended"))}</span>` : ""}</p>
+          <p class="quoi">${esc(Langue.phrase(choisie))}</p>${pc.length ? `<p class="pour">${esc(t("Good for: {x}", {x: pc.join(", ")}))}</p>` : ""}
+          <p class="infos">${esc(v.mot)} · ${esc(sv.mot)} · ${go(taille(choisie) + (photosVoulues() && voitImages(choisie) ? tailleImages(choisie) : 0))}</p>
+          <ul class="peut">${cc.peut.map(t => li(t)).join("")}${cc.lent.map(t => li(t, true)).join("")}</ul></div>
         <div id="p-alerte"></div>
-        ${tel() ? "" : `<div class="dossier"><span>${ico("folder")}${esc(t("Put it in"))}</span><select id="p-dossier" aria-label="${esc(t("Where to put the AI"))}">${emplacements.map(d => `<option value="${esc(d.chemin)}"${d.chemin === choixDossier ? " selected" : ""}>${esc(t(d.nom))}</option>`).join("")}<option value="__autre">${esc(t("Choose another folder…"))}</option></select></div>`}
-        <p class="place" id="p-place"></p>
-        ${tel() ? `<label class="wifi"><input type="checkbox" id="p-wifi"${wifiSeulement ? " checked" : ""}><span>${esc(t("Download only on Wi-Fi (Merge waits for Wi-Fi, so your mobile data is not used)"))}</span></label>` : ""}
-        <div class="fen-btns"><button type="button" class="btn discret" id="p-annuler">${esc(t("Cancel"))}</button><button type="button" class="btn" id="p-installer">${esc(t("Install"))}</button></div>`,
+        ${voixVoulue() ? voixDispo() : ""}
+        <div class="rassure"><p class="rassure-titre">${ico("shield-check")}${esc(t("What happens when you click Install"))}</p><ol id="p-ce-qui-se-passe"></ol></div>
+        <div class="fen-btns"><button type="button" class="btn discret" id="p-annuler">${esc(t("Cancel"))}</button><button type="button" class="btn" id="p-installer">${esc(t("Install"))}</button></div>
+        <details class="autres"${autresOuvert ? " open" : ""}><summary>${esc(t("Other choices"))}</summary>
+          <p class="choix-titre">${esc(t("Choose your AI"))}</p><fieldset class="choix-ia"><legend class="cache-ecran">${esc(t("Choose your AI"))}</legend>${liste.map(option).join("")}</fieldset>
+          <label class="voir-tout"><span>${esc(t("Or pick any of the {n} AIs for this {nom}:", {n: toutes.length, nom: nom()}))}</span>
+            <select id="p-toutes"><option value="">${esc(t("All AIs, smallest first…"))}</option>${[[t("Fit this {nom}", {nom: nom()}), toutes.filter(x => EST.tient(x, machine))], [t("Too big for this {nom}", {nom: nom()}), toutes.filter(x => !EST.tient(x, machine))]]
+              .filter(([, l]) => l.length).map(([groupe, l]) => `<optgroup label="${esc(groupe)}">${l.map(x => `<option value="${esc(x.id)}">${esc(x.nom)} · ${esc(x.editeur)} · ${go(taille(x))}</option>`).join("")}</optgroup>`).join("")}</select></label>
+          <div class="prefs">
+            <label>${esc(t("Made in"))} <select id="p-origine">${Object.entries(ORIGINES).map(([k, v]) => `<option value="${k}"${prefs.origine === k ? " selected" : ""}>${esc(t(v.nom))}</option>`).join("")}</select></label>
+            <label>${esc(t("What matters most"))} <select id="p-priorite">${Object.entries(PRIORITES).map(([k, v]) => `<option value="${k}"${prefs.priorite === k ? " selected" : ""}>${esc(t(v))}</option>`).join("")}</select></label>
+            <small>${esc(t("Every AI runs on this {nom} and keeps nothing elsewhere, wherever it comes from.", {nom: nom()}))}</small>
+            ${horsPrefs ? `<p class="alerte">${ico("alert")}<span>${esc(t("No AI fits these preferences on this {nom}: here is Merge's usual choice.", {nom: nom()}))}</span></p>` : ""}
+          </div>
+          ${tel() ? "" : `<div class="dossier"><span>${ico("folder")}${esc(t("Put it in"))}</span><select id="p-dossier" aria-label="${esc(t("Where to put the AI"))}">${emplacements.map(d => `<option value="${esc(d.chemin)}"${d.chemin === choixDossier ? " selected" : ""}>${esc(t(d.nom))}</option>`).join("")}<option value="__autre">${esc(t("Choose another folder…"))}</option></select></div>`}
+          ${tel() ? `<label class="wifi"><input type="checkbox" id="p-wifi"${wifiSeulement ? " checked" : ""}><span>${esc(t("Download only on Wi-Fi (Merge waits for Wi-Fi, so your mobile data is not used)"))}</span></label>` : ""}
+        </details>`,
         o.apercu ? t("Preview: example {m} {nom}. Speeds are estimates. Nothing is downloaded.", {m: go(machine.memoire), nom: machine.nom}) : undefined, () => resultat());
       majChoix();
-      zone.querySelector(".choix-ia").addEventListener("change", () => { choisie = modele(zone.querySelector("input[name=ia]:checked").value); majChoix(); });
+      zone.querySelector(".choix-ia").addEventListener("change", () => { choisie = modele(zone.querySelector("input[name=ia]:checked").value); resultat(); });
       $p("#p-toutes").addEventListener("change", e => { const x = modele(e.target.value); if (!x) return; choisie = x; resultat(); });
       const w = $p("#p-wifi"); if (w) w.addEventListener("change", e => { wifiSeulement = e.target.checked; });
       $p("#p-origine").addEventListener("change", e => { prefs.origine = e.target.value; choisie = null; resultat(); });
       $p("#p-priorite").addEventListener("change", e => { prefs.priorite = e.target.value; choisie = null; resultat(); });
-      zone.querySelector("#p-alerte").addEventListener("click", e => { const b = e.target.closest("#p-plus-petite"); if (!b) return; const y = modele(b.dataset.ia); if (y){ choisie = y; resultat(); } });
+      zone.querySelector("#p-alerte").addEventListener("click", e => { const b = e.target.closest("#p-plus-petite, #p-reco"); if (!b) return; const y = modele(b.dataset.ia); if (y){ choisie = y; resultat(); } });
+      zone.querySelector("#p-alerte").addEventListener("change", e => { if (e.target.id === "p-compris"){ compris = e.target.checked ? choisie.id : null; majChoix(); } });
       const sel = $p("#p-dossier");
       if (sel) sel.addEventListener("change", async e => {
         if (e.target.value !== "__autre"){ choixDossier = e.target.value; majChoix(); return; }
@@ -155,41 +165,75 @@ const Programme = (() => {
       });
     };
     const $p = s => zone.querySelector(s);
+    const voixDispo = () => {
+      const mac = machine.os === "mac";
+      const lignes = [
+        [t("Standard voice"), t(mac ? "Comes with your Mac: nothing to download, very light. Merge starts with it." : "Comes with Windows: nothing to download, very light. Merge starts with it.")],
+        [t(mac ? "More natural voice" : "More voices"), t(mac ? "An Apple “Enhanced” or “Premium” voice, free. You download it in System Settings › Accessibility › Spoken Content (Read & Speak on recent macOS) › System voice › Manage Voices, then choose it in Merge. It sounds more human and uses a little more power." : "Merge uses the voices installed on this PC that work offline. Windows comes with a few; how natural they sound depends on your Windows.")],
+        [t("AI voices, even more natural"), t("Coming in an update. They will need a download of a few hundred MB, and more memory and battery.")],
+      ];
+      return `<div class="voix-choix"><p class="rassure-titre">${ico("mic")}${esc(t("Your AI's voice"))}</p><ul>${lignes.map(([a, b]) => `<li><b>${esc(a)}</b> ${esc(b)}</li>`).join("")}</ul>
+        <small>${esc(t("Talking uses your {nom}'s own dictation and voice: nothing to download, much less memory than the AI, and your voice stays on your {nom}.", {nom: nom()}))}${vitesse(choisie, machine).niveau < 4 ? " " + esc(t("For talking, a faster AI answers sooner: see Other choices.")) : ""}</small></div>`;
+    };
+    const photosVoulues = () => besoins.includes("photos") && photosPossibles(machine);
+    const voixVoulue = () => besoins.includes("voix") && !tel() && (machine.os === "mac" || machine.os === "windows");
     const depart = () => modele(IA_DE_DEPART);
     const avecDepart = x => !tel() && x.id !== IA_DE_DEPART && x.total > depart().total && installable(depart());
     const dossierChoisi = () => emplacements.find(d => d.chemin === choixDossier) || emplacements[0];
+    let compris = null;
     function majChoix(){
-      const x = choisie, place = taille(x) + (avecDepart(x) ? taille(depart()) : 0) + 1, d = dossierChoisi();
+      const x = choisie, img = photosVoulues() && voitImages(x) ? tailleImages(x) : 0;
+      const dl = taille(x) + img + (avecDepart(x) ? taille(depart()) : 0), place = dl + 1, d = dossierChoisi();
       const libre = d ? d.libre : diag.libre, manque = libre != null && libre < place;
-      const dl = taille(x) + (avecDepart(x) ? taille(depart()) : 0);
-      $p("#p-place").textContent = [
-        avecDepart(x) ? t("Download: {dl} ({a} for a small AI to start with, then {b}).", {dl: go(dl), a: go(taille(depart())), b: go(taille(x))}) : t("Download: {dl}, in one go.", {dl: go(dl)}),
-        libre == null ? t("Needs about {p} of free space.", {p: go(place)})
-          : tel() ? t("Needs about {p} of free space; {l} free on this {nom}.", {p: go(place), l: go(libre), nom: nom()}) : t("Needs about {p} of free space; {l} free there.", {p: go(place), l: go(libre)}),
-        t("If the connection drops, nothing is lost: click Try again to pick up where it stopped.")].join(" ");
+      const ou = tel() ? t("inside the Merge app") : d ? t(d.nom).replace(/\s*\((Merge folder|dossier Merge|carpeta de Merge)\)$/i, "") : t("Merge's folder");
+      const etapes = [
+        (avecDepart(x) ? t("Download {x} ({s}) from Hugging Face, the website where AI makers share their AIs. A small AI ({a}) comes first, so you can start chatting in a minute or two.", {x: x.nom, s: go(taille(x) + img), a: go(taille(depart()))})
+          : t("Download {x} ({s}) from Hugging Face, the website where AI makers share their AIs.", {x: x.nom, s: go(taille(x) + img)}))
+          + ((machine.os === "windows" || machine.os === "linux") && !(diag && diag.moteur) ? " " + t("Also the small program that runs it (about 30 MB), from GitHub, where its makers publish it.") : ""),
+        machine.os === "windows" ? t("Save it in one folder ({ou}) and add a Merge shortcut to your desktop and Start menu. Your files, settings and other apps are not touched.", {ou})
+          : machine.os === "linux" ? t("Save it in one folder ({ou}) and add Merge to your apps menu. Your files, settings and other apps are not touched.", {ou})
+          : t("Save it in one folder ({ou}). Your files, settings and other apps are not touched.", {ou}),
+        t("Open the chat. From then on, your AI works on this {nom}, even without internet. You can delete it at any time in Settings › Your AI.", {nom: nom()}),
+      ];
+      const ol = $p("#p-ce-qui-se-passe");
+      if (ol) ol.innerHTML = etapes.map(e => `<li>${esc(e)}</li>`).join("")
+        + `<li class="petit">${esc([libre == null ? t("Needs about {p} of free space.", {p: go(place)}) : tel() ? t("Needs about {p} of free space; {l} free on this {nom}.", {p: go(place), l: go(libre), nom: nom()}) : t("Needs about {p} of free space; {l} free there.", {p: go(place), l: go(libre)}),
+          t("Files already on this {nom} are not downloaded again.", {nom: nom()}), t("If the connection drops, nothing is lost: click Try again to pick up where it stopped.")].join(" "))}</li>`;
       const tientDisque = y => taille(y) + (avecDepart(y) ? taille(depart()) : 0) + 1 <= libre;
       const autre = manque ? [...(besoins.length ? conseilsPour(machine, besoins) : propositions(machine).liste),
         ...iaPour(machine).filter(y => !y.specialiste && !y.plus && vitesse(y, machine).niveau >= vitesseMin(machine)).sort((a, b) => savoir(b).niveau - savoir(a).niveau || b.total - a.total)]
         .find(y => y !== x && installable(y) && EST.tient(y, machine) && tientDisque(y)) : null;
       const pasAssez = (o.apercu ? "Not enough free space" : "Maybe not enough free space") + (tel() ? "." : " there.");
+      const memoireIA = Math.round((EST.memoire(x, machine) + img) * 10) / 10;
+      const tropGrosse = !EST.tient(x, machine) || (img > 0 && memoireIA > machine.dispo && !(machine.vram > 0 && EST.fichier(x) + img + 1 <= machine.vram));
+      const reco = besoins.length ? conseilsPour(machine, besoins).find(y => installable(y) && EST.tient(y, machine)) : conseilPour(machine);
       $p("#p-alerte").innerHTML = (manque ? `<p class="alerte">${ico("alert")}<span>${esc(t(pasAssez))} ${esc(t(tel() ? "Free up some space, or choose a smaller AI." : "Choose another place, or free up some space."))}${o.apercu ? "" : " " + esc(t("Merge checks exactly before downloading."))}${autre ? ` <button type="button" class="lien-btn" id="p-plus-petite" data-ia="${esc(autre.id)}">${esc(t("Take {x} instead ({s})", {x: autre.nom, s: go(taille(autre))}))}</button>` : ""}</span></p>` : "")
-        + (EST.tient(x, machine) ? "" : `<p class="alerte">${ico("alert")}<span>${esc(t("{x} is too big for this {nom}: it needs about {m} of memory and may be very slow, or not start at all. You can still install it.", {x: x.nom, nom: nom(), m: go(EST.memoire(x, machine))}))}</span></p>`);
-      $p("#p-installer").disabled = !!manque && !!o.apercu;
+        + (tropGrosse ? `<div class="alerte danger" role="alert">${ico("alert")}<span><b>${esc(t("Careful: {x} is too big for this {nom}.", {x: x.nom, nom: nom()}))}</b>
+            ${esc(t("It needs about {m} of memory, and this {nom} can only give an AI about {d} of its {k} (the rest is for the system and your apps). While it answers, your {nom} may freeze, other apps may close, and it may even restart. Unsaved work in other apps could be lost.", {m: go(memoireIA), d: go(Math.floor(machine.dispo * 10) / 10), k: go(machine.memoire), nom: nom()}))}
+            ${reco && reco !== x ? ` <button type="button" class="lien-btn" id="p-reco" data-ia="${esc(reco.id)}">${esc(t("Take {x} instead, made for this {nom}", {x: reco.nom, nom: nom()}))}</button>` : ""}
+            <label class="compris"><input type="checkbox" id="p-compris"${compris === x.id ? " checked" : ""}> ${esc(t("I understand the risk and want to install it anyway"))}</label></span></div>` : "");
+      const bouton = $p("#p-installer");
+      bouton.textContent = tropGrosse ? t("Install anyway") : t("Install {x}", {x: x.nom});
+      bouton.classList.toggle("risque", tropGrosse);
+      bouton.disabled = (!!manque && !!o.apercu) || (tropGrosse && compris !== x.id);
     }
 
     const installer = (dejaLancee = false) => {
-      const x = choisie, dep = avecDepart(x) ? depart() : null;
+      const enCours = dejaLancee && diag && diag.enCours ? diag.enCours : null;
+      const x = choisie, dep = enCours ? (modele(enCours.depart) || null) : avecDepart(x) ? depart() : null;
+      const avecImages = enCours ? enCours.images === true || enCours.images === "oui" : photosVoulues() && voitImages(x);
       const ETAPES = [
-        {id: "merge", t: t("Installing Merge")},
-        {id: "moteur", t: t("Installing the AI engine")},
+        {id: "merge", t: t("Getting Merge ready")},
+        {id: "moteur", t: t("Getting the program that runs your AI ready"), s: machine.os === "mac" ? t("It comes with Merge: nothing to download") : ""},
         ...(dep ? [{id: "depart", t: t("Downloading {x}", {x: dep.nom}), s: t("{s} · a small AI, so you can start sooner", {s: go(taille(dep))}), dl: true}] : []),
-        {id: "choisie", t: t("Downloading {x}", {x: x.nom}), s: t("{s} · from Hugging Face", {s: go(taille(x))}), dl: true},
-        {id: "verif", t: t("Checking every file is intact")},
+        {id: "choisie", t: t("Downloading {x}", {x: x.nom}), s: t("{s} · from Hugging Face", {s: go(taille(x) + (avecImages ? tailleImages(x) : 0))}), dl: true},
+        {id: "verif", t: t("Checking every file is intact"), s: t("Each file must match the one its maker published")},
       ];
-      ecran(`${entete(esc(t("Installing…")), esc([t(tel() ? "Keep Merge open until it's done." : "You can leave this window open and do something else."), tel() && wifiSeulement ? t("Downloading on Wi-Fi only.") : "", t("If the connection drops, nothing is lost.")].filter(Boolean).join(" ")))}
+      ecran(`${entete(esc(t("Installing your AI…")), esc([t(tel() ? "Keep Merge open until it's done." : "You can keep using your {nom} meanwhile.", {nom: nom()}), tel() && wifiSeulement ? t("Downloading on Wi-Fi only.") : "", t("If the connection drops, nothing is lost.")].filter(Boolean).join(" ")))}
+        <p class="rassure court">${ico("shield-check")}<span>${esc(t("Merge is only downloading your AI and saving it in one folder. It doesn't change anything else on your {nom}.", {nom: nom()}))}</span></p>
         <ol class="etapes">${ETAPES.map(e => `<li data-id="${e.id}"><span class="rond"></span><span>${esc(e.t)}<small>${e.s ? esc(e.s) : ""}</small>${e.dl ? `<span class="barre-dl"><i></i></span>` : ""}</span></li>`).join("")}</ol>
         <div id="p-note"></div>
-        <div class="fen-btns"><button type="button" class="btn discret" id="p-arreter">${esc(t("Cancel"))}</button></div>`);
+        <div class="fen-btns"><button type="button" class="btn discret" id="p-arreter">${esc(t("Stop"))}</button></div>`);
       ecouteurs.length = 0;
       const mesures = {};
       const resteTemps = s => {
@@ -223,9 +267,10 @@ const Programme = (() => {
           }
           if (e.detail) petit.textContent = t(e.detail);
         } else if (e.type === "departPret" && dep){
-          $p("#p-note").innerHTML = `<p class="alerte ok">${ico("check")}<span><b>${esc(t("{x} is ready.", {x: dep.nom}))}</b> ${esc(t("You can start chatting now; {y} keeps downloading and takes over when it's done.", {y: x.nom}))} <button type="button" class="lien-btn" id="p-maintenant">${esc(t("Start chatting now"))}</button></span></p>`;
+          $p("#p-note").innerHTML = `<p class="alerte ok">${ico("check")}<span><b>${esc(t("{x} is ready.", {x: dep.nom}))}</b> ${esc(t("You can start chatting now; {y} keeps downloading and takes over when it's done. Or wait here: the chat opens by itself when {y} is ready.", {y: x.nom}))} <button type="button" class="btn petit" id="p-maintenant">${esc(t("Start chatting now"))}</button></span></p>`;
         } else if (e.type === "pret"){
-          ecouteurs.length = 0; if (!e.essai) noter({texte: `Finished downloading ${x.nom}; every file checked`}); pret(e.essai);
+          ecouteurs.length = 0; if (!e.essai) noter({texte: `Finished downloading ${x.nom}; every file checked`});
+          if (o.apercu) pret(e.essai); else ouvrirMerge();
         } else if (e.type === "annule"){
           ecouteurs.length = 0; resultat();
         } else if (e.type === "erreur"){
@@ -238,7 +283,8 @@ const Programme = (() => {
         }
       });
       if (!dejaLancee) noter({texte: `Started downloading ${x.nom}${dep ? ` and ${dep.nom}` : ""} from Hugging Face`, prevu: Math.round((taille(x) + (dep ? taille(dep) : 0)) * 1e9)});
-      if (!dejaLancee) pont("installer", {modele: x.id, depart: dep ? dep.id : null, dossier: tel() ? null : (dossierChoisi() || {}).chemin, wifiSeulement: tel() && wifiSeulement})
+      if (!dejaLancee) pont("installer", {modele: x.id, depart: dep ? dep.id : null, dossier: tel() ? null : (dossierChoisi() || {}).chemin, wifiSeulement: tel() && wifiSeulement,
+        images: avecImages})
         .catch(err => window.mergeEvenement({type: "erreur", message: String(err && err.message || err)}));
     };
 
@@ -268,17 +314,16 @@ const Programme = (() => {
       if (lg){ Langue.changer(lg.dataset.langue); const x = zone.querySelector(".p-langues button, .p-langues [aria-current]"); if (x) x.focus({preventScroll: true}); return; }
       if (b){ const id = b.dataset.besoin; besoins = besoins.includes(id) ? besoins.filter(x => x !== id) : [...besoins, id]; b.setAttribute("aria-pressed", String(besoins.includes(id))); return; }
       const id = (e.target.closest("button[id]") || {}).id;
-      if (id === "p-verifier") examen();
-      else if (id === "p-suite"){ choisie = null; besoins = besoins.filter(x => !METIERS.some(y => y.id === x)); suite(); }
+      if (id === "p-suite"){ choisie = null; besoins = besoins.filter(x => !METIERS.some(y => y.id === x)); suite(); }
       else if (id === "p-passer"){ besoins = []; choisie = null; resultat(); }
       else if (id === "p-retour") questions();
       else if (id === "p-installer") installer();
       else if (id === "p-annuler"){
-        if (o.apercu){ besoins = Array.isArray(o.besoins) ? o.besoins.slice() : []; voulue = null; choisie = null; bienvenue(); }
+        if (o.apercu){ besoins = Array.isArray(o.besoins) ? o.besoins.slice() : []; voulue = null; choisie = null; accueil(); }
         else if (diag.dejaFait) pont("ouvrirMerge").then(r => { if (r && r.adresse) location.href = r.adresse; }).catch(() => {});
         else pont("quitter");
       }
-      else if (id === "p-arreter"){ if (o.apercu){ arreter(); actif = true; besoins = []; voulue = null; choisie = null; bienvenue(); } else pont("annuler"); }
+      else if (id === "p-arreter"){ if (o.apercu){ arreter(); actif = true; besoins = []; voulue = null; choisie = null; accueil(); } else pont("annuler"); }
       else if (id === "p-retour-res") resultat();
       else if (id === "p-reessayer") installer();
       else if (id === "p-maintenant" || id === "p-ouvrir") ouvrirMerge();
@@ -294,7 +339,7 @@ const Programme = (() => {
         return;
       }
       if (!actif) return;
-      if (!o.apercu && diag.tailles) connaitreCatalogue(diag.tailles);
+      if (!o.apercu && diag.tailles) connaitreCatalogue(diag.tailles, diag.taillesImages);
       machine = machinePour(diag);
       emplacements = emplacements || [];
       choixDossier = emplacements.length ? emplacements[0].chemin : null;
@@ -304,7 +349,7 @@ const Programme = (() => {
         choisie = modele(diag.enCours.modele);
         return installer(true);
       }
-      bienvenue();
+      if (dejaRepondu && besoins.length) resultat(); else accueil();
     })();
     const surLangue = () => { if (actif && machine && redessiner) redessiner(); };
     window.addEventListener("merge-langue", surLangue);

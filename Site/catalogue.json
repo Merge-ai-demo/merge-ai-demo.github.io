@@ -13,6 +13,13 @@
      "octets": 532517120,
      "sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
      "adresse": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/Qwen3.5-0.8B-Q4_K_M.gguf"
+    },
+    {
+     "nom": "mmproj-F16.gguf",
+     "role": "images",
+     "octets": 204987232,
+     "sha256": "56e4c6cfe73b0c82e3e82bc518d7591997e61d81f723fc41a586f4fa69ea2453",
+     "adresse": "https://huggingface.co/unsloth/Qwen3.5-0.8B-GGUF/resolve/6ab461498e2023f6e3c1baea90a8f0fe38ab64d0/mmproj-F16.gguf"
     }
    ]
   },
@@ -97,6 +104,13 @@
      "octets": 5680522464,
      "sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
      "adresse": "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/resolve/3885219b6810b007914f3a7950a8d1b469d598a5/Qwen3.5-9B-Q4_K_M.gguf"
+    },
+    {
+     "nom": "mmproj-F16.gguf",
+     "role": "images",
+     "octets": 918166080,
+     "sha256": "f70dc3509053962b0d0d3ee8a7eacebf5d60aa560cad78254ae8698516ae029f",
+     "adresse": "https://huggingface.co/unsloth/Qwen3.5-9B-GGUF/resolve/3885219b6810b007914f3a7950a8d1b469d598a5/mmproj-F16.gguf"
     }
    ]
   },
@@ -349,6 +363,13 @@
      "octets": 1280835840,
      "sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
      "adresse": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/Qwen3.5-2B-Q4_K_M.gguf"
+    },
+    {
+     "nom": "mmproj-F16.gguf",
+     "role": "images",
+     "octets": 668227264,
+     "sha256": "7035e9cb8d7c6a9681d07eef9a364783e86ea4cd73faab2eabb4f43a101830c7",
+     "adresse": "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/mmproj-F16.gguf"
     }
    ]
   },
@@ -391,6 +412,13 @@
      "octets": 2740937888,
      "sha256": "00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4",
      "adresse": "https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/resolve/e87f176479d0855a907a41277aca2f8ee7a09523/Qwen3.5-4B-Q4_K_M.gguf"
+    },
+    {
+     "nom": "mmproj-F16.gguf",
+     "role": "images",
+     "octets": 672423616,
+     "sha256": "cd88edcf8d031894960bb0c9c5b9b7e1fea6ebee02b9f7ce925a00d12891f864",
+     "adresse": "https://huggingface.co/unsloth/Qwen3.5-4B-GGUF/resolve/e87f176479d0855a907a41277aca2f8ee7a09523/mmproj-F16.gguf"
     }
    ]
   },
@@ -479,5 +507,5 @@
    ]
   }
  },
- "version_1": "Réduit aux 20 IA de la version 1 le 19 octobre 2026 (liste validée par le fondateur). Le catalogue complet : 4_Pour_Claude/Version_complete/Site/catalogue.json. Sans les fichiers « images » (mmproj) : la version 1 ne lit pas les images."
+ "version_1": "Réduit aux 20 IA de la version 1 le 19 octobre 2026 (liste validée par le fondateur). Le catalogue complet : 4_Pour_Claude/Version_complete/Site/catalogue.json. Fichiers « images » (mmproj) : seulement pour Qwen3.5 0.8B, 2B, 4B et 9B depuis le 24 octobre 2026 (demande du fondateur : les photos), copiés du catalogue complet (même version figée du dépôt) ; téléchargés seulement si la personne choisit « Photos »."
 }

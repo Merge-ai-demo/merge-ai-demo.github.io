@@ -323,16 +323,16 @@ function rendreAppli(){
   $("[data-app-titre]").innerHTML = `${esc(t(win ? "Get Merge for your Windows PC" : "Get Merge for your Mac"))}<span class="point">.</span>`;
   const choisie = modele(voulueSite), n = $("[data-app-choix]");
   n.hidden = !choisie;
-  if (choisie) n.textContent = t("You picked {x}. In the app, after the check, choose it from the list of AIs if it fits your computer.", {x: choisie.nom});
+  if (choisie) n.textContent = t("You picked {x}. In the app, choose it under “Other choices” if it fits your computer.", {x: choisie.nom});
   $("[data-app-sous]").textContent = (reconnu ? t("Your {x}, recognized automatically.", {x: detecter().nom}) + " " : "") + t("Get the Merge app: it checks your {nom} and suggests the AI that suits it.", {nom});
   $("[data-app-etapes]").innerHTML = (win ? [
     [t("Download the Merge app"), t("A zip file arrives in your Downloads. Extract it (right-click › Extract All).")],
-    [t("Open Merge.cmd, then click “Check my computer”"), t("The first time, Windows may ask you to confirm (see below). Then Merge checks your PC: its memory, its processor, its graphics card, its free space.")],
-    [t("Say what you'll use it for, then click Install"), t("Merge suggests the best AI your PC can run for what you'll do, tells you the download size, and installs it.")],
+    [t("Open Merge.cmd"), t("The first time, Windows may ask you to confirm (see below). Then Merge looks at your PC by itself: its memory, its processor, its graphics card, its free space.")],
+    [t("Click Continue, then Install"), t("Merge suggests the best AI your PC can run, says what it will download and where, and installs it. Then the chat opens by itself.")],
   ] : [
     [t("Download the Merge app"), t("A file arrives in your Downloads. Open it, and drag Merge into Applications.")],
-    [t("Open Merge, then click “Check my Mac”"), t("The first time, your Mac asks you to confirm (see below). Then Merge checks your Mac: its memory, its chip, its free space.")],
-    [t("Say what you'll use it for, then click Install"), t("Merge suggests the best AI your Mac can run for what you'll do, tells you the download size, and installs it.")],
+    [t("Open Merge"), t("The first time, your Mac asks you to confirm (see below). Then Merge looks at your Mac by itself: its memory, its chip, its free space.")],
+    [t("Click Continue, then Install"), t("Merge suggests the best AI your Mac can run, says what it will download and where, and installs it. Then the chat opens by itself.")],
   ]).map(([titre, x], k) => `<li><span class="num">${k + 1}</span><span><b>${esc(titre)}</b><small>${esc(x)}</small></span></li>`).join("");
 }
 function demarrerProgramme(){

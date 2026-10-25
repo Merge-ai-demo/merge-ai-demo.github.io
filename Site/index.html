@@ -9,10 +9,10 @@
 <link rel="icon" type="image/png" sizes="180x180" href="marque/icone-m-180.png">
 <link rel="icon" href="marque/icone-m.svg" type="image/svg+xml">
 <link rel="shortcut icon" href="marque/icone-m.ico">
-<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610241805">
-<link rel="stylesheet" href="base.css?v=202610241805">
-<link rel="stylesheet" href="style.css?v=202610241805">
-<link rel="stylesheet" href="programme.css?v=202610241805">
+<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610250330">
+<link rel="stylesheet" href="base.css?v=202610250330">
+<link rel="stylesheet" href="style.css?v=202610250330">
+<link rel="stylesheet" href="programme.css?v=202610250330">
 </head>
 <body>
 <a class="saut" href="#contenu">Skip to content</a>
@@ -21,12 +21,9 @@
         <button type="button" class="menu-tel" aria-expanded="false" aria-controls="menu-tel" aria-label="Menu"><span></span><span></span><span></span></button>
     <a class="marque" href="#accueil" aria-label="Merge, home">Merge</a>
     <nav class="liens" aria-label="Site">
-      <a href="#accueil">Overview</a>
-      <a href="#comment">How it works</a>
-      <a href="#produit">Product</a>
+            <a href="#comment">How it works</a>
       <a href="#ia">The AIs</a>
       <a href="#nous">Who we are</a>
-      <a href="#accueil" data-ancre="faq">FAQ</a>
       <a href="#contact">Contact</a>
     </nav>
     <div class="barre-droite">
@@ -34,12 +31,9 @@
     </div>
   </div>
   <nav class="menu-tel-liste" id="menu-tel" aria-label="Site" hidden>
-    <a href="#accueil">Overview</a>
     <a href="#comment">How it works</a>
-    <a href="#produit">Product</a>
     <a href="#ia">The AIs</a>
     <a href="#nous">Who we are</a>
-    <a href="#accueil" data-ancre="faq">FAQ</a>
     <a href="#contact">Contact</a>
     <a href="#confidentialite">Privacy</a>
   </nav>
@@ -50,7 +44,8 @@
 <section id="vue-accueil" class="vue" data-titre="Your own AI" aria-label="Home page">
   <div class="hero">
     <h1>Your own AI<span class="point">.</span></h1>
-    <p class="sous">Free. Unlimited. On your computer.</p>
+        <p class="sous">Merge puts a free AI on your computer, in two clicks.</p>
+    <p class="sous-2">Then ask as much as you like: no account, no ads, no message limit, and your chats stay on your computer.</p>
     <div><a class="btn" href="#installer" data-telecharger>Download Merge</a></div>
     <p class="detecte" data-detecte></p>
     <p class="liens-hero"><a href="#accueil" data-ancre="faq">Will it run on my computer?</a> · <a href="#telecharger">Mac or Windows?</a></p>
@@ -76,9 +71,9 @@ Thank you,</div>
     <section class="bande apparait" aria-labelledby="t-usages">
     <p class="eti">Everyday help</p>
     <h2 id="t-usages">Emails, letters, homework, ideas.</h2>
-    <p>Merge comes with ready-made assistants, each with an example to try: explain a letter, sum up a document, plan your week, cook with what you have. No blank page.</p>
+    <p>Merge comes with ready-made assistants, each with an example to try: explain a letter, sum up a document, plan your week, cook with what you have. No blank page. <a href="#produit">Everything Merge does</a></p>
     <ul class="usages">
-      <li>Write an email</li><li>Sum up a letter</li><li>Help with homework</li><li>Translate a message</li><li>Read a PDF for you</li><li>Plan a weekend</li>
+      <li>Write an email</li><li>Sum up a letter</li><li>Help with homework</li><li>Translate a message</li><li>Read a PDF for you</li><li>Talk to it out loud</li><li>Keep a project together</li><li>Plan a weekend</li>
     </ul>
   </section>
 
@@ -105,11 +100,12 @@ Thank you,</div>
   <section class="faq" id="faq" aria-labelledby="t-faq">
     <h2 id="t-faq">Questions</h2>
     <details><summary>Is it really free?</summary><p>Yes. Merge is free, and so are the AIs it installs: open AIs, free to use, made by companies and research labs such as Mistral AI, Google or IBM. No subscription, no ads.</p></details>
-    <details><summary>Will it run on my computer?</summary><p>Merge runs on a Mac with macOS 14 Sonoma or later (Apple chip or Intel), and on a PC with Windows 10 or 11 (64-bit, Intel or AMD processor). When you open Merge, click “Check my computer” (on a Mac, “Check my Mac”): it tells you, in plain words, what will be quick and what will be slow. 8 GB of memory or more is recommended.</p></details>
+    <details><summary>Will it run on my computer?</summary><p>Merge runs on a Mac with macOS 14 Sonoma or later (Apple chip or Intel), and on a PC with Windows 10 or 11 (64-bit, Intel or AMD processor). When you open Merge, it looks at your computer by itself and tells you, in plain words, what will be quick and what will be slow. 8 GB of memory or more is recommended.</p></details>
     <details><summary>Why does my computer warn me when I open Merge?</summary><p>Because Merge is a free beta that is not signed yet: on Mac, we haven't paid for Apple's developer program ($99 a year), and on Windows, for a code-signing certificate. So the first time, your computer asks you to confirm that you trust it. <a href="#installer">How to open it</a>.</p></details>
     <details><summary>What about Linux, iPhone and Android?</summary><p>Merge starts on Mac and Windows. Linux, iPhone and Android are planned for later updates.</p></details>
     <details><summary>Is it as good as ChatGPT?</summary><p>No: the big online AIs are still better, especially for hard tasks. A free AI on your computer handles many everyday tasks, and the more memory your computer has, the better the AI it can run. This is a beta: we are still testing how well each AI does.</p></details>
     <details><summary>Do I need the internet?</summary><p>Only to download Merge and its AI. After that, Merge works offline. To get recent information, turn on “Web”: Merge then looks things up for your AI, with your OK, in the sources you choose (encyclopedia, news, science). Without it, the AI only knows what it learned when it was made.</p></details>
+    <details><summary>Can I talk to it?</summary><p>Yes, on Mac and Windows: click the sound-wave button and talk; it answers with a voice. Your voice is turned into text on your computer and nothing leaves it. A small AI answers faster, so when you say you want to talk, Merge favours a quick one.</p></details>
     <details><summary>Can the AI be wrong?</summary><p>Yes. Like every AI, it can make mistakes or make things up, and a small AI more often. Check what matters, and don't rely on it for medical, legal or money decisions.</p></details>
     <details><summary>Can I choose another AI?</summary><p>Yes. Merge suggests one and shows others that fit your computer, with what each one does. You can change it later too. <a href="#ia">See all the AIs</a>.</p></details>
   </section>
@@ -118,16 +114,15 @@ Thank you,</div>
 <section id="vue-comment" class="vue" data-titre="How it works" aria-label="How it works" hidden>
   <div class="hero court">
     <p class="eti">How it works</p>
-    <h1>Check, choose, install<span class="point">.</span></h1>
+    <h1>Open, continue, install<span class="point">.</span></h1>
     <p class="sous">For the curious: what happens after you click Download.</p>
   </div>
   <section class="etapes-detail">
     <div class="etape"><span class="num">1</span><div><h2>You download Merge and open it</h2><p>A small file arrives in your Downloads. Open it.</p></div></div>
-    <div class="etape"><span class="num">2</span><div><h2>You click “Check my computer”</h2><p>Merge looks at the memory, the processor, the graphics card and the free space, then tells you in plain words what your computer can do well, and what will be slow.</p></div></div>
-    <div class="etape"><span class="num">3</span><div><h2>You say what you'll use it for</h2><p>Everyday life, studies, coding, work, languages, health: pick one or more. Merge suggests the AI that suits you best on your computer, and shows a few others, with what each one does and who made it.</p></div></div>
-    <div class="etape"><span class="num">4</span><div><h2>You choose where it goes</h2><p>AIs are big files. Keep them on your computer or on an external drive.</p></div></div>
-    <div class="etape"><span class="num">5</span><div><h2>You click Install</h2><p>Merge tells you the download size first. It downloads your AI from Hugging Face, the big public library of open AIs, not through our servers (on Windows, also the AI engine, llama.cpp, from GitHub), and checks each file so a damaged one is never used. If the connection drops, nothing is lost: click Try again to pick up where it stopped.</p></div></div>
-    <div class="etape"><span class="num">6</span><div><h2>Merge opens</h2><p>Start chatting. As much as you like.</p></div></div>
+    <div class="etape"><span class="num">2</span><div><h2>Merge looks at your computer by itself</h2><p>The memory, the processor and the free space, read on your computer: nothing is sent anywhere. On the same screen, you can say what you'll use it for (everyday life, studies, coding, work, languages, health, talking out loud, documents, photos), or skip it. Click Continue.</p></div></div>
+    <div class="etape"><span class="num">3</span><div><h2>Merge suggests your AI, and says exactly what it will do</h2><p>The AI that should suit your computer best, what it's good at, its download size, and where it will go. Other AIs, the country they come from and another place (an external drive) are under “Other choices”. If you pick an AI that is too big for your computer, Merge warns you clearly before anything happens: it could freeze your computer.</p></div></div>
+    <div class="etape"><span class="num">4</span><div><h2>You click Install</h2><p>Merge downloads your AI from Hugging Face, the big public library of open AIs, not through our servers (on Windows, also the small program that runs it, llama.cpp, from GitHub), and checks each file so a damaged one is never used. It saves everything in its own folder: your files, settings and other apps are not touched. If the connection drops, nothing is lost: click Try again to pick up where it stopped.</p></div></div>
+    <div class="etape"><span class="num">5</span><div><h2>The chat opens by itself</h2><p>Start chatting. As much as you like.</p></div></div>
   </section>
   <section class="bande grise apparait" aria-labelledby="t-vie">
     <p class="eti">Your privacy</p>
@@ -154,7 +149,7 @@ Thank you,</div>
   <section class="pf-groupe"><div class="pf-dedans">
     <h2 class="produit-groupe">Getting started</h2>
     <div class="pf-vedette">
-      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>What will you use it for?</h3><p class="pf-texte">Tell Merge what you need: everyday life, studies, coding, work, languages, health. It suggests the AI that fits your computer and your needs best.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Each answer gives points to AIs whose strengths match (writing, documents, code, translation, reasoning). The suggestion is our estimate: we have not measured the AIs ourselves yet.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>What will you use it for?</h3><p class="pf-texte">Tell Merge what you need: everyday life, studies, coding, work, languages, health, talking out loud, and whether you'll give it documents or photos. It suggests the AI that fits your computer and your needs best.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Each answer gives points to AIs whose strengths match (writing, documents, code, translation, reasoning). The suggestion is our estimate: we have not measured the AIs ourselves yet.</p></details></div>
       <div class="pf-visuel" aria-hidden="true"><div class="fenetre maquette"><div class="f-barre"><i></i><i></i><i></i></div><div class="mq-corps"><p class="mq-titre">What will you use Merge for?</p>
         <div class="mq-puces"><span class="choisi">Everyday life</span><span>Studies</span><span>Coding</span><span>Work</span><span class="choisi">Languages</span><span>Health and fitness</span></div>
         <p class="mq-note">Suggested for you: an AI that writes well and translates.</p></div></div></div>
@@ -172,6 +167,11 @@ Thank you,</div>
         <div class="mq-ia"><p><span>The lease ends on 30 June 2027.</span> <span class="mq-page">p. 3</span></p><p><span>Three months' notice, by registered letter.</span> <span class="mq-page">p. 4</span></p></div></div></div></div>
     </div>
     <div class="pf-liste">
+            <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Talk with it out loud</h3><p class="pf-texte">Click the sound-wave button and just talk. Small dots listen, move while the AI thinks, then ripple as it answers with a voice, sentence by sentence; tap them to interrupt. Works with every AI Merge installs, on Mac and Windows.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Your voice is turned into text on your computer (on a Mac, Apple's on-device speech recognition; on Windows, the speech recognition built into Windows), the AI answers as usual, and a voice installed on your computer reads it. Nothing leaves your computer. For a more natural voice, a Mac can use Apple's free “Enhanced” and “Premium” voices.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Dictate your questions</h3><p class="pf-texte">Click the microphone, speak, and your words appear in the box. Nothing is sent until you send it.</p><details class="pf-expert"><summary>Where it comes from</summary><p>On a Mac, Apple's speech recognition, set to work on the Mac only; on Windows, the speech recognition built into Windows, which works offline.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Show it a photo</h3><p class="pf-texte">Choose “Photos” when you install Merge: it picks an AI that can see. Then add a photo or a screenshot to your question, up to two per message.</p><details class="pf-expert"><summary>Where it comes from</summary><p>The Qwen3.5 AIs can look at pictures with an extra file, downloaded only if you choose Photos (0.2 to 0.9 GB). The photo is made smaller on your computer and read there.</p></details></div>
+            <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Projects</h3><p class="pf-texte">Group chats on the same topic, such as “House renovation” or “Job search”, with instructions and documents the AI reads in every chat of the project. Move any chat into a project from its menu, and archive a chat or a whole project when you're done: it's kept, out of your lists.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Projects, their instructions and their files are kept on your computer, like your chats. The text of each document is read on your computer; keep them short, since a small AI reads only a few pages at a time.</p></details></div>
+      <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Several AIs, switch any time</h3><p class="pf-texte">Keep a small AI for quick answers and a bigger one when you need it: Settings › Your AI shows the AIs on your computer, with “Use this one”.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Each AI stays in its own folder; switching restarts Merge's AI engine with the one you chose. If you pick an AI too big for your computer, Merge warns you clearly before installing it.</p></details></div>
       <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>No message limit</h3><p class="pf-texte">Ask as many questions as you like. The only limit is the speed of your computer.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Your chats are saved on your computer, never on our servers. You can rename, search, download (Markdown) or delete them, edit a message, or ask for a new answer.</p></details></div>
       <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Settings that fit each AI</h3><p class="pf-texte">Faster or more careful answers, short or long. With Merge's own AI engine, you only see the settings your AI can really use.</p><details class="pf-expert"><summary>Where it comes from</summary><p>Merge asks the engine what the AI can do (llama.cpp: its chat template and memory size; Ollama: its capabilities) and sends only matching parameters (temperature, max_tokens, reasoning_effort or chat_template_kwargs). With LM Studio or Jan, Merge can only guess from the AI's name, so all the choices stay visible. When a chat is too long for the AI's memory, the oldest messages are left out, and Merge says so.</p></details></div>
       <div class="pf"><p class="pf-etat pf-pret">In the beta</p><h3>Web search, only if you allow it</h3><p class="pf-texte">Turn on “Web” and choose the kind of sources: all, encyclopedia, news or science and health. Merge looks things up for your AI, and the answer shows its sources. Only a few search words leave your computer.</p><details class="pf-expert"><summary>Where it comes from</summary><p>The AI never goes on the internet by itself. Your AI first turns your question into a few English search words; Merge sends only those words, from your computer, to the sources you chose: the Wikipedia API, the GDELT Project's news API (headlines of the last 7 days, without the articles), PubMed (the US National Library of Medicine's database of medical and life-science articles) and OpenAlex (an open catalogue of scientific publications). All are official, free, and need no account. The results are given to your AI with your question, and Merge asks it to treat them as text to read, not as orders. If your AI can't pick search words, Merge doesn't search: your question itself is never sent. No key, no account, nothing goes through our servers. Each search is listed in “What leaves this device”.</p></details></div>
@@ -197,11 +197,11 @@ Thank you,</div>
     <div class="pf-liste">
       <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Linux, iPhone and Android</h3><p class="pf-texte">Merge starts on Mac and Windows. The other devices come next.</p></div>
       <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>More languages</h3><p class="pf-texte">Merge is in English for now. French and Spanish come next.</p></div>
-      <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Images, Excel and PowerPoint</h3><p class="pf-texte">Ask a question about a photo with an AI that can see, and add spreadsheets and slides to your questions.</p></div>
-      
-      <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Voice</h3><p class="pf-texte">Listen to the answers and speak your questions.</p></div>
+      <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Excel and PowerPoint</h3><p class="pf-texte">Add spreadsheets and slides to your questions.</p></div>
+      <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>AI voices, even more natural</h3><p class="pf-texte">Voices made by AI models (such as Kokoro), that sound closer to a person. They will need a download of a few hundred MB, and use more memory and battery than your computer's own voice.</p></div>
+            <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>The AIs people use most</h3><p class="pf-texte">Once many people use Merge: a page with the AIs used most, overall and on computers like yours, and what's trending, to help you choose along with our suggestions. Only from anonymous counts that you agree to share.</p></div>
       <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Packs for your job, and your own assistants</h3><p class="pf-texte">Ready-made helpers for teaching, law, code, care, quotes and invoices…, and assistants you create yourself.</p></div>
-      <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Projects and scheduled requests</h3><p class="pf-texte">Keep chats and files on the same topic together, and have a request sent at a set time.</p></div>
+      <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Scheduled requests</h3><p class="pf-texte">Have a request sent at a set time, for example a summary every morning.</p></div>
       <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Family rules</h3><p class="pf-texte">A profile per child, with rules that fit their age, locked with a parent code.</p></div>
       <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Your computer's AI on your phone</h3><p class="pf-texte">Chat with your computer's AI from your phone, with your chats on all your devices, and folders shared with friends.</p></div>
       <div class="pf"><p class="pf-etat pf-prevu">Coming in an update</p><h3>Lock your chats, and Offline only</h3><p class="pf-texte">Encrypt your chats with a secret phrase, and one switch so the chat never goes on the internet.</p></div>
@@ -242,6 +242,14 @@ Thank you,</div>
     <h2>Hi, I'm Matthew</h2>
     <p>I'm a student with a passion for new technology and artificial intelligence, and I'm building Merge. It started with something I kept seeing: people paying for an AI every month, or putting up with limits and ads, without knowing that excellent AIs are now free, open, and able to run on the computer they already own.</p>
     <p>You don't need AI every day. But there are moments when it makes a real difference: a letter to write, a document to understand, a lesson to revise, a question late at night. My goal is simple: put that help within everyone's reach, whatever their budget and whatever their device.</p>
+
+        <h2>What you can count on today</h2>
+    <ul class="faits">
+      <li><b>Two clicks</b> to install your AI, once Merge is open. Merge tells you what it will download, and where, before anything happens.</li>
+      <li><b>20 free AIs</b> it knows how to install on a Mac, 32 on a Windows PC, from 10 makers, among them Mistral AI, Google, IBM, Microsoft and OpenAI.</li>
+      <li><b>No account, no ads, no message limit.</b> Only your computer's speed sets the pace.</li>
+      <li><b>Your chats and your files stay on your computer.</b> What does leave it, and when, is listed in <a href="#confidentialite">Privacy</a>.</li>
+    </ul>
 
     <h2>What Merge does, and what it doesn't</h2>
     <p>Merge doesn't build AIs. Labs and research teams around the world publish open AIs that anyone may use, each under its own license. Merge finds the one that should suit your device and your needs, by our honest estimate, installs it, then gets out of the way. You can always choose another one, and see who made each AI and where it comes from.</p>
@@ -350,7 +358,7 @@ Thank you,</div>
           <li><span class="num">1</span><span><b>Open the downloaded file</b><small>Merge-Mac-beta.dmg, in your Downloads. Drag Merge into the Applications folder.</small></span></li>
           <li><span class="num">2</span><span><b>Double-click Merge in Applications</b><small>Your Mac says it can't check Merge. Click Done or Cancel (not Move to Trash).</small></span></li>
           <li><span class="num">3</span><span><b>Open System Settings › Privacy &amp; Security</b><small>Scroll down to the Security section: next to “Merge was blocked”, click Open Anyway, then confirm with your password. Do it soon after step 2: the button only stays for a while.</small></span></li>
-          <li><span class="num">4</span><span><b>Merge opens</b><small>Click “Check my Mac”. From now on, Merge opens normally.</small></span></li>
+          <li><span class="num">4</span><span><b>Merge opens</b><small>Click Continue, then Install. From now on, Merge opens normally.</small></span></li>
         </ol>
         <p class="config">On macOS 14 Sonoma, you can instead Control-click Merge in Applications, choose Open, then Open again.</p>
       </div>
@@ -359,7 +367,7 @@ Thank you,</div>
         <ol class="app-etapes">
           <li><span class="num">1</span><span><b>Extract the downloaded file</b><small>If your browser says the file isn't commonly downloaded, choose Keep. Then right-click Merge-Windows-beta.zip in your Downloads, choose “Extract All…”, then “Extract”.</small></span></li>
           <li><span class="num">2</span><span><b>Double-click Merge.cmd</b><small>In the “Merge” folder. If Windows says “Windows protected your PC”, click “More info”, then “Run anyway”. If it then asks whether to run Python (Python Software Foundation), click Run.</small></span></li>
-          <li><span class="num">3</span><span><b>Merge opens in its own window</b><small>Click “Check my computer”, then “Install”: Merge downloads the AI engine (from GitHub) and your AI (from Hugging Face), and checks every file.</small></span></li>
+          <li><span class="num">3</span><span><b>Merge opens in its own window</b><small>Click Continue, then Install: Merge downloads the small program that runs your AI (from GitHub) and your AI (from Hugging Face), and checks every file.</small></span></li>
           <li><span class="num">4</span><span><b>Next time</b><small>Open Merge from the Start menu or the “Merge” shortcut on your desktop.</small></span></li>
         </ol>
         <p class="config">Merge opens in a Microsoft Edge window without tabs, like an app; without Edge, in your usual browser. It only listens to this computer. On Windows 11, “Smart App Control” can block programs that are not signed, like this beta: if it does, Merge can't run on that PC yet.</p>
@@ -381,12 +389,12 @@ Thank you,</div>
 <footer class="pied">© 2026 Merge · Free beta · <a href="#nous">Who we are</a> · <a href="#contact">Contact</a> · <a href="#confidentialite">Privacy</a></footer>
 
 
-<script src="telechargement.js?v=202610241805"></script>
-<script src="langues.js?v=202610241805"></script>
-<script src="icones.js?v=202610241805"></script>
-<script src="tailles.js?v=202610241805"></script>
-<script src="donnees.js?v=202610241805"></script>
-<script src="programme.js?v=202610241805"></script>
-<script src="site.js?v=202610241805"></script>
+<script src="telechargement.js?v=202610250330"></script>
+<script src="langues.js?v=202610250330"></script>
+<script src="icones.js?v=202610250330"></script>
+<script src="tailles.js?v=202610250330"></script>
+<script src="donnees.js?v=202610250330"></script>
+<script src="programme.js?v=202610250330"></script>
+<script src="site.js?v=202610250330"></script>
 </body>
 </html>

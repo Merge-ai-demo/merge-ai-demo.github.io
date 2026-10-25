@@ -101,10 +101,14 @@ const pourLeSysteme = (m, machine) => !m.pc || (!!machine && (machine.os === "wi
 const plusPetite = machine => (MODELES.filter(m => installable(m) && pourLaLangue(m) && pourLeSysteme(m, machine)).sort((a, b) => a.total - b.total)[0]) || MODELES[0];
 let INSTALLABLES = Object.keys(TAILLES).length ? new Set(Object.keys(TAILLES)) : null;
 const installable = m => !!m && (!INSTALLABLES || INSTALLABLES.has(m.id));
-function connaitreCatalogue(tailles){
+let TAILLES_IM = typeof TAILLES_IMAGES === "object" ? TAILLES_IMAGES : {};
+const voitImages = m => !!m && !!TAILLES_IM[m.id];
+const tailleImages = m => (m && TAILLES_IM[m.id]) || 0;
+function connaitreCatalogue(tailles, images){
   if (!tailles || !MODELES.some(m => tailles[m.id])) return;
   TAILLES = tailles;
   INSTALLABLES = new Set(Object.keys(tailles));
+  TAILLES_IM = images && typeof images === "object" ? images : {};
 }
 function conseil(machine){
   const L = CONSEILLABLES.map(modele).filter(m => installable(m) && pourLaLangue(m) && pourLeSysteme(m, machine)), tiennent = L.filter(m => EST.tient(m, machine));
@@ -120,6 +124,9 @@ const BESOINS = [
   {id: "code", nom: "Coding", detail: "Write and fix code", icone: "code-xml", tags: ["code", "agents"]},
   {id: "travail", nom: "Work", detail: "Letters, reports, documents", icone: "file-text", tags: ["docs", "agents"]},
   {id: "langues", nom: "Languages", detail: "Translate, write in Spanish and other languages", icone: "languages", tags: ["trad"]},
+  {id: "voix", voix: true, nom: "Talk with it out loud", detail: "Speak to it, and hear it answer", icone: "mic", tags: []},
+  {id: "documents", groupe: "lire", nom: "Documents", detail: "PDF, Word and text files", icone: "file-text", tags: ["docs"]},
+  {id: "photos", groupe: "lire", photos: true, nom: "Photos", detail: "Photos, screenshots, scanned pages", icone: "image", tags: ["images"]},
   {id: "forme", nom: "Health and fitness", detail: "Understand a result, sport, food, sleep", icone: "heart", tags: ["docs", "raison"], specialiste: "sante"},
 ];
 const specialisteCode = m => m.specialiste === "code";
@@ -143,20 +150,27 @@ const metierDe = besoins => METIERS.find(x => (besoins || []).includes(x.id)) ||
 function conseilsPour(machine, besoins){
   const metier = metierDe(besoins);
   const choisis = [...besoinsPour(machine), ...METIERS].filter(b => (besoins || []).includes(b.id));
-  if (!choisis.some(b => b.tags.length || b.specialiste)) return [conseilPour(machine)];
+  const voix = choisis.some(b => b.voix);
+  if (!choisis.some(b => b.tags.length || b.specialiste)) return [voix ? conseilPourVoix(machine) : conseilPour(machine)];
   const tags = new Set(choisis.flatMap(b => b.tags)), principaux = [...new Set(choisis.map(b => b.tags[0]).filter(Boolean))];
   const metiers = [...new Set(choisis.map(b => b.specialiste).filter(Boolean))];
   const langues = principaux.includes("trad");
   const tourne = m => EST.tient(m, machine) && vitesse(m, machine).niveau >= vitesseMin(machine);
-  const ok = iaPour(machine).filter(m => tourne(m) && horsSpecialite(m, principaux, metiers) && (!m.plus || m.specialiste));
+  let ok = iaPour(machine).filter(m => tourne(m) && horsSpecialite(m, principaux, metiers) && (!m.plus || m.specialiste));
+  const images = principaux.includes("images") && photosPossibles(machine);
+  if (images) ok.push(...IA_PHOTOS(machine).filter(m => tourne(m) && !ok.includes(m)));
+  if (voix) {
+    const plafond = Math.max(...ok.map(m => savoir(m).niveau));
+    const vite = ok.filter(m => vitesse(m, machine).niveau >= 4 && savoir(m).niveau >= Math.max(2, plafond - 1));
+    if (vite.length) ok = vite;
+  }
   if (!ok.length) return [conseilPour(machine)];
   const points = m => savoir(m).niveau * 4 + principaux.filter(t => m.bon.includes(t)).length * 4
     + m.bon.filter(t => tags.has(t) && !principaux.includes(t)).length + bonusFrancais(m) * (langues ? 3 : 1)
     + (metiers.includes(m.specialiste) ? 12 : 0) - (m.plus ? 2 : 0)
     - (m.specialiste === "trad" && principaux.includes("mail") ? 8 : 0)
     - (principaux.length && !principaux.some(t => m.bon.includes(t)) && !metiers.includes(m.specialiste) ? 3 : 0);
-  const images = principaux.includes("images") && ok.some(m => m.bon.includes("images"));
-  const voit = m => images && m.bon.includes("images") ? 1 : 0;
+  const voit = m => images && voitImages(m) ? 1 : 0;
   const liste = ok.slice().sort((a, b) => voit(b) - voit(a) || points(b) - points(a) || b.total - a.total);
   if (metier && metier.aussi){
     const lecteur = iaPour(machine).filter(m => tourne(m) && m.specialiste === metier.aussi).sort((a, b) => b.total - a.total)[0];
@@ -183,7 +197,8 @@ function preferer(liste, machine, prefs){
 
 function usagesNonCouverts(machine, besoins){
   const ok = iaPour(machine).filter(m => EST.tient(m, machine) && vitesse(m, machine).niveau >= vitesseMin(machine));
-  return besoinsPour(machine).filter(b => (besoins || []).includes(b.id) && b.tags.length && !ok.some(m => m.bon.includes(b.tags[0])));
+  return besoinsPour(machine).filter(b => (besoins || []).includes(b.id) && b.tags.length
+    && !(b.photos ? IA_PHOTOS(machine).some(m => EST.tient(m, machine) && vitesse(m, machine).niveau >= vitesseMin(machine)) : ok.some(m => m.bon.includes(b.tags[0]))));
 }
 
 const iaPour = machine => MODELES.filter(m => installable(m) && pourLaLangue(m) && pourLeSysteme(m, machine) && (!(machine && machine.telephone) || (m.total <= 9 && !specialisteCode(m))));
@@ -200,6 +215,8 @@ const BESOINS_TELEPHONE = [
   {id: "travail", nom: "For my job", detail: "Letters, reports, documents", icone: "handshake", tags: ["mail", "docs"]},
 ];
 const besoinsPour = machine => machine && machine.telephone ? BESOINS_TELEPHONE : BESOINS;
+const IA_PHOTOS = machine => machine && machine.telephone ? [] : MODELES.filter(m => installable(m) && voitImages(m) && pourLaLangue(m));
+const photosPossibles = machine => IA_PHOTOS(machine).length > 0;
 
 const CONSEILLABLES_TELEPHONE = ["qwen3.5-0.8b", "luciole-1b", "granite-4.0-nano-1b", "smollm3-3b", "ministral-3-3b", "phi-4-mini",
   "gemma-4-e2b", "gemma-4-e4b", "ministral-3-8b"];
@@ -211,6 +228,12 @@ function conseilTelephone(machine){
   return bons.slice().sort((a, b) => savoir(b).niveau - savoir(a).niveau || (bonusFrancais(b) - bonusFrancais(a)) || (a.total - b.total))[0];
 }
 const conseilPour = machine => machine && machine.telephone ? conseilTelephone(machine) : conseil(machine);
+function conseilPourVoix(machine){
+  const habituel = conseilPour(machine);
+  const vite = CONSEILLABLES.map(modele).filter(m => installable(m) && pourLaLangue(m) && pourLeSysteme(m, machine) && EST.tient(m, machine)
+    && vitesse(m, machine).niveau >= 4 && savoir(m).niveau >= Math.max(2, savoir(habituel).niveau - 1));
+  return vite.sort((a, b) => savoir(b).niveau - savoir(a).niveau || (bonusFrancais(b) - bonusFrancais(a)) || b.total - a.total)[0] || habituel;
+}
 
 const TELEPHONES = [
   {id: "iphone", os: "iphone", nom: "iPhone", detail: "8 GB of memory", memoire: 8, dispo: 2.8, debit: 35, telephone: true},
@@ -254,9 +277,9 @@ function machinePour(d){
     dispo: dispoPour(os, memoire, d.intel, d.dispo), debit: debitPour(os, d.puce || "", memoire, d.intel)};
 }
 
-function capacitesAnglais(choisi, machine){
+function capacitesAnglais(choisi, machine, photos, voix){
   const nom = machine.nom, n = EST.tient(choisi, machine) ? savoir(choisi).niveau : 0, b = choisi.bon;
-  const avec = (liste, cle, texte) => cle !== "images" && b.includes(cle) ? [...liste, texte] : liste;
+  const avec = (liste, cle, texte) => (cle === "images" ? photos && voitImages(choisi) : b.includes(cle)) ? [...liste, texte] : liste;
   if (machine.telephone){
     if (n === 0) return {titre: t("Your {nom} is short on memory for an AI.", {nom}), peut: (["Very short answers, slowly"]), lent: (["Almost everything else"])};
     if (n <= 2) return {titre: t("Your {nom} can run a small AI for simple things.", {nom}),
@@ -274,12 +297,13 @@ function capacitesAnglais(choisi, machine){
     peut: avec(["Write your emails and letters", "Sum up your documents", "Answer everyday questions, help with homework"], "images", "Look at a photo and describe it"),
     lent: (["Long tasks in several steps"])};
   if (n === 4) return {titre: t("Your {nom} can run a very good AI.", {nom}),
-    peut: avec(["Write and sum up almost anything", "Think through harder questions", "Read long documents"], "code", "Help you write code"),
+    peut: avec(avec(["Write and sum up almost anything", "Think through harder questions", "Read long documents"], "code", "Help you write code"), "images", "Look at a photo and describe it"),
     lent: (["The hardest questions, where the big online AIs are still ahead"])};
-  return {titre: t("Your {nom} can run one of the biggest free AIs we list.", {nom}), peut: (avec(["Everything an everyday AI does", "Tasks in several steps"], "code", "Help you write code")), lent: ([])};
+  return {titre: t("Your {nom} can run one of the biggest free AIs we list.", {nom}), peut: (avec(avec(["Everything an everyday AI does", "Tasks in several steps"], "code", "Help you write code"), "images", "Look at a photo and describe it")), lent: ([])};
 }
-function capacites(choisi, machine){
-  const c = capacitesAnglais(choisi, machine);
+function capacites(choisi, machine, photos, voix){
+  const c = capacitesAnglais(choisi, machine, photos);
+  if (voix) c.peut = [...c.peut, "Talk with it out loud: it listens, then answers with a voice"];
   return {titre: c.titre, peut: c.peut.map(x => t(x)), lent: c.lent.map(x => t(x))};
 }
 function propositions(machine){

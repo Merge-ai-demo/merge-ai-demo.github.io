@@ -5,13 +5,17 @@
   if (!p){
     const os = (location.hash.match(/os=(\w+)/) || [])[1] || "mac";
     const apercu = Programme.pontApercu(os);
-    let tailles = {};
+    let tailles = {}, taillesImages = {};
+    const go = l => Math.round(l.reduce((s, f) => s + f.octets, 0) / 1e8) / 10;
     try {
       const cat = await (await fetch("catalogue.json")).json();
-      for (const [id, m] of Object.entries(cat.modeles)) tailles[id] = Math.round(m.fichiers.reduce((s, f) => s + f.octets, 0) / 1e8) / 10;
+      for (const [id, m] of Object.entries(cat.modeles)){
+        tailles[id] = go(m.fichiers.filter(f => f.role !== "images"));
+        if (m.fichiers.some(f => f.role === "images")) taillesImages[id] = go(m.fichiers.filter(f => f.role === "images"));
+      }
     } catch (e) {}
-    p = {os, interface: "../Moteur/index.html", pont: (action, d) => action === "diagnostic" ? apercu(action, d).then(x => ({...x, tailles}))
-      : action === "ouvrirMerge" ? Promise.resolve({ok: true, essai: true}) : apercu(action, d)};
+    p = {os, interface: "../Moteur/index.html", pont: (action, d) => action === "diagnostic" ? apercu(action, d).then(x => ({...x, tailles, taillesImages}))
+      : action === "ouvrirMerge" ? Promise.resolve({ok: true, essai: true, adresse: "../Moteur/index.html"}) : apercu(action, d)};
   }
   if (location.hash === "#demarrage"){
     zone.innerHTML = `<div class="fen"><div class="fen-corps"><ul class="verif"><li class="encours"><span class="rond"></span><b>${t("Starting your AI…")}</b><span class="val"></span></li></ul></div></div>`;
