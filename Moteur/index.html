@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="180x180" href="marque/icone-m-180.png">
 <link rel="icon" href="marque/icone-m.svg" type="image/svg+xml">
 <link rel="shortcut icon" href="marque/icone-m.ico">
-<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610241619">
+<link rel="apple-touch-icon" href="marque/apple-touch-icon.png?v=202610241805">
 <meta name="theme-color" content="#2C60F4">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -79,12 +79,13 @@
           <label class="visuellement-cache" for="texte">Your message</label>
           <textarea id="texte" rows="1" placeholder="Write your request, paste a text, an email…" autocomplete="off"></textarea>
           <div class="saisie-bas">
-            <button type="button" class="pastille-rond" id="bouton-plus" title="Attach a document, or search the web" aria-label="Attach a document, or search the web" aria-haspopup="menu"><svg><use href="#i-plus"/></svg></button>
+            <button type="button" class="pastille-rond" id="bouton-plus" title="Attach a document (PDF, Word, text)" aria-label="Attach a document (PDF, Word, text)"><svg><use href="#i-plus"/></svg></button>
             <button type="button" class="pastille bleue" id="pastille-modele" aria-haspopup="menu"><span class="point" id="point-etat" aria-hidden="true"></span><span id="nom-modele">Looking…</span><svg class="car"><use href="#i-chevron-down"/></svg></button>
             <button type="button" class="pastille" id="pastille-agent" hidden title="Stop using this idea"><svg><use href="#i-bot"/></svg><span id="nom-agent"></span><svg class="car"><use href="#i-x"/></svg></button>
             <button type="button" class="pastille" id="pastille-reflexion" hidden aria-haspopup="menu"><svg><use href="#i-brain"/></svg><span id="nom-reflexion">Thinking: normal</span><svg class="car"><use href="#i-chevron-down"/></svg></button>
                         <button type="button" class="pastille" id="pastille-web" aria-pressed="false" aria-haspopup="menu" title="Search the web before answering"><svg><use href="#i-globe"/></svg><span id="nom-web">Web</span><svg class="car"><use href="#i-chevron-down"/></svg></button>
             <span class="saisie-vide"></span>
+                        <button type="button" class="envoyer-web" id="envoyer-web" hidden aria-label="Send with a web search" title="Send with a web search"><svg><use href="#i-globe"/></svg></button>
             <button type="submit" class="envoyer" id="envoyer" aria-label="Send" disabled><svg><use href="#i-arrow-up"/></svg></button>
             <button type="button" class="envoyer arreter" id="arreter" aria-label="Stop the answer" hidden><svg><use href="#i-stop"/></svg></button>
           </div>

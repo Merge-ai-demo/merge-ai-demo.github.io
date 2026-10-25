@@ -332,7 +332,7 @@
     return Object.keys(REFLEXIONS);
   }
   function reflexionEffective(capas) {
-    const liste = choixReflexion(capas), voulu = REFLEXIONS[reglages.reflexion] ? reglages.reflexion : "normale";
+    const liste = choixReflexion(capas), voulu = !avance() ? "aucune" : REFLEXIONS[reglages.reflexion] ? reglages.reflexion : "normale";
     if (!liste.length || liste.includes(voulu)) return voulu;
     return voulu === "aucune" ? liste[0] : "normale";
   }
@@ -485,11 +485,11 @@
     if (assistant) { $("nom-agent").textContent = tr(assistant.nom); $("pastille-agent").setAttribute("aria-label", tr("Stop using “{nom}”", { nom: tr(assistant.nom) })); }
     if (connexion.mode === "connecte" && connexion.modeles.length) $("nom-modele").textContent = nomCourt(reglages.modele);
     $("pastille-web").hidden = !webActif();
+    majBoutonWeb();
     $("pastille-web").setAttribute("aria-pressed", String(webActif()));
     $("nom-web").textContent = webActif() ? tr(typeWeb().court) : tr("Web");
     $("pastille-web").title = tr("Web search is on: change the sources or turn it off");
-    $("bouton-plus").setAttribute("aria-label", connexion.mode === "connecte" ? tr("Attach a document, or search the web") : tr("Attach a document"));
-    $("bouton-plus").title = $("bouton-plus").getAttribute("aria-label");
+
     $("mention").textContent = connexion.mode === "connecte" && !webActif()
       ? tr("AI can make mistakes: check important information. Without Web, Merge doesn't know recent news.")
       : tr("AI can make mistakes: check important information.");
@@ -801,7 +801,7 @@
     if (derniere) actions.append(boutonAction("repeat", tr("New answer"), regenerer, "refaire"));
     if (derniere && !message.erreur && connexion.mode === "connecte" && !webActif() && !(message.sources || []).length) {
       const q = courante && [...courante.messages].reverse().find((m) => m.role === "user");
-      if (q && BESOIN_RECENT.test(q.contenu || "")) actions.append(boutonAction("globe", tr("Search the web for this"), chercherPourCetteQuestion, "chercher-web"));
+      if (q && (BESOIN_RECENT.test(q.contenu || "") || DEMANDE_WEB.test(q.contenu || ""))) actions.append(boutonAction("globe", tr("Search the web for this"), chercherPourCetteQuestion, "chercher-web"));
     }
     if (message.modele) { const info = document.createElement("span"); info.className = "info-msg"; info.textContent = message.modele === "Example" ? tr("Example") : nomCourt(message.modele); actions.append(info); }
     bloc.append(actions);
@@ -1046,15 +1046,14 @@
       { sep: true },
       { icone: "x", texte: tr("Web off"), sous: tr("Only the AI on {appareil} answers", { appareil: CET_APPAREIL }), coche: !webActif(), action: () => { reglages.web = false; sauver.reglages(); afficherPastilles(); $("texte").focus(); } }], "haut");
   }
-  function menuPlus(ancre) {
-    const elements = [{ icone: "file-text", texte: tr("Attach a document"), sous: tr("PDF, Word or text, read on {appareil}", { appareil: CET_APPAREIL }), immediat: true, action: () => $("fichier").click() }];
-    if (connexion.mode === "connecte") {
-      elements.push(webActif()
-        ? { icone: "globe", texte: tr("Web search is on"), sous: tr("Turn it off"), coche: true, action: () => { reglages.web = false; sauver.reglages(); afficherPastilles(); $("texte").focus(); } }
-        : { icone: "globe", texte: tr("Search the web"), sous: tr("Only a few search words leave {appareil}", { appareil: CET_APPAREIL }), action: () => allumerWeb(reglages.typeWeb || "tout") });
-    }
-    ouvrirMenu(ancre, elements, "haut");
+  async function envoyerAvecRecherche(texte = $("texte").value) {
+    if (connexion.mode !== "connecte" || enCours || (!texte.trim() && !piecesEnAttente.length)) return;
+    if (!(await demanderAccordWeb())) { $("texte").focus(); return; }
+    webPourUneReponse = true;
+    try { envoyer(texte); } finally { webPourUneReponse = false; }
+    afficherPastilles();
   }
+  const DEMANDE_WEB = /\b(search|look\s+(it\s+)?up|check|find)\s+(it\s+)?(on(line)?\s+)?(the\s+)?(web|internet|online|google)\b|\blook\s+(it\s+)?up\s+online\b|\bgoogle\s+it\b|\b(cherche|chercher|recherche|rechercher|regarde|regarder|v[ée]rifie|v[ée]rifier|trouve)(\s*-\s*|\s+)(moi\s+)?(ça\s+|ca\s+|le\s+|la\s+|les\s+)?(sur|dans)\s+(internet|le\s+web|google|le\s+net)\b/i;
   const BESOIN_RECENT = /\b(today|tonight|yesterday|latest|recent(ly)?|news|right now|nowadays|prices?|weather|forecast|election|who won|exchange rate|open(ing)? hours|20(2[5-9]|3\d)|aujourd'hui|hier|actualités?|dernières nouvelles|en ce moment|prix|météo|élections?|qui a gagné|horaires d'ouverture)\b/i;
   async function chercherPourCetteQuestion(e) {
     const bouton = e && e.currentTarget;
@@ -1281,6 +1280,7 @@
   }
 
   function envoyer(texte) {
+    if (!webPourUneReponse && connexion.mode === "connecte" && DEMANDE_WEB.test(texte || "")) { envoyerAvecRecherche(texte); return; }
     texte = texte.trim();
     if (CHIFFRE || (!texte && !piecesEnAttente.length) || enCours || connexion.mode === "recherche") return;
     if (!texte) texte = tr("Here are some files.");
@@ -1321,6 +1321,7 @@
     const ici = !!enCours && enCours.conv === courante;
     $("envoyer").hidden = ici;
     $("arreter").hidden = !ici;
+    majBoutonWeb();
     const assistant = assistantDe(courante || brouillon);
     const exemple = assistant && !(courante && courante.messages.length) ? tr("For example: {exemple}", { exemple: tr(assistant.exemple).trim() }) : "";
     $("texte").placeholder = enCours && !ici ? tr("Merge is still answering in “{titre}”…", { titre: titreConversation(enCours.conv) }) : exemple || tr("Write your request, paste a text, an email…");
@@ -1356,7 +1357,12 @@
     });
   }
 
+  function majBoutonWeb() {
+    const vide = !$("texte").value.trim() && !piecesEnAttente.length;
+    $("envoyer-web").hidden = vide || connexion.mode !== "connecte" || (!!enCours && enCours.conv === courante);
+  }
   function ajusterSaisie() {
+    majBoutonWeb();
     const t = $("texte");
     t.style.height = "auto";
     t.style.height = Math.min(t.scrollHeight, 240) + "px";
@@ -1646,6 +1652,7 @@
     const texte = $("texte");
     texte.addEventListener("input", ajusterSaisie);
     texte.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && (e.metaKey || e.ctrlKey) && !e.isComposing) { e.preventDefault(); envoyerAvecRecherche(); return; }   // envoyer avec une recherche
       if (e.key === "Enter" && !e.shiftKey && !e.isComposing && !surTactile()) { e.preventDefault(); envoyer(texte.value); }
     });
     $("formulaire").addEventListener("submit", (e) => { e.preventDefault(); envoyer(texte.value); });
@@ -1673,7 +1680,8 @@
     $("pastille-reflexion").addEventListener("click", (e) => menuReflexion(e.currentTarget));
     $("pastille-web").addEventListener("click", (e) => menuWeb(e.currentTarget));
     $("pastille-agent").addEventListener("click", () => { if (courante) { courante.agentId = null; courante.maj = Date.now(); sauver.conversations(); } brouillon.agentId = null; majAccueil(); afficherPastilles(); basculerEnvoi(); });
-    $("bouton-plus").addEventListener("click", (e) => menuPlus(e.currentTarget));
+    $("bouton-plus").addEventListener("click", () => $("fichier").click());
+    $("envoyer-web").addEventListener("click", () => envoyerAvecRecherche());
     $("fichier").addEventListener("change", async (e) => {
       piecesEnAttente.push(...await lireFichiers([...e.target.files]));
       e.target.value = "";

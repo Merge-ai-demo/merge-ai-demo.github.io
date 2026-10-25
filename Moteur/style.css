@@ -202,6 +202,9 @@ svg.pieuvre, .accueil-pieuvre { stroke: none; fill: var(--pieuvre); color: var(-
 .point.ok { background: var(--ok); }
 .point.demo { background: var(--warn); }
 .envoyer { display: grid; place-items: center; width: 32px; height: 32px; border: 0; border-radius: 50%; background: var(--brand); color: var(--on-brand); }
+.envoyer-web { display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--brand-text, var(--brand)); cursor: pointer; }
+.envoyer-web:hover { background: var(--brand-soft); border-color: var(--brand); }
+.envoyer-web svg { width: 17px; height: 17px; }
 .envoyer:disabled { background: var(--tile-2); color: var(--muted); cursor: default; }
 .envoyer:not(:disabled):hover { background: var(--brand-hover); }
 .arreter { background: var(--ink); color: var(--page); }
